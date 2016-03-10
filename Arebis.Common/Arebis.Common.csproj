@@ -117,11 +117,13 @@
     <Compile Include="Arebis\Diagnostics\DebugWriter.cs" />
     <Compile Include="Arebis\Diagnostics\TraceWriter.cs" />
     <Compile Include="Arebis\Diagnostics\UserProcessorStopwatch.cs" />
+    <Compile Include="Arebis\Extensions\ByteArrayExtension.cs" />
     <Compile Include="Arebis\Extensions\ArrayExtension.cs" />
     <Compile Include="Arebis\Extensions\BitArrayExtensions.cs" />
     <Compile Include="Arebis\Extensions\BitwiseExtensions.cs" />
     <Compile Include="Arebis\Extensions\CollectionExtension.cs" />
     <Compile Include="Arebis\Extensions\DateTimeExtension.cs" />
+    <Compile Include="Arebis\Extensions\DictionaryExtensions.cs" />
     <Compile Include="Arebis\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Arebis\Extensions\FileInfoExtension.cs" />
     <Compile Include="Arebis\Extensions\NumberExtension.cs" />

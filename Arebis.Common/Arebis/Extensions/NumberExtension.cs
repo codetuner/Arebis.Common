@@ -59,12 +59,23 @@ namespace Arebis.Extensions
         /// Translates an integer into values based on their index. If no value for the index is
         /// found, default(T) is returned.
         /// </summary>
-        public static T Translate<T>(this System.Int32 value, params T[] indexValues)
+        public static T Translate<T>(this int value, params T[] indexValues)
         {
             if (value < 0) return default(T);
             if (indexValues == null) return default(T);
             if (value >= indexValues.Length) return default(T);
             return indexValues[value];
+        }
+
+        /// <summary>
+        /// Returns the ceiling integer result of a division.
+        /// </summary>
+        /// <param name="value">The total value to be devided in parts.</param>
+        /// <param name="partSize">The size of a part.</param>
+        /// <returns>The number of parts needed to contain the total value.</returns>
+        public static int CeilingDiv(this int value, int partSize)
+        {
+            return (value + partSize - 1) / partSize;
         }
     }
 }

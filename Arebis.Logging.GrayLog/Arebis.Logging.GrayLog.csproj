@@ -55,6 +55,7 @@
     <Compile Include="GrayLoggingException.cs" />
     <Compile Include="GrayLogLevel.cs" />
     <Compile Include="GrayLogUdpClient.cs" />
+    <Compile Include="IGrayLogClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

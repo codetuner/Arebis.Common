@@ -109,6 +109,12 @@ namespace Arebis.Logging.GrayLog
             ((IDisposable)this.UdpClient).Dispose();
         }
 
+        /// <summary>
+        /// Returns the number of parts needed 
+        /// </summary>
+        /// <param name="totalSize"></param>
+        /// <param name="partSize"></param>
+        /// <returns></returns>
         private static int PartsNeeded(int totalSize, int partSize)
         {
             return (totalSize + partSize - 1) / partSize;

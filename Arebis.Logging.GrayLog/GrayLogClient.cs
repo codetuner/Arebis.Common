@@ -12,7 +12,7 @@ namespace Arebis.Logging.GrayLog
     /// <summary>
     /// Base for GrayLog client implementations.
     /// </summary>
-    public abstract class GrayLogClient : IDisposable
+    public abstract class GrayLogClient : IGrayLogClient
     {
         /// <summary>
         /// Constructs a new GrayLogClient.
@@ -52,8 +52,8 @@ namespace Arebis.Logging.GrayLog
             if (!String.IsNullOrWhiteSpace(fullMessage)) logRecord["full_message"] = fullMessage;
             logRecord["timestamp"] = EpochOf(DateTime.UtcNow);
             if (data is string) logRecord["_data"] = data;
-            else if (data is System.Collections.IEnumerable) logRecord["_values"] = data;
             else if (data is System.Collections.IDictionary) MergeDictionary(logRecord, (System.Collections.IDictionary)data, "_");
+            else if (data is System.Collections.IEnumerable) logRecord["_values"] = data;
             else if (data != null) MergeObject(logRecord, data, "_");
 
             // Serialize object:

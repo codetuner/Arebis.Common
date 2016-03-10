@@ -71,5 +71,25 @@ namespace Arebis.Extensions
 			else
 				return 24d;
 		}
+
+        /// <summary>
+        /// Returns the given DateTime in Epoch time (aka Unix time).
+        /// That is the number of elapsed milliseconds since 1970/01/01 00:00 UTC.
+        /// </summary>
+        public static long ToEpochTime(this DateTime dt)
+        {
+            TimeSpan t = dt.ToUniversalTime() - new DateTime(1970, 1, 1);
+            return (long)t.TotalSeconds;
+        }
+
+        /// <summary>
+        /// Returns the given DateTime as Excel numerical value.
+        /// That is, the number of days since 1900/01/01 00:00 (which has value 1.0).
+        /// </summary>
+        public static double ToExcelTime(this DateTime dt)
+        {
+            TimeSpan t = dt - new DateTime(1899, 12, 31);
+            return t.TotalDays;
+        }
 	}
 }

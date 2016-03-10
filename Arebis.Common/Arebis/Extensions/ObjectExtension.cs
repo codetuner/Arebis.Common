@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -25,5 +27,25 @@ namespace Arebis.Extensions
 			}
 			return false;
 		}
+
+        /// <summary>
+        /// Returns a dictionary with all properties of the object and their values.
+        /// Returns null if given object is null.
+        /// </summary>
+        /// <param name="obj">The object to translate into a dictionary.</param>
+        /// <param name="prefix">A prefix to the property names in the returned dictionary.</param>
+        public static IDictionary<string, object> ToDictionary(this object obj, string prefix = null)
+        {
+            if (obj == null) return null;
+            if (prefix == null) prefix = String.Empty;
+
+            var result = new Dictionary<string, object>();
+            foreach (PropertyInfo property in obj.GetType().GetProperties())
+            {
+                result[prefix + property.Name] = property.GetValue(obj);
+            }
+
+            return result;
+        }
 	}
 }
