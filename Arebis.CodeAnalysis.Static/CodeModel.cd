@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Arebis.CodeAnalysis.Static.CodeModel">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="CodeModel" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Methods" Type="Arebis.CodeAnalysis.Static.ModelMethod" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.25" Y="1.368" />
+        <Point X="1.25" Y="2.204" />
+        <Point X="3.25" Y="2.204" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>CodeModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Methods" />
+      <Property Name="Assemblies" />
+      <Property Name="Types" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Arebis.CodeAnalysis.Static.ModelMethod">
+    <Position X="3.25" Y="2" Width="2.5" />
+    <Members>
+      <Field Name="allCalledByMethods" Hidden="true" />
+      <Field Name="allCallsMethods" Hidden="true" />
+      <Method Name="BuildAllCalledByMethods" Hidden="true" />
+      <Method Name="BuildAllCallsMethods" Hidden="true" />
+      <Method Name="BuildPathsTo" Hidden="true" />
+      <Field Name="cachedHashCode" Hidden="true" />
+      <Field Name="cachedToString" Hidden="true" />
+      <Field Name="calledByMethods" Hidden="true" />
+      <Field Name="callsMethods" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Field Name="languageInfo" Hidden="true" />
+      <Field Name="methodBase" Hidden="true" />
+      <Field Name="signature" Hidden="true" />
+      <Field Name="signatureWithParamNames" Hidden="true" />
+      <Field Name="tags" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+      <Field Name="type" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Class Name="Arebis.CodeAnalysis.Static.ModelMethod.MethodCallsList" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ModelMethod.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CABQAQggEgCIIiQdgAAACAQIACEBAcAAAQJSAIgRQIE=</HashCode>
+      <FileName>ModelMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.CodeAnalysis.Static.ModelAssembly" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAgAAAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAAIAAIA=</HashCode>
+      <FileName>ModelAssembly.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.CodeAnalysis.Static.ModelType" Collapsed="true">
+    <Position X="3.25" Y="1.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQgAAAAAAAAAAAAAgAAAAAgAAAAIBAAAAIQAAAAMA=</HashCode>
+      <FileName>ModelType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

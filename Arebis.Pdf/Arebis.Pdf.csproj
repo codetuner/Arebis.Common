@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Framework Condition=" '$(Framework)' == '' ">NET45</Framework>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14F6D6DB-7A74-42D8-A531-7C45F101031C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Arebis.Pdf</RootNamespace>
+    <AssemblyName>Arebis.Pdf</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Arebis.Pdf.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Arebis.Pdf.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\lib\net40\Arebis.Pdf.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\..\TEMP\$NuGetRepository\DotNetZip.1.9.6\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\PdfDeflateStreamFilter.cs" />
+    <Compile Include="Common\PdfBinaryStream.cs" />
+    <Compile Include="Common\PdfColor.cs" />
+    <Compile Include="Writing\PdfDocumentWriter.cs" />
+    <Compile Include="Common\PdfLineCapStyle.cs" />
+    <Compile Include="Common\PdfLineJoinStyle.cs" />
+    <Compile Include="Common\PdfLineDashPattern.cs" />
+    <Compile Include="Common\PdfSignatureInformation.cs" />
+    <Compile Include="Common\PdfTextRenderingMode.cs" />
+    <Compile Include="Common\PdfTextStream.cs" />
+    <Compile Include="Common\PdfFont.cs" />
+    <Compile Include="Common\PdfObject.cs" />
+    <Compile Include="Common\PdfObjectRef.cs" />
+    <Compile Include="Common\PdfStream.cs" />
+    <Compile Include="Common\PdfTransformationMatrix.cs" />
+    <Compile Include="Common\PdfXrefEntry.cs" />
+    <Compile Include="Common\PositionStream.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\PdfASCIIHexDecodeFilter.cs" />
+    <Compile Include="Writing\PdfImagePlacement.cs" />
+    <Compile Include="Writing\PdfPageFormat.cs" />
+    <Compile Include="Writing\PdfDocumentOptions.cs" />
+    <Compile Include="Writing\PdfGraphicsOptions.cs" />
+    <Compile Include="Writing\PdfPageWriter.cs" />
+    <Compile Include="Common\PdfPredefinedFont.cs" />
+    <Compile Include="Writing\PdfPageWriterExtensions.cs" />
+    <Compile Include="Writing\PdfScriptObject.cs" />
+    <Compile Include="Common\PdfStreamFilter.cs" />
+    <Compile Include="Writing\PdfTextOptions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Arebis.Pdf.nuspec" />
+    <None Include="Arebis.Pdf.snk" />
+    <None Include="packages.config" />
+    <None Include="Writing\ClassDiagram.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>nuget pack "$(ProjectPath)" -IncludeReferencedProjects -Prop Configuration=$(ConfigurationName)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

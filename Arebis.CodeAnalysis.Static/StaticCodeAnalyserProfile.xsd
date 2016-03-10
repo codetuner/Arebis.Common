@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="analyzer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="assemblies">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="assembly">
+                <xs:complexType>
+                  <xs:attribute name="file" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element maxOccurs="unbounded" name="filepatterns">
+                <xs:complexType mixed="true">
+                  <xs:sequence minOccurs="0">
+                    <xs:element maxOccurs="unbounded" name="add">
+                      <xs:complexType>
+                        <xs:attribute name="value" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="path" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="language">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="import">
+                <xs:complexType>
+                  <xs:attribute name="namespace" type="xs:string" use="required" />
+                  <xs:attribute name="alias" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="code" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="processors">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="specialmethodsprocessor" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute name="handler" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="rulesprocessor" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="definitions">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="assembly">
+                            <xs:complexType>
+                              <xs:attribute name="path" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="rulesets">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="ruleset">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" maxOccurs="unbounded" name="attributerule">
+                                  <xs:complexType>
+                                    <xs:attribute name="type" type="xs:string" use="required" />
+                                    <xs:attribute name="target" use="required">
+                                      <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                          <xs:enumeration value = "Method"/>
+                                          <xs:enumeration value = "Type"/>
+                                          <xs:enumeration value = "Assembly"/>
+                                        </xs:restriction>
+                                      </xs:simpleType>
+                                    </xs:attribute>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" name="basetyperule">
+                                  <xs:complexType>
+                                    <xs:attribute name="type" type="xs:string" use="required" />
+                                    <xs:attribute name="includeinterfaces" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" maxOccurs="unbounded" name="interfacerule">
+                                  <xs:complexType>
+                                    <xs:attribute name="type" type="xs:string" use="required" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" maxOccurs="unbounded" name="modifierrule">
+                                  <xs:complexType>
+                                    <xs:attribute name="target" use="required">
+                                      <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                          <xs:enumeration value = "Method"/>
+                                          <xs:enumeration value = "Type"/>
+                                        </xs:restriction>
+                                      </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="modifiers" use="required">
+                                      <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                          <!-- Common to Method and Type targets -->
+                                          <xs:enumeration value = "Public"/>
+                                          <xs:enumeration value = "SpecialName"/>
+                                          <!-- For Method targets -->
+                                          <xs:enumeration value = "PrivateScope"/>
+                                          <xs:enumeration value = "Private"/>
+                                          <xs:enumeration value = "FamANDAssem"/>
+                                          <xs:enumeration value = "Assembly"/>
+                                          <xs:enumeration value = "Family"/>
+                                          <xs:enumeration value = "FamORAssem"/>
+                                          <xs:enumeration value = "UnmanagedExport"/>
+                                          <xs:enumeration value = "Static"/>
+                                          <xs:enumeration value = "Final"/>
+                                          <xs:enumeration value = "Virtual"/>
+                                          <xs:enumeration value = "HideBySig"/>
+                                          <xs:enumeration value = "NewSlot"/>
+                                          <xs:enumeration value = "Abstract"/>
+                                          <xs:enumeration value = "PinvokeImpl"/>
+                                          <!-- For Type targets -->
+                                          <xs:enumeration value = "Class"/>
+                                          <xs:enumeration value = "NotPublic"/>
+                                          <xs:enumeration value = "NestedPublic"/>
+                                          <xs:enumeration value = "NestedPrivate"/>
+                                          <xs:enumeration value = "NestedFamily"/>
+                                          <xs:enumeration value = "NestedAssembly"/>
+                                          <xs:enumeration value = "NestedFamANDAssem"/>
+                                          <xs:enumeration value = "NestedFamORAssem"/>
+                                          <xs:enumeration value = "Interface"/>
+                                          <xs:enumeration value = "Abstract"/>
+                                          <xs:enumeration value = "Sealed"/>
+                                          <xs:enumeration value = "Serializable"/>
+                                        </xs:restriction>
+                                      </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="reverse" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" maxOccurs="unbounded" name="namerule">
+                                  <xs:complexType>
+                                    <xs:attribute name="target" use="required">
+                                      <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                          <xs:enumeration value = "Method"/>
+                                          <xs:enumeration value = "Type"/>
+                                          <xs:enumeration value = "Assembly"/>
+                                        </xs:restriction>
+                                      </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="match" type="xs:string" use="optional" />
+                                    <xs:attribute name="like" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" maxOccurs="unbounded" name="tagrule">
+                                  <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string" use="required" />
+                                    <xs:attribute name="reverse" type="xs:boolean" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="handler" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="defaultimplementationprocessor" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute name="handler" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="defaultmethodprocessor" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute name="handler" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="virtualmethodprocessor" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute name="handler" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="leafmethodprocessor" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute name="handler" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

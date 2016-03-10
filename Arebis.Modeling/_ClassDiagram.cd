@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Arebis.Modeling.Association">
+    <Position X="2.75" Y="8.5" Width="1.5" />
+    <Members>
+      <Field Name="EndsAssociation" Hidden="true" />
+      <Field Name="EndsCollection" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAEAAAAAAAAAAAAAIAIAAAAAAAAAEAAA=</HashCode>
+      <FileName>Association.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Modeling.Class">
+    <Position X="7.25" Y="8.5" Width="1.5" />
+    <Members>
+      <Field Name="AttributesAssociation" Hidden="true" />
+      <Field Name="AttributesCollection" Hidden="true" />
+      <Field Name="MethodsAssociation" Hidden="true" />
+      <Field Name="MethodsCollection" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAIABAAAAAAAAAAAAAQAAAKAAAAAAAAAAAkIEA=</HashCode>
+      <FileName>Class.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Modeling.Attribute">
+    <Position X="11.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAIAACAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Attribute.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Modeling.Method">
+    <Position X="13.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Method.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Modeling.Model">
+    <Position X="5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Modeling.ModelBase">
+    <Position X="7.5" Y="0.5" Width="2" />
+    <Members>
+      <Method Name="ModelBase" Hidden="true" />
+      <Field Name="SourceOfCollection" Hidden="true" />
+      <Field Name="TargetOfCollection" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IUAAAAAAAAAAAIAEAAAAAAQAACAMJAQAAAAAMACEIAA=</HashCode>
+      <FileName>ModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Modeling.ModelElement">
+    <Position X="2.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Modeling.TypedFeature">
+    <Position X="13.25" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAACAAAABAAEQIAAAAEAAA=</HashCode>
+      <FileName>TypedFeature.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Modeling.Package">
+    <Position X="5" Y="8.5" Width="1.5" />
+    <Members>
+      <Field Name="MembersAssociation" Hidden="true" />
+      <Field Name="MembersCollection" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAgCAAAIAAAAAAAEAAAECAA=</HashCode>
+      <FileName>Package.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Modeling.Relationship">
+    <Position X="0.5" Y="8.5" Width="1.5" />
+    <Members>
+      <Field Name="SourcesAssociation" Hidden="true" />
+      <Field Name="SourcesCollection" Hidden="true" />
+      <Field Name="TargetsAssociation" Hidden="true" />
+      <Field Name="TargetsCollection" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAIAAAAAAgAQAEAgAQAAAAAAAAA=</HashCode>
+      <FileName>Relationship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Modeling.AssociationEnd">
+    <Position X="15.75" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAACAAAAAEIAAEAAAQAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>AssociationEnd.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Modeling.DataType">
+    <Position X="9.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Arebis.Modeling.IModelType">
+    <Position X="0.5" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IModelType.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Arebis.Modeling.IOwned&lt;T&gt;">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IOwned.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

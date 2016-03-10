@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Arebis.Extensions.Tests.Arebis.Runtime.Extensibility.Sample1.BaseFoo">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\Arebis.Runtime.Aspects\Sample1\BaseFoo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Extensions.Tests.Arebis.Runtime.Extensibility.Sample1.MyFoo">
+    <Position X="3.25" Y="2.25" Width="1.75" />
+    <Members>
+      <Field Name="initialDateTime" Hidden="true" />
+      <Field Name="tag" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAgAAAAAAAABAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Tests\Arebis.Runtime.Aspects\Sample1\MyFoo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Extensions.Tests.Arebis.Runtime.Extensibility.Sample1.MyFooBar">
+    <Position X="3.25" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\Arebis.Runtime.Aspects\Sample1\MyFooBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Extensions.Tests.Arebis.Runtime.Extensibility.Sample1.MyGreatFooBar">
+    <Position X="3.25" Y="6" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\Arebis.Runtime.Aspects\Sample1\MyGreatFooBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Extensions.Tests.Arebis.Runtime.Extensibility.Sample1.YourFoo">
+    <Position X="0.5" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\Arebis.Runtime.Aspects\Sample1\YourFoo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Arebis.Extensions.Tests.Arebis.Runtime.Extensibility.Sample1.IFoo">
+    <Position X="5.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\Arebis.Runtime.Aspects\Sample1\IFoo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

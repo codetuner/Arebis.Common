@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRunConfiguration name="Local Test Run" id="e18cfe5e-47f1-42c0-89d2-9fa0ba06e617" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Description>This is a default test run configuration for a local test run.</Description>
+  <CodeCoverage enabled="true" keyFile="Arebis.snk">
+    <Regular>
+      <CodeCoverageItem binaryFile="Arebis.Parsing\bin\Debug\Arebis.Parsing.dll" pdbFile="Arebis.Parsing\bin\Debug\Arebis.Parsing.pdb" instrumentInPlace="true" />
+      <CodeCoverageItem binaryFile="Arebis.Testing\bin\Debug\Arebis.Testing.dll" pdbFile="Arebis.Testing\bin\Debug\Arebis.Testing.pdb" instrumentInPlace="true" />
+      <CodeCoverageItem binaryFile="Arebis.CodeModel\bin\Debug\Arebis.CodeModel.dll" pdbFile="Arebis.CodeModel\bin\Debug\Arebis.CodeModel.pdb" instrumentInPlace="true" />
+      <CodeCoverageItem binaryFile="Arebis.Common\bin\Debug\Arebis.Common.dll" pdbFile="Arebis.Common\bin\Debug\Arebis.Common.pdb" instrumentInPlace="true" />
+      <CodeCoverageItem binaryFile="Arebis.Common.Web\bin\Debug\Arebis.Common.Web.dll" pdbFile="Arebis.Common.Web\bin\Debug\Arebis.Common.Web.pdb" instrumentInPlace="true" />
+      <CodeCoverageItem binaryFile="Arebis.Common.Windows\bin\Debug\Arebis.Common.Windows.dll" pdbFile="Arebis.Common.Windows\bin\Debug\Arebis.Common.Windows.pdb" instrumentInPlace="true" />
+    </Regular>
+  </CodeCoverage>
+  <Timeouts runTimeout="1800000" testTimeout="600000" />
+  <TestTypeSpecific />
+</TestRunConfiguration>

@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6DB86F3D-25D7-4959-B860-FADBBE896B97}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Test.Arebis.Extensions</RootNamespace>
+    <AssemblyName>Test.Arebis.Extensions</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <StartupObject>
+    </StartupObject>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Arebis.CodeModel\CodeModelProcessorTests.cs" />
+    <Compile Include="Tests\Arebis.CodeModel\Sample\SampleClass.cs" />
+    <Compile Include="Tests\Arebis.CodeModel\Sample\SampleInterface.cs" />
+    <Compile Include="Tests\Arebis.Parsing\StringParserTests.cs" />
+    <Compile Include="Tests\Arebis.Reflection\CsLanguageInfoTests.cs" />
+    <Compile Include="Tests\Arebis.Reflection\MethodBodyReaderTests.cs" />
+    <Compile Include="Tests\Arebis.Reflection\TypeWriterTests.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\AspectsTests.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\Sample1\BaseFoo.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\Sample1\IFoo.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\Sample1\MarkerAdviceAttribute.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\Sample1\MyFoo.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\Sample1\MyFooBar.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\Sample1\MyGreatFooBar.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\Sample1\YourFoo.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\Sample2\SampleClass.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\Sample2\SampleInterface.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Aspects\TestableAdviceAttribute.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Commandline\CommandLineTests.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Commandline\Sample\TestOptions.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Commandline\Sample\TextFormats.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Serialization\SurrogatesRegisterTests.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Validation\PropertyAssertAttributeTests.cs" />
+    <Compile Include="Tests\Arebis.Runtime.Validation\TestObject.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\AutoMockingTests.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\CustomMockingTests.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\ManualMockingTests.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\MockableCallTests.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\MockServiceTests.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\RecorderTests.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\RemotingMockServiceTests.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Sample\Account.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Sample\CurrencyServiceFactory.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Sample\CurrencyServiceMocker.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Sample\CurrencyUnit.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Sample\CustomizableCurrencyService.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Sample\FooBar.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Sample\ICurrencyService.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Sample\PlainCurrencyService.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Support\OldImplMockableCall.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Support\RecorderListener.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\Support\TestingRecorder.cs" />
+    <Compile Include="Tests\Arebis.Testing.Mocking\_MockingTester.cs" />
+    <Compile Include="Tests\Arebis.Testing\MockTimeAdviceTests.cs" />
+    <Compile Include="Tests\Arebis.Types\AssertUnitCompatibilityAttributeTest.cs" />
+    <Compile Include="Tests\Arebis.Types\TestUnits.cs" />
+    <Compile Include="Tests\Arebis.Types\UnitAmountRange.cs" />
+    <Compile Include="Tests\Arebis.Types\UnitAmountTests.cs" />
+    <Compile Include="Tests\Arebis.Types\UnitAmountVectorTests.cs" />
+    <Compile Include="Tests\Arebis.Types\UnitExceptionsTests.cs" />
+    <Compile Include="Tests\Arebis.Types\UnitManagerTests.cs" />
+    <Compile Include="Tests\Arebis.Types\UnitPerformanceTests.cs" />
+    <Compile Include="Tests\Arebis.Types\UnitScenarioTests.cs" />
+    <Compile Include="Tests\Arebis.Types\UnitTests.cs" />
+    <Compile Include="Tests\Arebis.Utilities\DateTimeUtilsTests.cs" />
+    <Compile Include="Tests\Arebis.Utilities\StringUtilitiesTests.cs" />
+    <Compile Include="Tests\Arebis\ObjectFactoryTests.cs" />
+    <Compile Include="Tests\System.Collections\KeysTests.cs" />
+    <Compile Include="Tests\System\RangeTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Arebis.CodeAnalysis.Static\Arebis.CodeAnalysis.Static.csproj">
+      <Project>{EDD83D64-5443-4133-ACAF-E1652B637580}</Project>
+      <Name>Arebis.CodeAnalysis.Static</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Arebis.Common\Arebis.Common.csproj">
+      <Project>{8826F246-4754-4D05-B25D-2FCDEA50C478}</Project>
+      <Name>Arebis.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Arebis.Parsing\Arebis.Parsing.csproj">
+      <Project>{64BF39CA-C790-494B-BEB1-C807B7AD4264}</Project>
+      <Name>Arebis.Parsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Arebis.Testing\Arebis.Testing.csproj">
+      <Project>{829ED2A9-5B5F-4CB1-BF38-27A503416B0D}</Project>
+      <Name>Arebis.Testing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Tests\Arebis.Runtime.Aspects\Sample1\_ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tests\Arebis.Diagnostics\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

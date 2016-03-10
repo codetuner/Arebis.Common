@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>AssociationSourcePropertyManyToMany</Title>
+      <Author>Arebis</Author>
+      <Description>public ICollection&lt;T&gt; SourceProperty...</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>
+      </Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ThisType</ID>
+          <ToolTip>The current type</ToolTip>
+          <Default>ThisType</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>AssociatedType</ID>
+          <ToolTip>The associated type</ToolTip>
+          <Default>AssociatedType</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropertyName</ID>
+          <ToolTip>The property name</ToolTip>
+          <Default>PropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="method decl"><![CDATA[public static readonly AssociationProperty<$ThisType$, $AssociatedType$> $PropertyName$Association = new AssociationProperty<$ThisType$, $AssociatedType$>("$ThisType$$PropertyName$", AssociationMultiplicity.Multiple, AssociationMultiplicity.Multiple);
+        private ICollection<$AssociatedType$> $PropertyName$Collection = null;
+
+        [DataMember]
+        public ICollection<$AssociatedType$> $PropertyName$
+        {
+            get
+            {
+                if (this.$PropertyName$Collection == null)
+                    this.$PropertyName$Collection = $PropertyName$Association.GetTargetCollectionFor(this);
+                return this.$PropertyName$Collection;
+            }
+            set
+            {
+                this.$PropertyName$.Clear();
+                foreach (var item in value)
+                    this.$PropertyName$.Add(item);
+            }
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>AssociationSourcePropertyManyToOne</Title>
+      <Author>Arebis</Author>
+      <Description>public ICollection&lt;T&gt; SourceProperty...</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>
+      </Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ThisType</ID>
+          <ToolTip>The current type</ToolTip>
+          <Default>ThisType</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>AssociatedType</ID>
+          <ToolTip>The associated type</ToolTip>
+          <Default>AssociatedType</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropertyName</ID>
+          <ToolTip>The property name</ToolTip>
+          <Default>PropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="method decl"><![CDATA[public static readonly AssociationProperty<$ThisType$, $AssociatedType$> $PropertyName$Association = new AssociationProperty<$ThisType$, $AssociatedType$>("$ThisType$$PropertyName$", AssociationMultiplicity.Single, AssociationMultiplicity.Multiple);
+        private ICollection<$AssociatedType$> $PropertyName$Collection = null;
+
+        [DataMember]
+        public ICollection<$AssociatedType$> $PropertyName$
+        {
+            get
+            {
+                if (this.$PropertyName$Collection == null)
+                    this.$PropertyName$Collection = $PropertyName$Association.GetTargetCollectionFor(this);
+                return this.$PropertyName$Collection;
+            }
+            set
+            {
+                this.$PropertyName$.Clear();
+                foreach (var item in value)
+                    this.$PropertyName$.Add(item);
+            }
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>AssociationSourcePropertyOneToOne</Title>
+      <Author>Arebis</Author>
+      <Description>public T SourceProperty...</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>
+      </Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ThisType</ID>
+          <ToolTip>The current type</ToolTip>
+          <Default>ThisType</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>AssociatedType</ID>
+          <ToolTip>The associated type</ToolTip>
+          <Default>AssociatedType</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropertyName</ID>
+          <ToolTip>The property name</ToolTip>
+          <Default>PropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="method decl"><![CDATA[public static readonly AssociationProperty<$ThisType$, $AssociatedType$> $PropertyName$Association = new AssociationProperty<$ThisType$, $AssociatedType$>("$ThisType$$PropertyName$", AssociationMultiplicity.Single, AssociationMultiplicity.Single);
+
+        [DataMember]
+        public $AssociatedType$ $PropertyName$
+        {
+            get
+            {
+                return $PropertyName$Association.GetTargetsFor(this).SingleOrDefault();
+            }
+            set
+            {
+                $PropertyName$Association.SetOrAdd(this, value);
+            }
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>AssociationTargetPropertyMany</Title>
+      <Author>Arebis</Author>
+      <Description>public ICollection&lt;T&gt; TargetProperty...</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>
+      </Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>AssociatedType</ID>
+          <ToolTip>The associated type</ToolTip>
+          <Default>AssociatedType</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropertyName</ID>
+          <ToolTip>Property name</ToolTip>
+          <Default>PropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>OtherSidePropertyName</ID>
+          <ToolTip>Property name on the other side</ToolTip>
+          <Default>OtherSidePropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="method decl"><![CDATA[private ICollection<$AssociatedType$> $PropertyName$Collection = null;
+
+        [DataMember()]
+        public ICollection<$AssociatedType$> $PropertyName$ 
+        {
+            get
+            {
+                if (this.$PropertyName$Collection == null)
+                    this.$PropertyName$Collection = $AssociatedType$.$OtherSidePropertyName$Association.GetTargetCollectionFor(this);
+                return this.$PropertyName$Collection;
+            }
+            set
+            {
+                this.$PropertyName$.Clear();
+                foreach (var item in value)
+                    this.$PropertyName$.Add(item);
+            }
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>AssociationTargetPropertyOne</Title>
+      <Author>Arebis</Author>
+      <Description>public T TargetProperty...</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>
+      </Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>AssociatedType</ID>
+          <ToolTip>The associated type</ToolTip>
+          <Default>AssociatedType</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropertyName</ID>
+          <ToolTip>Property name</ToolTip>
+          <Default>PropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>OtherSidePropertyName</ID>
+          <ToolTip>Property name on the other side</ToolTip>
+          <Default>OtherSidePropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="method decl"><![CDATA[[DataMember()]
+        public $AssociatedType$ $PropertyName$ 
+        {
+            get
+            {
+                return $AssociatedType$.$OtherSidePropertyName$Association.GetSourcesFor(this).SingleOrDefault();
+            }
+            set
+            {
+                $AssociatedType$.$OtherSidePropertyName$Association.SetOrAdd(value, this);
+            }
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

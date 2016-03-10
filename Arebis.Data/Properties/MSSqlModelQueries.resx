@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GetDatabase" xml:space="preserve">
+    <value>SELECT [name], [compatibility_level], [collation_name] FROM [master].[sys].[databases]
+WHERE [database_id] = DB_ID()</value>
+  </data>
+  <data name="GetModelColumns" xml:space="preserve">
+    <value>SELECT 
+   schm.name AS TABLE_SCHEMA,
+   tabs.name AS TABLE_NAME,
+   cols.name AS COLUMN_NAME,
+   cols.column_id AS ORDINAL_POSITION,
+   typs.name AS DATA_TYPE,
+   cols.max_length AS DATA_MAX_LENGTH,
+   CASE cols.max_length
+   WHEN -1 THEN -1
+   ELSE
+      CASE typs.system_type_id
+	  WHEN 167 THEN cols.max_length
+	  WHEN 175 THEN cols.max_length
+	  WHEN 231 THEN cols.max_length / 2
+	  WHEN 239 THEN cols.max_length / 2
+	  END
+   END AS CHARACTER_MAX_LENGTH,
+   cols.precision AS NUMERIC_PRECISION,
+   cols.scale AS NUMERIC_SCALE,
+   CASE WHEN typs.system_type_id IN (48, 52, 56, 59, 122, 60, 62, 127, 106, 108) THEN 1 ELSE 0 END AS IS_NUMERIC,
+   CASE WHEN typs.system_type_id IN (35, 99, 231, 239, 167, 175) THEN 1 ELSE 0 END AS IS_CHARACTER,
+   CASE WHEN typs.system_type_id IN (40, 58, 41, 42, 61, 189, 43) THEN 1 ELSE 0 END AS IS_DATEANDORTIME,
+   cols.is_nullable AS IS_NULLABLE,
+   cols.is_identity AS IS_IDENTITY,
+   cols.is_computed AS IS_COMPUTED
+FROM
+   sys.schemas schm,
+   (SELECT object_id, schema_id, name FROM sys.tables UNION SELECT object_id, schema_id, name FROM sys.views) tabs,
+   sys.columns cols,
+   sys.types typs
+WHERE schm.schema_id = tabs.schema_id
+  AND tabs.object_id = cols.object_id
+  AND cols.system_type_id = typs.system_type_id
+  AND cols.user_type_id = typs.user_type_id
+ORDER BY schm.name, tabs.name, cols.column_id</value>
+  </data>
+  <data name="GetModelIndexes" xml:space="preserve">
+    <value>SELECT
+   [tbs].[name] [SCHEMA_NAME],
+   [tab].[name] [TABLE_NAME],
+   [indx].[name] [INDEX_NAME],
+   [indx].[is_unique] [IS_UNIQUE],
+   [indx].[is_primary_key] [IS_PRIMARY_KEY],
+   [col].[name] [COLUMN_NAME],
+   [indc].[key_ordinal] [COLUMN_ORDINAL]
+FROM [sys].[schemas] [tbs],
+     [sys].[tables] [tab],
+     [sys].[indexes] [indx],
+	 [sys].[index_columns] [indc],
+	 [sys].[columns] [col]
+WHERE [tbs].[schema_id] = [tab].[schema_id]
+  AND [tab].[object_id] = [indx].[object_id]
+  AND [indx].[index_id] = [indc].[index_id]
+  AND [tab].[object_id] = [indc].[object_id]
+  AND [indc].[column_id] = [col].[column_id]
+  AND [tab].[object_id] = [col].[object_id]
+  AND [indc].[key_ordinal] &lt;&gt; 0
+ORDER BY 1, 2, 3, 7</value>
+  </data>
+  <data name="GetModelRelations" xml:space="preserve">
+    <value>SELECT 
+   KCU1.CONSTRAINT_SCHEMA AS RELATIONSHIP_SCHEMA,
+   KCU1.CONSTRAINT_NAME AS RELATIONSHIP_NAME,
+   KCU2.TABLE_CATALOG AS PRIMARY_TABLE_CATALOG,
+   KCU2.TABLE_SCHEMA AS PRIMARY_TABLE_SCHEMA,
+   KCU2.TABLE_NAME AS PRIMARY_TABLE_NAME,
+   KCU2.COLUMN_NAME AS PRIMARY_COLUMN_NAME,
+   KCU1.TABLE_CATALOG AS FOREIGN_TABLE_CATALOG,
+   KCU1.TABLE_SCHEMA AS FOREIGN_TABLE_SCHEMA,
+   KCU1.TABLE_NAME AS FOREIGN_TABLE_NAME,
+   KCU1.COLUMN_NAME AS FOREIGN_COLUMN_NAME,
+   KCU1.ORDINAL_POSITION AS ORDINAL_POSITION
+FROM [INFORMATION_SCHEMA].[REFERENTIAL_CONSTRAINTS] RC
+   JOIN [INFORMATION_SCHEMA].[KEY_COLUMN_USAGE] KCU1
+   ON KCU1.CONSTRAINT_CATALOG = RC.CONSTRAINT_CATALOG
+      AND KCU1.CONSTRAINT_SCHEMA = RC.CONSTRAINT_SCHEMA
+      AND KCU1.CONSTRAINT_NAME = RC.CONSTRAINT_NAME
+   JOIN [INFORMATION_SCHEMA].[KEY_COLUMN_USAGE] KCU2
+   ON KCU2.CONSTRAINT_CATALOG = RC.UNIQUE_CONSTRAINT_CATALOG
+      AND KCU2.CONSTRAINT_SCHEMA = RC.UNIQUE_CONSTRAINT_SCHEMA
+      AND KCU2.CONSTRAINT_NAME = RC.UNIQUE_CONSTRAINT_NAME
+WHERE KCU1.ORDINAL_POSITION = KCU2.ORDINAL_POSITION
+ORDER BY RELATIONSHIP_NAME, ORDINAL_POSITION</value>
+  </data>
+  <data name="GetModelTables" xml:space="preserve">
+    <value>SELECT TABLE_SCHEMA, TABLE_NAME, CASE WHEN TABLE_TYPE = 'BASE TABLE' THEN 'TABLE' ELSE 'VIEW' END AS TABLE_OR_VIEW FROM INFORMATION_SCHEMA.TABLES ORDER BY 1, 2</value>
+  </data>
+  <data name="GetServerVersion" xml:space="preserve">
+    <value>SELECT @@VERSION AS VERSION_LABEL, SERVERPROPERTY('productversion') AS VERSION_NUMBER, SERVERPROPERTY('productlevel') AS PRODUCT_LEVEL, SERVERPROPERTY('edition') AS EDITION</value>
+  </data>
+</root>
