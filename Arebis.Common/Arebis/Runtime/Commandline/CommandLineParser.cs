@@ -66,6 +66,7 @@ namespace Arebis.Runtime.Commandline
         /// decorated with CommandArg, CommandOption,... attributes.
         /// </summary>
         /// <returns>Return the passed commandlineinfo object.</returns>
+        [Arebis.Source.CodeToDo("check that all mandatory args and options have been set.")]
         public object Parse(object commandlineinfo, string commandline)
         {
             // Retrieve tokens:

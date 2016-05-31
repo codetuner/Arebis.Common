@@ -69,6 +69,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\..\..\Customers\Carenzi\OnlineDogShows\Src\DEV\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -111,8 +112,15 @@
     <Compile Include="Cart.cs" />
     <Compile Include="Mvc\AllowCORSAttribute.cs" />
     <Compile Include="Mvc\BaseController.cs" />
+    <Compile Include="Mvc\ButtonHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Mvc\ComposingControllerFactory.cs" />
     <Compile Include="Mvc\ControllerExtensions.cs" />
+    <Compile Include="Mvc\DataTables\ControllerExtensions.cs" />
+    <Compile Include="Mvc\DataTables\DataTableDescriptor.cs" />
+    <Compile Include="Mvc\DataTables\DataTableModel.cs" />
+    <Compile Include="Mvc\DataTables\TableControllerBase.cs" />
     <Compile Include="Mvc\DefaultGraphModelBinder.cs" />
     <Compile Include="Mvc\HtmlHelperExtensions.cs" />
     <Compile Include="Mvc\LocalizingControllerFactory.cs" />
@@ -158,6 +166,10 @@
       <Project>{8826F246-4754-4D05-B25D-2FCDEA50C478}</Project>
       <Name>Arebis.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Arebis.Contract\Arebis.Contract.csproj">
+      <Project>{8aaa39e3-bd12-426e-877f-924064c9828b}</Project>
+      <Name>Arebis.Contract</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Arebis.Web.nuspec" />
@@ -165,8 +177,15 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>nuget pack "$(ProjectPath)" -IncludeReferencedProjects -Prop Configuration=$(ConfigurationName)</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\PostBuild.cmd" "$(DevEnvDir)" "$(SolutionPath)" "$(ProjectPath)" "$(TargetPath)" "$(ConfigurationName)"</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

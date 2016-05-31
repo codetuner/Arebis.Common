@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Arebis.Data.XML</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591,618</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
@@ -66,17 +66,15 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Release\Arebis.Data.XML</DocumentationFile>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591,618</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.Entity">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Runtime.Serialization">
@@ -90,12 +88,6 @@
     <Compile Include="CsvGenerator.cs" />
     <Compile Include="DbConnectionManager.cs" />
     <Compile Include="DbExtensions.cs" />
-    <Compile Include="Entity\AssociationEndBehaviorAttribute.cs" />
-    <Compile Include="Entity\EntityExtensions.cs" />
-    <Compile Include="Entity\EntityFrameworkHelper.cs" />
-    <Compile Include="Entity\ObjectContextExtension.cs" />
-    <Compile Include="Entity\OptimisticConcurrencyAttribute.cs" />
-    <Compile Include="Entity\OptimisticConcurrencyManager.cs" />
     <Compile Include="ImportExport\DataReaderMap.cs" />
     <Compile Include="ImportExport\DbExportArgs.cs" />
     <Compile Include="ImportExport\DbExportMode.cs" />
@@ -120,11 +112,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MSSqlModelQueries.resx</DependentUpon>
     </Compile>
+    <Compile Include="QueryMapper.cs" />
     <Compile Include="Transactions\TransactionalOperationAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="Arebis.Data.nuspec" />
-    <None Include="Entity\OptimisticConcurrencyDiagram.cd" />
     <None Include="Model\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +151,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>nuget pack "$(ProjectPath)" -IncludeReferencedProjects -Prop Configuration=$(ConfigurationName)</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\PostBuild.cmd" "$(DevEnvDir)" "$(SolutionPath)" "$(ProjectPath)" "$(TargetPath)" "$(ConfigurationName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

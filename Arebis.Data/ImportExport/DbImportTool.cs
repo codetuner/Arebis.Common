@@ -13,6 +13,7 @@ namespace Arebis.Data.ImportExport
 {
     public class DbImportTool
     {
+        [Arebis.Source.CodeToDo("Include rows with non-AutoIncrement Primary Keys and multi-column Primary Keys.")]
         public DbImportTool Import(ISimpleTaskHost host, DataSet data, DbConnection connection, DbTransaction transaction)
         {
             // Collections of actions:

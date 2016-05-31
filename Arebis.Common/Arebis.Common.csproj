@@ -137,6 +137,7 @@
     <Compile Include="Arebis\IO\IFileSystemVisitor.cs" />
     <Compile Include="Arebis\IO\MergedReadStream.cs" />
     <Compile Include="Arebis\IO\MeteringStream.cs" />
+    <Compile Include="Arebis\IO\StreamExtensions.cs" />
     <Compile Include="Arebis\Linq\ExpressionHelper.cs" />
     <Compile Include="Arebis\Logging\ILogFormatter.cs" />
     <Compile Include="Arebis\Logging\ILogWriter.cs" />
@@ -202,6 +203,8 @@
     <Compile Include="Arebis\Runtime\Validation\PropertyAssertAttribute.cs" />
     <Compile Include="Arebis\Runtime\Validation\AssertNotNullAttribute.cs" />
     <Compile Include="Arebis\Runtime\Validation\ValidationExtension.cs" />
+    <Compile Include="Arebis\Source\CodeSourceAttribute.cs" />
+    <Compile Include="Arebis\Source\CodeToDoAttribute.cs" />
     <Compile Include="Arebis\Tasks\ISimpleTaskHost.cs" />
     <Compile Include="Arebis\Tasks\NonSuspendableAction.cs" />
     <Compile Include="Arebis\Tasks\ProgressEventArgs.cs" />
@@ -310,6 +313,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>nuget pack "$(ProjectPath)" -IncludeReferencedProjects -Prop Configuration=$(ConfigurationName)</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\PostBuild.cmd" "$(DevEnvDir)" "$(SolutionPath)" "$(ProjectPath)" "$(TargetPath)" "$(ConfigurationName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

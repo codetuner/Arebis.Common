@@ -47,17 +47,6 @@ namespace Arebis.Extensions
         }
 
         /// <summary>
-        /// Merges the value of the other dictionary in this one.
-        /// </summary>
-        public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> dict, IDictionary<TKey, TValue> other)
-        {
-            foreach (var pair in other)
-            {
-                dict[pair.Key] = pair.Value;
-            }
-        }
-
-        /// <summary>
         /// Removes several items from a collection.
         /// </summary>
         /// <returns>Values removed.</returns>

@@ -28,9 +28,29 @@ namespace Arebis.Web.Mvc
         /// </summary>
         public static void ClearModelStateErrors(this ControllerBase controller)
         {
-            foreach (ModelState item in controller.ViewData.ModelState.Values)
+            ClearErrors(controller.ViewData.ModelState);
+        }
+
+        /// <summary>
+        /// Clears the error information keeping the values of the modelstate.
+        /// </summary>
+        /// <param name="self"></param>
+        public static void ClearErrors(this ModelStateDictionary self)
+        {
+            foreach (ModelState item in self.Values)
             {
                 item.Errors.Clear();
+            }
+        }
+
+        /// <summary>
+        /// Clears the values from the modelstate but keeps the error information.
+        /// </summary>
+        public static void ClearValues(this ModelStateDictionary self)
+        {
+            foreach (ModelState item in self.Values)
+            {
+                item.Value = null;
             }
         }
 

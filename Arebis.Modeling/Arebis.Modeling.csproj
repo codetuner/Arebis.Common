@@ -84,7 +84,9 @@
     <None Include="..\Arebis.snk">
       <Link>Arebis.snk</Link>
     </None>
-    <None Include="Arebis.Modeling.nuspec" />
+    <None Include="Arebis.Modeling.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="associationproperties.snippet" />
     <None Include="_ClassDiagram.cd" />
   </ItemGroup>
@@ -96,7 +98,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>nuget pack "$(ProjectPath)" -IncludeReferencedProjects -Prop Configuration=$(ConfigurationName)</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)..\PostBuild.cmd" "$(DevEnvDir)" "$(SolutionPath)" "$(ProjectPath)" "$(TargetPath)" "$(ConfigurationName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

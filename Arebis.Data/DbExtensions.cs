@@ -116,41 +116,36 @@ namespace Arebis.Data
             }
         }
 
-        // From: http://blogs.u2u.be/diederik/post/2010/08/30/Getting-and-setting-the-Transaction-Isolation-Level-on-a-SQL-Entity-Connection.aspx
-        public static void SetIsolationLevel(this IDbConnection connection, IsolationLevel isolationLevel)
+        /// <summary>
+        /// Sets the isolation level of a SqlConnection.
+        /// </summary>
+        [Arebis.Source.CodeSource("http://blogs.u2u.be/diederik/post/2010/08/30/Getting-and-setting-the-Transaction-Isolation-Level-on-a-SQL-Entity-Connection.aspx")]
+        public static void SetIsolationLevel(this System.Data.SqlClient.SqlConnection connection, IsolationLevel isolationLevel)
         {
             if (isolationLevel == IsolationLevel.Unspecified || isolationLevel == IsolationLevel.Chaos)
             {
                 throw new Exception(string.Format("Isolation Level '{0}' can not be set.", isolationLevel.ToString()));
             }
 
-            if (connection is System.Data.EntityClient.EntityConnection)
+            string isolationLevelSqlName;
+            switch (isolationLevel)
             {
-                var sqlConnection = (connection as System.Data.EntityClient.EntityConnection).StoreConnection as System.Data.SqlClient.SqlConnection;
-                if (sqlConnection != null) sqlConnection.SetIsolationLevel(isolationLevel);
+                case IsolationLevel.Chaos: isolationLevelSqlName = "CHAOS"; break;
+                case IsolationLevel.ReadCommitted: isolationLevelSqlName = "READ COMMITTED"; break;
+                case IsolationLevel.ReadUncommitted: isolationLevelSqlName = "READ UNCOMMITTED"; break;
+                case IsolationLevel.RepeatableRead: isolationLevelSqlName = "REPEATABLE READ"; break;
+                case IsolationLevel.Serializable: isolationLevelSqlName = "SERIALIZABLE"; break;
+                case IsolationLevel.Snapshot: isolationLevelSqlName = "SNAPSHOT"; break;
+                default: isolationLevelSqlName = "UNSPECIFIED"; break;
             }
-            else if (connection is System.Data.SqlClient.SqlConnection)
-            {
-                string isolationLevelSqlName;
-                switch (isolationLevel)
-                {
-                    case IsolationLevel.Chaos: isolationLevelSqlName = "CHAOS"; break;
-                    case IsolationLevel.ReadCommitted: isolationLevelSqlName = "READ COMMITTED"; break;
-                    case IsolationLevel.ReadUncommitted: isolationLevelSqlName = "READ UNCOMMITTED"; break;
-                    case IsolationLevel.RepeatableRead: isolationLevelSqlName = "REPEATABLE READ"; break;
-                    case IsolationLevel.Serializable: isolationLevelSqlName = "SERIALIZABLE"; break;
-                    case IsolationLevel.Snapshot: isolationLevelSqlName = "SNAPSHOT"; break;
-                    default: isolationLevelSqlName = "UNSPECIFIED"; break;
-                }
 
-                IDbCommand command = connection.CreateCommand();
-                command.CommandText = "SET TRANSACTION ISOLATION LEVEL " + isolationLevelSqlName;
-                command.ExecuteNonQuery();
-            }
+            IDbCommand command = connection.CreateCommand();
+            command.CommandText = "SET TRANSACTION ISOLATION LEVEL " + isolationLevelSqlName;
+            command.ExecuteNonQuery();
         }
 
-        // From: http://blogs.u2u.be/diederik/post/2010/08/30/Getting-and-setting-the-Transaction-Isolation-Level-on-a-SQL-Entity-Connection.aspx
-        public static IsolationLevel GetIsolationLevel(this IDbConnection connection)
+        [Arebis.Source.CodeSource("http://blogs.u2u.be/diederik/post/2010/08/30/Getting-and-setting-the-Transaction-Isolation-Level-on-a-SQL-Entity-Connection.aspx")]
+        public static IsolationLevel GetIsolationLevel(this System.Data.SqlClient.SqlConnection connection)
         {
             string query =
                 @"SELECT CASE transaction_isolation_level
@@ -164,48 +159,32 @@ namespace Arebis.Data
             FROM sys.dm_exec_sessions
             WHERE session_id = @@SPID";
 
-            if (connection is System.Data.EntityClient.EntityConnection)
-            {
-                return (connection as System.Data.EntityClient.EntityConnection).StoreConnection.GetIsolationLevel();
-            }
-            else if (connection is System.Data.SqlClient.SqlConnection)
-            {
-                IDbCommand command = connection.CreateCommand();
-                command.CommandText = query;
-                string result = command.ExecuteScalar().ToString();
+            IDbCommand command = connection.CreateCommand();
+            command.CommandText = query;
+            string result = command.ExecuteScalar().ToString();
 
-                return (IsolationLevel)Enum.Parse(typeof(IsolationLevel), result);
-            }
-
-            return IsolationLevel.Unspecified;
+            return (IsolationLevel)Enum.Parse(typeof(IsolationLevel), result);
         }
 
-        public static long? GetLastGeneratedIdentity(this IDbConnection connection)
+        public static long? GetLastGeneratedIdentity(this System.Data.SqlClient.SqlConnection connection)
         {
-            if (connection is System.Data.EntityClient.EntityConnection)
+            using (var cmd = connection.CreateCommand())
             {
-                return (connection as System.Data.EntityClient.EntityConnection).StoreConnection.GetLastGeneratedIdentity();
+                cmd.CommandText = "SELECT SCOPE_IDENTITY()";
+                return (long?)cmd.ExecuteScalar();
             }
-            else if (connection is System.Data.SqlClient.SqlConnection)
+        }
+
+        /// <summary>
+        /// Returns the value of the "SELECT @@IDENTITY" query.
+        /// </summary>
+        public static long? GetLastGeneratedIdentity(this System.Data.OleDb.OleDbConnection connection)
+        {
+            // Assume MS-Access:
+            using (var cmd = connection.CreateCommand())
             {
-                using (var cmd = connection.CreateCommand())
-                {
-                    cmd.CommandText = "SELECT SCOPE_IDENTITY()";
-                    return (long?)cmd.ExecuteScalar();
-                }
-            }
-            else if (connection is System.Data.OleDb.OleDbConnection)
-            { 
-                // Assume MS-Access:
-                using (var cmd = connection.CreateCommand())
-                {
-                    cmd.CommandText = "SELECT @@IDENTITY";
-                    return (long?)cmd.ExecuteScalar();
-                }
-            }
-            else
-            {
-                throw new Exception("GetLastGeneratedIntIdentity currently only supports SQL Server connections.");
+                cmd.CommandText = "SELECT @@IDENTITY";
+                return (long?)cmd.ExecuteScalar();
             }
         }
 

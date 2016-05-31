@@ -41,8 +41,12 @@ namespace Arebis.Logging.GrayLog
         /// <param name="shortMessage">Short message text (required).</param>
         /// <param name="fullMessage">Full message text.</param>
         /// <param name="data">Additional details object. Can be a plain object, a string, an enumerable or a dictionary.</param>
-        public void Send(string shortMessage, string fullMessage = null, object data = null)
+        /// <param name="ex">An exception to log data of.</param>
+        public void Send(string shortMessage, string fullMessage = null, object data = null, Exception ex = null)
         {
+            // Verify facility is set:
+            if (String.IsNullOrEmpty(this.Facility)) return;
+
             // Construct log record:
             var logRecord = new Dictionary<string, object>();
             logRecord["version"] = "1.1";
@@ -56,6 +60,22 @@ namespace Arebis.Logging.GrayLog
             else if (data is System.Collections.IEnumerable) logRecord["_values"] = data;
             else if (data != null) MergeObject(logRecord, data, "_");
 
+            // Log exception information:
+            if (ex != null)
+            {
+                var prefix = "";
+                for (var iex = ex; iex != null; iex = iex.InnerException)
+                {
+                    logRecord["_ex." + prefix + "msg"] = ex.Message;
+                    foreach (var key in iex.Data.Keys)
+                    {
+                        logRecord["_ex." + prefix + "data." + (key ?? "(null)").ToString()] = iex.Data[key];
+                    }
+                    prefix = "inner." + prefix;
+                }
+                logRecord["_ex.full"] = ex.ToString();
+            }
+
             // Serialize object:
             string logRecordString = JsonConvert.SerializeObject(logRecord);
             var logRecordBytes = Encoding.UTF8.GetBytes(logRecordString);
@@ -68,20 +88,11 @@ namespace Arebis.Logging.GrayLog
         /// Convenience method to send an exception message to GrayLog.
         /// </summary>
         /// <param name="ex">The exception to log.</param>
-        public void Send(Exception ex)
+        /// <param name="level">The level to log the exception at.</param>
+        public void Send(Exception ex, SyslogLevel level = SyslogLevel.Error)
         {
-            // Collect exception data:
-            var data = new System.Collections.Hashtable();
-            for (var iex = ex; iex != null; iex = iex.InnerException)
-            {
-                foreach (var key in iex.Data.Keys)
-                {
-                    data.Add(key, iex.Data[key]);
-                }
-            }
-
             // Send exception:
-            this.Send(ex.Message, ex.ToString(), data);
+            if (ex != null) this.Send(ex.Message, null, new { level = level }, ex);
         }
 
         /// <summary>

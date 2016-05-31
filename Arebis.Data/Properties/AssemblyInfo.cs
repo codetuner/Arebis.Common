@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Arebis .NET Extensions for Data")]
-[assembly: AssemblyDescription(".NET library for using databases and Entity Framework.")]
+[assembly: AssemblyDescription(".NET library for using databases through ADO.NET.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Arebis")]
 [assembly: AssemblyProduct("Arebis Library")]
@@ -28,5 +28,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.2.0.0")] // Assembly version
+[assembly: AssemblyInformationalVersion("1.2.0.0")] // Nuget version
 [assembly: System.CLSCompliant(true)]

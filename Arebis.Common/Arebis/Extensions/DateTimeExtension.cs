@@ -91,5 +91,28 @@ namespace Arebis.Extensions
             TimeSpan t = dt - new DateTime(1899, 12, 31);
             return t.TotalDays;
         }
+
+        /// <summary>
+        /// The age in full years. Time component is ignored.
+        /// </summary>
+        public static int AgeInYears(this DateTime dt, DateTime onDate)
+        {
+            var age = (onDate.Year - dt.Year);
+            if (dt.Month > onDate.Month || (dt.Month == onDate.Month && dt.Day < onDate.Day)) age--;
+            return age;
+        }
+
+        /// <summary>
+        /// The age in full months. Time component is ignored.
+        /// </summary>
+        public static int AgeInMonths(this DateTime dt, DateTime onDate)
+        {
+            var age = (onDate.Year - dt.Year) * 12
+            + (onDate.Month - dt.Month)
+            + ((onDate.Day < dt.Day) ? -1 : 0);
+
+            return age;
+        }
+
 	}
 }

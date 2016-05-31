@@ -33,16 +33,14 @@ namespace Arebis.Extensions
         /// Returns null if given object is null.
         /// </summary>
         /// <param name="obj">The object to translate into a dictionary.</param>
-        /// <param name="prefix">A prefix to the property names in the returned dictionary.</param>
-        public static IDictionary<string, object> ToDictionary(this object obj, string prefix = null)
+        public static IDictionary<string, object> ToDictionary(this object obj)
         {
             if (obj == null) return null;
-            if (prefix == null) prefix = String.Empty;
 
             var result = new Dictionary<string, object>();
             foreach (PropertyInfo property in obj.GetType().GetProperties())
             {
-                result[prefix + property.Name] = property.GetValue(obj);
+                result[property.Name] = property.GetValue(obj);
             }
 
             return result;
