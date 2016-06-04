@@ -9,11 +9,11 @@ Arebis.Common
 - Arebis.Data
 - Arebis.Data.Entity
 - Arebis.Imaging
-- [Arebis.Logging.GrayLog](https://raw.githubusercontent.com/codetuner/Arebis.Common/master/Documentation/Arebis.Logging.GrayLog/README.md)
+- [Arebis.Logging.GrayLog](https://github.com/codetuner/Arebis.Common/blob/master/Documentation/Arebis.Logging.GrayLog/README.md)
 - Arebis.Modeling
 - Arebis.Office
 - Arebis.Parsing
-- [Arebis.Pdf](https://raw.githubusercontent.com/codetuner/Arebis.Common/master/Documentation/Arebis.Pdf/README.md)
+- [Arebis.Pdf](https://github.com/codetuner/Arebis.Common/blob/master/Documentation/Arebis.Pdf/README.md)
 - Arebis.Testing
 - Arebis.Web
 - Arebis.Windows
