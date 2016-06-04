@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{327FA491-A91D-4590-B8F9-ED334D2A0EE0}"
 	ProjectSection(SolutionItems) = preProject
@@ -56,6 +56,22 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Portable.Tests", "Arebis.Portable.Tests\Arebis.Portable.Tests.csproj", "{0052EBBF-90B5-4C8A-AC40-7C735BCF5DB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Data.Entity", "Arebis.Data.Entity\Arebis.Data.Entity.csproj", "{1F5714BD-1F1C-46D3-A645-E6EE0513F260}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{8EE526C1-D1CD-4773-9BAA-BA5E8A67C823}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arebis.Logging.GrayLog", "Arebis.Logging.GrayLog", "{C3C490D8-9479-4DDA-84B1-A7F8571E4C5A}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Arebis.Logging.GrayLog\README.md = Documentation\Arebis.Logging.GrayLog\README.md
+		Documentation\Arebis.Logging.GrayLog\screenshot_sample1.png = Documentation\Arebis.Logging.GrayLog\screenshot_sample1.png
+		Documentation\Arebis.Logging.GrayLog\screenshot_sample2.png = Documentation\Arebis.Logging.GrayLog\screenshot_sample2.png
+		Documentation\Arebis.Logging.GrayLog\screenshot_sample3.png = Documentation\Arebis.Logging.GrayLog\screenshot_sample3.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arebis.Pdf", "Arebis.Pdf", "{3FADEE8B-3540-4E1D-BB3A-E057AAD62A5F}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Arebis.Pdf\README.md = Documentation\Arebis.Pdf\README.md
+		Documentation\Arebis.Pdf\Sample1.pdf = Documentation\Arebis.Pdf\Sample1.pdf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,6 +169,8 @@ Global
 		{A3261881-9AB1-4BDC-87F0-A34D2E9E7D11} = {DF405580-636B-48A1-8924-40FBEFF81721}
 		{3DFCD606-F4F0-4481-B0D6-ECFBE90904AE} = {DF405580-636B-48A1-8924-40FBEFF81721}
 		{0052EBBF-90B5-4C8A-AC40-7C735BCF5DB3} = {DF405580-636B-48A1-8924-40FBEFF81721}
+		{C3C490D8-9479-4DDA-84B1-A7F8571E4C5A} = {8EE526C1-D1CD-4773-9BAA-BA5E8A67C823}
+		{3FADEE8B-3540-4E1D-BB3A-E057AAD62A5F} = {8EE526C1-D1CD-4773-9BAA-BA5E8A67C823}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Arebis.Common1.vsmdi
