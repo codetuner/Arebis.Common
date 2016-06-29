@@ -22,8 +22,8 @@ Features of the library include:
 - Ability to write PDF streamed in single pass.
 - Supports chuncked transfer on ASP.NET streams.
 - Drawing of text with rich features.
-- Drawing of lines, rectangles, ovals, circles, with rich features.
-- Drawing of images with image position control.
+- Drawing of lines, (rounded)rectangles, ovals, circles, with rich features.
+- Drawing of images with image position control and rotation.
 - Text wrapping.
 - Support for template objects (including image objects) to be added
   once in the document, and rendered on multiple pages.
@@ -75,3 +75,9 @@ a major refactoring would be needed.
 
 With the closer look to that library, I discovered that writing raw PDF is not that hard at the end, and so 
 ended up creating yet another PDF library...
+
+
+Release notes
+-------------
+
+1.4.0.0 : Added support for rotation of images and rectangles; added support for rounded rectangles.

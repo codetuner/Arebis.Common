@@ -247,18 +247,52 @@ namespace Arebis.Pdf.Writing
         /// <summary>
         /// Draws a rectangle given width and height.
         /// </summary>
-        public void DrawRectangle(double x, double y, double width, double height)
+        public void DrawRectangle(double x, double y, double width, double height, double leftRotationDegrees = 0.0)
         {
             if (isInTextBlock) throw new InvalidOperationException("Must not be called between BeginText() and EndText().");
-            this.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0:0.###} {1:0.###} {2:0.###} {3:0.###} re", x, y, width, height));
+            if (leftRotationDegrees != 0.0)
+            {
+                this.Rotate(x, y, leftRotationDegrees);
+                this.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0:0.###} {1:0.###} {2:0.###} {3:0.###} re", 0.0, 0.0, width, height));
+            }
+            else
+            {
+                this.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0:0.###} {1:0.###} {2:0.###} {3:0.###} re", x, y, width, height));
+            }
         }
 
         /// <summary>
         /// Draws a rectangle given 2 opposite points (convenience method).
         /// </summary>
-        public void DrawRectangle2(double x1, double y1, double x2, double y2)
+        public void DrawRectangle2(double x1, double y1, double x2, double y2, double leftRotationDegrees = 0.0)
         {
-            this.DrawRectangle(x1, y1, x2 - x1, y2 - y1);
+            this.DrawRectangle(x1, y1, x2 - x1, y2 - y1, leftRotationDegrees);
+        }
+
+        /// <summary>
+        /// Draws a rounded rectangle given width, height and radius (convenience method).
+        /// </summary>
+        public void DrawRoundedRectangle(double x, double y, double width, double height, double radius)
+        {
+            this.DrawRoundedRectangle2(x, y, x + width, y + height, radius);
+        }
+
+        /// <summary>
+        /// Draws a rounded rectangle given 2 opposite points and a radius.
+        /// </summary>
+        public void DrawRoundedRectangle2(double x1, double y1, double x2, double y2, double radius)
+        {
+            if (isInTextBlock) throw new InvalidOperationException("Must not be called between BeginText() and EndText().");
+
+            var rf = 0.3;
+            this.BeginPath(x1, y2 - radius);
+            this.DrawBezierCurve(x1, y2 - radius * rf, x1 + radius * rf, y2, x1 + radius, y2);
+            this.DrawLineTo(x2 - radius, y2);
+            this.DrawBezierCurve(x2 - radius * rf, y2, x2, y2 - radius * rf, x2, y2 - radius);
+            this.DrawLineTo(x2, y1 + radius);
+            this.DrawBezierCurve(x2, y1 + radius * rf, x2 - radius * rf, y1, x2 - radius, y1);
+            this.DrawLineTo(x1 + radius, y1);
+            this.DrawBezierCurve(x1 + radius * rf, y1, x1, y1 + radius * rf, x1, y1 + radius);
         }
 
         /// <summary>
@@ -302,10 +336,12 @@ namespace Arebis.Pdf.Writing
         /// <summary>
         /// Draws an image (convenience method).
         /// </summary>
-        public void DrawImageByName(double x, double y, double width, double height, string imageName)
+        public void DrawImageByName(double x, double y, double width, double height, string imageName, double leftRotationDegrees = 0.0)
         {
             this.BeginGraphicsState();
-            this.ConcatenateMatrix(width, 0.0, 0.0, height, x, y);
+            this.ConcatenateMatrix(1, 0.0, 0.0, 1, x, y);
+            if (leftRotationDegrees != 0.0) this.Rotate(0.0, 0.0, leftRotationDegrees);
+            this.ConcatenateMatrix(width, 0.0, 0.0, height, 0, 0);
             this.DrawExternalObject(imageName);
             this.EndGraphicsState();
         }
@@ -429,6 +465,21 @@ namespace Arebis.Pdf.Writing
         }
 
         /// <summary>
+        /// Modifies the transformation matrix for rotation of graphics (convenience method).
+        /// </summary>
+        public void Rotate(double x, double y, double leftRotationDegrees)
+        {
+            ModifyTransformationMatrix(
+                Math.Cos(leftRotationDegrees * ToRadiansFactor),
+                Math.Sin(leftRotationDegrees * ToRadiansFactor),
+                -Math.Sin(leftRotationDegrees * ToRadiansFactor),
+                Math.Cos(leftRotationDegrees * ToRadiansFactor),
+                x,
+                y
+            );
+        }
+
+        /// <summary>
         /// Begins a block of text with the given start position and font (convenience method).
         /// </summary>
         public void BeginText(double x, double y, PdfFont font, double size)
@@ -440,7 +491,7 @@ namespace Arebis.Pdf.Writing
         /// <summary>
         /// Begins a block of text with the given start position, rotation and font (convenience method).
         /// </summary>
-        public void BeginText(double x, double y, int leftRotationDegrees, PdfFont font, double size)
+        public void BeginText(double x, double y, double leftRotationDegrees, PdfFont font, double size)
         {
             BeginText(x, y, leftRotationDegrees);
             SetFont(font, size);
@@ -472,6 +523,15 @@ namespace Arebis.Pdf.Writing
         {
             if (!isInTextBlock) throw new InvalidOperationException("Must call BeginText() before this operation.");
             this.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0:0.####} {1:0.####} {2:0.####} {3:0.####} {4:0.####} {5:0.####} Tm", a, b, c, d, e, f));
+        }
+
+        /// <summary>
+        /// Modifies the current transformation matrix to control position, rotation and skewing.
+        /// </summary>
+        public void ModifyTransformationMatrix(double a, double b, double c, double d, double e, double f)
+        {
+            //if (isInTextBlock) throw new InvalidOperationException("Must not be called between BeginText() and EndText().");
+            this.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0:0.####} {1:0.####} {2:0.####} {3:0.####} {4:0.####} {5:0.####} cm", a, b, c, d, e, f));
         }
 
         /// <summary>

@@ -10,7 +10,21 @@ namespace Arebis.Pdf.Writing
             : this(PdfPredefinedFont.Helvetica, 12.0)
         { }
 
-        public PdfTextOptions(PdfFont font, double fontSize, PdfColor inkColor = null, int leftRotationDegrees = 0, PdfTextRenderingMode renderingMode = PdfTextRenderingMode.Fill, PdfColor outlineColor = null, double? outlineWidth = null, PdfLineDashPattern lineDashPattern = null, PdfLineCapStyle? lineCapStyle = null)
+        public PdfTextOptions(PdfFont font, double fontSize, PdfColor inkColor = null, PdfTextRenderingMode renderingMode = PdfTextRenderingMode.Fill, PdfColor outlineColor = null, double? outlineWidth = null, PdfLineDashPattern lineDashPattern = null, PdfLineCapStyle? lineCapStyle = null)
+        {
+            this.InkColor = inkColor ?? PdfColor.Black;
+            this.Font = font;
+            this.FontSize = fontSize;
+            this.LeftRotationDegrees = 0;
+            this.RenderingMode = renderingMode;
+            this.OutlineColor = outlineColor;
+            this.LineDashPattern = lineDashPattern;
+            this.LineCapStyle = LineCapStyle;
+            this.OutlineWidth = outlineWidth;
+        }
+
+        [Obsolete("Since Arebis.Pdf 1.4, the LeftRotationDegrees property is being outphased from the PdfTextOptions and replaced by an extra argument on DrawText methods for consistency with graphics methods.")]
+        public PdfTextOptions(PdfFont font, double fontSize, PdfColor inkColor, int leftRotationDegrees, PdfTextRenderingMode renderingMode = PdfTextRenderingMode.Fill, PdfColor outlineColor = null, double? outlineWidth = null, PdfLineDashPattern lineDashPattern = null, PdfLineCapStyle? lineCapStyle = null)
         {
             this.InkColor = inkColor ?? PdfColor.Black;
             this.Font = font;
@@ -59,6 +73,7 @@ namespace Arebis.Pdf.Writing
         /// <summary>
         /// Number of degrees to rotate the text to the left.
         /// </summary>
+        [Obsolete("Since Arebis.Pdf 1.4, the LeftRotationDegrees property is being outphased from the PdfTextOptions and replaced by an extra argument on DrawText methods for consistency with graphics methods.")]
         public int LeftRotationDegrees { get; set; }
 
         /// <summary>
@@ -79,7 +94,10 @@ namespace Arebis.Pdf.Writing
         {
             onObject.SetFillColor(this.InkColor);
             onObject.SetFont(this.Font, this.FontSize);
-            onObject.SetTextRotation(x, y, this.LeftRotationDegrees);
+            if (this.LeftRotationDegrees != 0)
+                onObject.SetTextRotation(x, y, this.LeftRotationDegrees);
+            else
+                onObject.SetTextStartPosition(x, y);
             onObject.SetTextRenderingMode(this.RenderingMode);
             if (this.OutlineColor != null)
                 onObject.SetStrokeColor(this.OutlineColor);

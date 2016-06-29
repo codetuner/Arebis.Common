@@ -229,6 +229,7 @@
     <Compile Include="Arebis\Types\Wrapper.cs" />
     <Compile Include="Arebis\Utils\FileUtils.cs" />
     <Compile Include="Arebis\Utils\StringUtils.cs" />
+    <Compile Include="Arebis\Utils\VarUtils.cs" />
     <Compile Include="Arebis\Warning.cs" />
     <Compile Include="Arebis\WinApi\AdvApi32.cs" />
     <Compile Include="Arebis\WinApi\Kernel32.cs" />

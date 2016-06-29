@@ -23,7 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Arebis.Pdf.XML</DocumentationFile>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591,618</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
@@ -38,7 +38,7 @@
     <DocumentationFile>bin\Release\Arebis.Pdf.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591,618</NoWarn>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -73,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\PdfASCIIHexDecodeFilter.cs" />
     <Compile Include="Writing\PdfImagePlacement.cs" />
+    <Compile Include="Writing\PdfImageRotation.cs" />
     <Compile Include="Writing\PdfPageFormat.cs" />
     <Compile Include="Writing\PdfDocumentOptions.cs" />
     <Compile Include="Writing\PdfGraphicsOptions.cs" />

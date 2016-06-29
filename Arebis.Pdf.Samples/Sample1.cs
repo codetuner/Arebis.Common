@@ -69,7 +69,7 @@ namespace Arebis.Pdf.Samples
                     page.WriteObjectRef(headerref);
 
                     // Text options template:
-                    var to1 = new PdfTextOptions(PdfPredefinedFont.HelveticaBold, 23.3, PdfColor.Blue, 0, PdfTextRenderingMode.Fill, PdfColor.LightBlue, 1.6);
+                    var to1 = new PdfTextOptions(PdfPredefinedFont.HelveticaBold, 23.3, PdfColor.Blue, PdfTextRenderingMode.Fill, PdfColor.LightBlue, 1.6);
                     var to2 = new PdfTextOptions(PdfPredefinedFont.HelveticaBold, 14.0);
                     var to3 = new PdfTextOptions(PdfPredefinedFont.HelveticaItalic, 8, PdfColor.Gray);
 
@@ -96,12 +96,12 @@ namespace Arebis.Pdf.Samples
                     page.DrawText(50, 405 - 80, text1, new PdfTextOptions(to2) { Font = PdfPredefinedFont.TimesRomanBoldItalic });
 
                     // Draw rotated text:
-                    page.DrawText(65, 50, text2, new PdfTextOptions(to2) { LeftRotationDegrees = 0, InkColor = PdfColor.DarkOliveGreen });
-                    page.DrawText(65, 70, text2, new PdfTextOptions(to2) { LeftRotationDegrees = 0, InkColor = new PdfColor(200, 200, 200) });
-                    page.DrawText(65, 70, text2, new PdfTextOptions(to2) { LeftRotationDegrees = 22, InkColor = new PdfColor(150, 150, 150) });
-                    page.DrawText(65, 70, text2, new PdfTextOptions(to2) { LeftRotationDegrees = 45, InkColor = new PdfColor(100,100,100) });
-                    page.DrawText(65, 70, text2, new PdfTextOptions(to2) { LeftRotationDegrees = 67, InkColor = new PdfColor(50, 50, 50) });
-                    page.DrawText(65, 70, text2, new PdfTextOptions(to2) { LeftRotationDegrees = 90, InkColor = new PdfColor(0, 0, 0) });
+                    page.DrawText(65, 50, text2, new PdfTextOptions(to2) { InkColor = PdfColor.DarkOliveGreen });
+                    page.DrawText(65, 70, text2, new PdfTextOptions(to2) { InkColor = new PdfColor(200, 200, 200) });
+                    page.DrawText(65, 70, text2, new PdfTextOptions(to2) { InkColor = new PdfColor(150, 150, 150) }, 22.0);
+                    page.DrawText(65, 70, text2, new PdfTextOptions(to2) { InkColor = new PdfColor(100,100,100) }, 45.0);
+                    page.DrawText(65, 70, text2, new PdfTextOptions(to2) { InkColor = new PdfColor(50, 50, 50) }, 67.0);
+                    page.DrawText(65, 70, text2, new PdfTextOptions(to2) { InkColor = new PdfColor(0, 0, 0) }, 90.0);
 
                     // Draw big 'A' with different LineCapStyles:
                     page.DrawText(240, 170, "A", new PdfTextOptions(to1) { FontSize = 144.0, RenderingMode = PdfTextRenderingMode.Stroke, OutlineWidth = 8, OutlineColor = PdfColor.Red, LineDashPattern = PdfLineDashPattern.XLarge, LineCapStyle = PdfLineCapStyle.Butt });
@@ -124,8 +124,12 @@ namespace Arebis.Pdf.Samples
                     var got1 = new PdfGraphicsOptions(2.0, PdfColor.Black, PdfColor.White, PdfLineDashPattern.Solid);
 
                     // Draw rectangles:
+                    var got2 = new PdfGraphicsOptions(got1) { LineDashPattern = PdfLineDashPattern.Medium, FillColor = PdfColor.Yellow };
                     page.DrawRectangle(50, 700, 240, 80, got1);
-                    page.DrawRectangle(50 + 240 + 10 + 10, 700, 240, 80, new PdfGraphicsOptions(got1) { LineDashPattern = PdfLineDashPattern.Medium, FillColor = PdfColor.Yellow });
+                    page.DrawRoundedRectangle(50 + 10, 700 + 10, 240 - 20, 80 - 20, 15, got2);
+                    page.DrawRectangle(50 + 240 + 10 + 10, 700, 240, 80, got2);
+                    page.DrawRoundedRectangle(50 + 240 + 10 + 10 + 10, 700 + 10, 240 - 20, 80 - 20, 15, got1);
+
 
                     // Draw oval in rectangle:
                     page.DrawRectangle(50, 600, 400, 80, helpline);
@@ -156,11 +160,18 @@ namespace Arebis.Pdf.Samples
                     cl.SetStrokeWidth(2.0);
                     for (int a = 0; a < 360; a += 15)
                     {
-                        cl.DrawLineA(300, 220, a, 100);
+                        cl.DrawLineA(150, 220, a, 100);
                     }
                     cl.EndPath(false, true, false);
                     cl.EndGraphicsState();
                     page.WriteObject(cl);
+
+                    // Circle of squares:
+                    var got3 = new PdfGraphicsOptions(got1) { StrokeColor = PdfColor.Green };
+                    for (int a = 15; a <= 360; a += 15)
+                    {
+                        page.DrawRectangle(450, 220, 70, 70, got3, a);
+                    }
                 }
 
                 // Add a page with images:
@@ -208,6 +219,33 @@ namespace Arebis.Pdf.Samples
                     page.DrawRectangle(48 + 390, 508, 114, 114, bo);
                     page.DrawImageRef(50 + 390, 510, imgHRef, 110, 110, PdfImagePlacement.RightOrBottom);
                     page.DrawText(48 + 390, 500, "RightOrBottom", to);
+
+                    // Third row: a rotated image:
+                    page.DrawRectangle(48, 358, 114, 114, bo);
+                    page.DrawImageRef(50, 360, imgHRef, 110, 110, PdfImagePlacement.Center, PdfImageRotation.None);
+                    page.DrawText(48, 350, "No rotation", to);
+
+                    page.DrawRectangle(48 + 130, 358, 114, 114, bo);
+                    page.DrawImageRef(50 + 130, 360, imgHRef, 110, 110, PdfImagePlacement.Center, PdfImageRotation.Left);
+                    page.DrawText(48 + 130, 350, "Rotated Left", to);
+
+                    page.DrawRectangle(48 + 260, 358, 114, 114, bo);
+                    page.DrawImageRef(50 + 260, 360, imgHRef, 110, 110, PdfImagePlacement.Center, PdfImageRotation.Right);
+                    page.DrawText(48 + 260, 350, "Rotated Right", to);
+
+                    page.DrawRectangle(48 + 390, 358, 114, 114, bo);
+                    page.DrawImageRef(50 + 390, 360, imgHRef, 110, 110, PdfImagePlacement.Center, PdfImageRotation.UpsideDown);
+                    page.DrawText(48 + 390, 350, "Upside Down", to);
+
+                    // Free rotation:
+                    page.DrawImageRef(194.0, 90.0, imgVRef, 110.0);
+                    page.DrawImageRef(194.0, 90.0, imgVRef, 110.0, 15.0);
+                    page.DrawImageRef(194.0, 90.0, imgVRef, 110.0, 30.0);
+                    page.DrawImageRef(194.0, 90.0, imgVRef, 110.0, 45.0);
+                    page.DrawImageRef(194.0, 90.0, imgVRef, 110.0, 60.0);
+                    page.DrawImageRef(194.0, 90.0, imgVRef, 110.0, 75.0);
+                    page.DrawImageRef(194.0, 90.0, imgVRef, 110.0, 90.0);
+                    page.DrawText(48, 80, "Free rotation", to);
                 }
             }
         }
