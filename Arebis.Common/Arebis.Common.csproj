@@ -125,6 +125,7 @@
     <Compile Include="Arebis\Extensions\DateTimeExtension.cs" />
     <Compile Include="Arebis\Extensions\DictionaryExtensions.cs" />
     <Compile Include="Arebis\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Arebis\Extensions\ExceptionExtensions.cs" />
     <Compile Include="Arebis\Extensions\FileInfoExtension.cs" />
     <Compile Include="Arebis\Extensions\NumberExtension.cs" />
     <Compile Include="Arebis\Extensions\ObjectExtension.cs" />

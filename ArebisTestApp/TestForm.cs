@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Arebis.Windows.Forms.Design;
+using Arebis.Data;
+using System.Diagnostics;
 
 namespace ArebisTestApp
 {
@@ -45,5 +48,10 @@ namespace ArebisTestApp
 			dlg.AddAssembly(System.Reflection.Assembly.GetEntryAssembly(), true);
 			dlg.ShowDialog(this);
 		}
-	}
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

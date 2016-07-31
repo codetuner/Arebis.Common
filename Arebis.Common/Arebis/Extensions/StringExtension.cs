@@ -21,6 +21,8 @@ namespace Arebis.Extensions
         /// </summary>
         public static string UpTo(this string value, string marker)
         {
+            if (value == null) return null;
+
             int index = value.IndexOf(marker);
             if (index < 0)
                 return value;
@@ -33,6 +35,8 @@ namespace Arebis.Extensions
         /// </summary>
         public static int[] AllIndexesOf(this string value, string searchedString, StringComparison comparisonType)
         {
+            if (value == null) return null;
+
             List<int> indexes = new List<int>();
             int pos = 0;
             while (true)
@@ -80,6 +84,8 @@ namespace Arebis.Extensions
         /// </summary>
         public static string Sectionstring(this string str, int startIndex, int endIndex)
         {
+            if (str == null) return null;
+
             return str.Substring(startIndex, endIndex - startIndex + 1);
         }
 
@@ -184,7 +190,7 @@ namespace Arebis.Extensions
             // Search for a matching case:
             for (int i = 0; i < cases.Length; i += 2)
             {
-                if (str.Equals(cases[i], comparisonType))
+                if (String.Equals(str, cases[i], comparisonType))
                     return cases[i + 1];
             }
 
@@ -239,6 +245,8 @@ namespace Arebis.Extensions
         /// </summary>
         public static string Shorten(this string s, int length)
         {
+            if (s == null) return null;
+
             if (s.Length <= length) return s;
 
             int toremove = s.Length - length;
@@ -292,6 +300,8 @@ namespace Arebis.Extensions
         /// </summary>
         public static string ToIdentifier(this string s)
         {
+            if (s == null) return null;
+
             StringBuilder identifier = new StringBuilder(s.Length);
             int pos = -1;
             foreach (char c in s.ToCharArray())

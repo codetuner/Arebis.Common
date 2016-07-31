@@ -77,5 +77,22 @@ namespace Arebis.Extensions
         {
             return (value + partSize - 1) / partSize;
         }
+
+        /// <summary>
+        /// Whether the value is between the two bounderies (boundaries included).
+        /// </summary>
+        public static bool IsBetween(this double d, double lower, double higher)
+        {
+            return (d >= lower && d <= higher);
+        }
+
+        /// <summary>
+        /// Whether the value is between the two bounderies (boundaries included).
+        /// </summary>
+        public static bool IsBetween(this int i, int lower, int higher)
+        {
+            return (i >= lower && i <= higher);
+        }
+
     }
 }

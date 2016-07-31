@@ -6,6 +6,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using Arebis.Extensions;
+using System.Text.RegularExpressions;
 
 namespace Arebis.Data
 {
@@ -14,6 +15,8 @@ namespace Arebis.Data
     /// </summary>
     public class QueryMapper : IDisposable
     {
+        private static Regex numerical = new Regex("^[0-9]+$", RegexOptions.Compiled);
+
         public QueryMapper(DbConnection connection, string sql, CommandType commandType = CommandType.Text)
         {
             if (connection.State != ConnectionState.Open) connection.Open();
@@ -92,54 +95,20 @@ namespace Arebis.Data
             return this; // to support fluent notation.
         }
 
-        public IEnumerable<T> TakeAll<T>()
-            where T : new()
-        {
-            return this.Take<T>(Int32.MaxValue);
-        }
-
-        public IEnumerable<T> Take<T>(int rowcount)
-            where T : new()
-        {
-            // Map column names to matching property info's:
-            var typeProperties = typeof(T).GetProperties().ToDictionary(p => p.Name, p => p);
-            var colProperties = new PropertyInfo[this.Reader.FieldCount];
-            for (int c = 0; c < colProperties.Length; c++)
-            {
-                PropertyInfo property;
-                if (typeProperties.TryGetValue(Reader.GetName(c), out property))
-                {
-                    if (property.CanWrite)
-                        colProperties[c] = property;
-                }
-            }
-
-            // Map rows to objects:
-            for (int r = 0; r < rowcount; r++)
-            {
-                if (!Reader.Read()) break;
-
-                var obj = new T();
-                for (int c = 0; c < colProperties.Length; c++)
-                {
-                    var prop = colProperties[c];
-                    if (prop != null)
-                    {
-                        if (!Reader.IsDBNull(c))
-                        {
-                            prop.SetValue(obj, Reader.GetValue(c));
-                        }
-                    }
-                }
-                yield return obj;
-            }
-        }
-
+        /// <summary>
+        /// Maps all rows to ExpandoObjects.
+        /// </summary>
+        /// <returns>An enumeration of ExpandoOjects.</returns>
         public IEnumerable<ExpandoObject> TakeAll()
         {
             return this.Take(Int32.MaxValue);
         }
 
+        /// <summary>
+        /// Take rowcount number of rows and maps them to ExpandoObjects.
+        /// </summary>
+        /// <param name="rowcount">Up to number of rows to return.</param>
+        /// <returns>An enumeration of ExpandoOjects.</returns>
         public IEnumerable<ExpandoObject> Take(int rowcount)
         {
             // Retrieve fields names:
@@ -161,6 +130,68 @@ namespace Arebis.Data
                     obj[fields[c]] = (Reader.IsDBNull(c) ? null : Reader.GetValue(c));
                 }
                 yield return (ExpandoObject)obj;
+            }
+        }
+
+        /// <summary>
+        /// Maps all rows to objects of type T.
+        /// Numerical column names map to default indexer properties.
+        /// </summary>
+        /// <typeparam name="T">Type of objects to return.</typeparam>
+        /// <returns>An enumeration of T objects.</returns>
+        public IEnumerable<T> TakeAll<T>()
+            where T : new()
+        {
+            return this.Take<T>(Int32.MaxValue);
+        }
+
+        /// <summary>
+        /// Take rowcount number of rows and maps them to objects of type T.
+        /// Numerical column names map to default indexer properties.
+        /// </summary>
+        /// <typeparam name="T">Type of objects to return.</typeparam>
+        /// <param name="rowcount">Up to number of rows to return.</param>
+        /// <returns>An enumeration of T objects.</returns>
+        public IEnumerable<T> Take<T>(int rowcount)
+            where T : new()
+        {
+            // Map column names to matching property info's:
+            var typeProperties = typeof(T).GetProperties().ToDictionary(p => p.Name, p => p);
+            var colProperties = new PropertyInfo[this.Reader.FieldCount];
+            var colIndexer = new object[this.Reader.FieldCount][];
+            for (int c = 0; c < colProperties.Length; c++)
+            {
+                PropertyInfo property;
+                var columnName = Reader.GetName(c);
+                var columnNameIsNumeric = numerical.IsMatch(columnName);
+                var propertyName = (columnNameIsNumeric ? "Item" : columnName); // Use default index property "Item" if column name is numerical...
+                if (typeProperties.TryGetValue(propertyName, out property))
+                {
+                    if (property.CanWrite)
+                        colProperties[c] = property;
+                    if (columnNameIsNumeric)
+                        colIndexer[c] = new object[1] { Int32.Parse(columnName) };
+                }
+            }
+
+            // Map rows to objects:
+            for (int r = 0; r < rowcount; r++)
+            {
+                if (!Reader.Read()) break;
+
+                var obj = new T();
+                for (int c = 0; c < colProperties.Length; c++)
+                {
+                    var prop = colProperties[c];
+                    if (prop != null)
+                    {
+                        if (!Reader.IsDBNull(c))
+                        {
+                            prop.SetValue(obj, Reader.GetValue(c), colIndexer[c]);
+                        }
+                    }
+                }
+                yield return obj;
             }
         }
 

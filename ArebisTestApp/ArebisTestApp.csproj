@@ -173,6 +173,10 @@
       <Project>{8826F246-4754-4D05-B25D-2FCDEA50C478}</Project>
       <Name>Arebis.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Arebis.Data\Arebis.Data.csproj">
+      <Project>{e51fca03-d7da-4f7d-a198-32daf7a7c45d}</Project>
+      <Name>Arebis.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Arebis.Testing\Arebis.Testing.csproj">
       <Project>{829ED2A9-5B5F-4CB1-BF38-27A503416B0D}</Project>
       <Name>Arebis.Testing</Name>
