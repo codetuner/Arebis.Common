@@ -4,6 +4,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web;
 
@@ -14,6 +15,10 @@ namespace Arebis.Web
         private static readonly object StaticSyncRoot = new Object();
 
         private static volatile DedicatedWorkThread<string> LoggingThread;
+
+        private static volatile int FlushCounter = 0;
+
+        private static string[] LoggingFlags;
 
         private static string Filename;
 
@@ -60,7 +65,11 @@ namespace Arebis.Web
             sb.Append(' ');
 
             // Write log record, user data:
-            sb.Append(LogFormatted(servervars["REMOTE_ADDR"])); // IP address of the client
+            var forwardedFor = servervars["HTTP_X_FORWARDED_FOR"];
+            if (forwardedFor == null)
+                sb.Append(LogFormatted(servervars["REMOTE_ADDR"])); // IP address of the client
+            else
+                sb.Append(LogFormatted(forwardedFor)); // IP address of the client
             sb.Append(' ');
             sb.Append(LogFormatted(servervars["REMOTE_USER"])); // 'Username' of a logged-in user
             sb.Append(' ');
@@ -69,6 +78,8 @@ namespace Arebis.Web
             sb.Append(' ');
 
             // Write log record, status and metrics data:
+            sb.Append(LogFormatted(response.ContentType)); // Response Content Type
+            sb.Append(' ');
             sb.Append(response.StatusCode); // HTTP status code
             sb.Append(' ');
             sb.Append(response.SubStatusCode); // HTTP sub status code
@@ -78,6 +89,15 @@ namespace Arebis.Web
             sb.Append(request.TotalBytes + servervars["ALL_RAW"].Length); // Bytes sent to server (client-to-server); headers and request content
             sb.Append(' ');
             sb.Append(((MeteringStream)context.Items["_W3cLog_Os"]).BytesWritten); // Bytes sent to client (server-to-client); only resopnse content
+
+            // Write Cloudflare data:
+            if (LoggingFlags.Contains("cloudflare"))
+            {
+                sb.Append(' ');
+                sb.Append(LogFormatted(servervars["HTTP_CF_IPCOUNTRY"])); // Cloudflare: country of origin
+                sb.Append(' ');
+                sb.Append(LogFormatted(servervars["HTTP_CF_CONNECTING_IP"])); // Cloudflare: connecting IP
+            }
 
             LoggingThread.AddWork(sb.ToString());
         }
@@ -113,6 +133,9 @@ namespace Arebis.Web
                     {
                         Filename = Path.Combine(path, String.Format("{0:yyyyMMdd-HHmmss}-{1}-{2}-{3}.log", nowUtc, Environment.MachineName, context.Request.ServerVariables["INSTANCE_ID"], context.Request.ServerVariables["SERVER_NAME"]));
                     }
+
+                    // Retrieve settings:
+                    LoggingFlags = (ConfigurationManager.AppSettings[""] ?? "").Split(',').Select(s => s.Trim().ToLowerInvariant()).ToArray();
 
                     // Create logging thread:
                     LoggingThread = new DedicatedWorkThread<string>(
@@ -150,13 +173,27 @@ namespace Arebis.Web
                 LogWriter.Write("#ProcessorCount: ");
                 LogWriter.WriteLine(System.Environment.ProcessorCount);
                 LogWriter.WriteLine("#");
-                LogWriter.WriteLine("#Fields: date time s-ip cs-version s-port x-cs-https cs-host cs-method cs-uri-stem cs-uri-query cs(User-Agent) x-cs-accept-language cs(Referer) c-ip cs-username x-asp-session sc-status sc-substatus time-taken cs-bytes sc-bytes");
+                LogWriter.Write("#Fields: date time s-ip cs-version s-port x-cs-https cs-host cs-method cs-uri-stem cs-uri-query cs(User-Agent) x-cs-accept-language cs(Referer) c-ip cs-username x-asp-session x-sc-content-type sc-status sc-substatus time-taken cs-bytes sc-bytes");
+                // Write Cloudflare data:
+                if (LoggingFlags.Contains("cloudflare"))
+                {
+                    LogWriter.Write(" x-cf-country x-cf-c-ip");
+                }
+                LogWriter.WriteLine();
+
             }
         }
 
         private static void WhenLogHandlerDo(string record)
         {
             LogWriter.WriteLine(record);
+
+            // Flush at least every 1000 requests:
+            if (FlushCounter++ > 1000)
+            {
+                LogWriter.Flush();
+                FlushCounter = 0;
+            }
         }
 
         private static void WhenLogHandlerFailed(object sender, WorkItemExceptionEventArgs<string> e)

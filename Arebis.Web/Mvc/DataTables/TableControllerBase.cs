@@ -14,6 +14,13 @@ namespace Arebis.Web.Mvc.DataTables
         [HttpPost]
         public abstract ActionResult Edit(TModel model);
 
+        /// <summary>
+        /// If the ModelState is valid, executes the action and returns status 202 Accepted.
+        /// If the model state is not valid, or if action fails, returns the default view on the model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="action">Action to take when ModelState is valid.</param>
+        /// <returns></returns>
         [NonAction]
         protected ActionResult ModelAction(TModel model, Action action)
         {
