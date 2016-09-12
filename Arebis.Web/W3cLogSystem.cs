@@ -97,6 +97,8 @@ namespace Arebis.Web
                 sb.Append(LogFormatted(servervars["HTTP_CF_IPCOUNTRY"])); // Cloudflare: country of origin
                 sb.Append(' ');
                 sb.Append(LogFormatted(servervars["HTTP_CF_CONNECTING_IP"])); // Cloudflare: connecting IP
+                sb.Append(' ');
+                sb.Append(LogFormatted(servervars["HTTP_CF_RAY"])); // Cloudflare: Ray ID
             }
 
             LoggingThread.AddWork(sb.ToString());
@@ -135,7 +137,7 @@ namespace Arebis.Web
                     }
 
                     // Retrieve settings:
-                    LoggingFlags = (ConfigurationManager.AppSettings[""] ?? "").Split(',').Select(s => s.Trim().ToLowerInvariant()).ToArray();
+                    LoggingFlags = (ConfigurationManager.AppSettings["W3cLoggingFlags"] ?? "").Split(',').Select(s => s.Trim().ToLowerInvariant()).ToArray();
 
                     // Create logging thread:
                     LoggingThread = new DedicatedWorkThread<string>(
@@ -177,7 +179,7 @@ namespace Arebis.Web
                 // Write Cloudflare data:
                 if (LoggingFlags.Contains("cloudflare"))
                 {
-                    LogWriter.Write(" x-cf-country x-cf-c-ip");
+                    LogWriter.Write(" x-cf-country x-cf-c-ip x-cf-ray");
                 }
                 LogWriter.WriteLine();
 
