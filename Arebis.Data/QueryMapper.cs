@@ -20,6 +20,7 @@ namespace Arebis.Data
         public QueryMapper(DbConnection connection, string sql, CommandType commandType = CommandType.Text)
         {
             if (connection.State != ConnectionState.Open) connection.Open();
+            this.Connection = connection;
             this.Command = connection.CreateCommand();
             this.Command.CommandText = sql;
             this.Command.CommandType = commandType;
@@ -155,24 +156,10 @@ namespace Arebis.Data
         public IEnumerable<T> Take<T>(int rowcount)
             where T : new()
         {
-            // Map column names to matching property info's:
-            var typeProperties = typeof(T).GetProperties().ToDictionary(p => p.Name, p => p);
-            var colProperties = new PropertyInfo[this.Reader.FieldCount];
-            var colIndexer = new object[this.Reader.FieldCount][];
-            for (int c = 0; c < colProperties.Length; c++)
-            {
-                PropertyInfo property;
-                var columnName = Reader.GetName(c);
-                var columnNameIsNumeric = numerical.IsMatch(columnName);
-                var propertyName = (columnNameIsNumeric ? "Item" : columnName); // Use default index property "Item" if column name is numerical...
-                if (typeProperties.TryGetValue(propertyName, out property))
-                {
-                    if (property.CanWrite)
-                        colProperties[c] = property;
-                    if (columnNameIsNumeric)
-                        colIndexer[c] = new object[1] { Int32.Parse(columnName) };
-                }
-            }
+            // Map columns to type properties:
+            PropertyInfo[] colProperties;
+            object[][] colIndexer;
+            this.MapColumns<T>(this.Reader, out colProperties, out colIndexer);
 
             // Map rows to objects:
             for (int r = 0; r < rowcount; r++)
@@ -195,6 +182,66 @@ namespace Arebis.Data
             }
         }
 
+        /// <summary>
+        /// Maps columns to properties of type T. By default, properties are mapped by name and numerical
+        /// column names are mapped to the default indexer properties.
+        /// </summary>
+        protected virtual void MapColumns<T>(DbDataReader reader, out PropertyInfo[] properties, out object[][] indexes)
+        {
+            // Map column names to matching property info's:
+            Dictionary<string, PropertyInfo> typeProperties = GetPropertiesMap<T>();
+            properties = new PropertyInfo[this.Reader.FieldCount];
+            indexes = new object[this.Reader.FieldCount][];
+            PropertyInfo indexerProperty = null;
+            for (int c = 0; c < properties.Length; c++)
+            {
+                PropertyInfo property;
+                var columnName = Reader.GetName(c);
+                if (typeProperties.TryGetValue(columnName, out property))
+                {
+                    if (property.CanWrite) properties[c] = property;
+                }
+                else if (numerical.IsMatch(columnName))
+                {
+                    property = indexerProperty ?? (indexerProperty = typeof(T).GetProperty("Item"));
+                    if (property != null && property.CanWrite)
+                    {
+                        properties[c] = property;
+                        indexes[c] = new object[1] { Int32.Parse(columnName) };
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns a dictionary to help mapping columns to properties.
+        /// </summary>
+        /// <typeparam name="T">The type to build the dictionary for.</typeparam>
+        /// <returns>A dictionary mapping potential column names with properties.</returns>
+        protected virtual Dictionary<string, PropertyInfo> GetPropertiesMap<T>()
+        {
+            var typeProperties = new Dictionary<string, PropertyInfo>(StringComparer.OrdinalIgnoreCase);
+            typeProperties.AddRange(typeof(T).GetProperties().Select(p => new KeyValuePair<string, PropertyInfo>(p.Name, p)));
+            return typeProperties;
+        }
+
+        /// <summary>
+        /// Returns a datatable filled with all rows. If a datatable is given, that one is filled, otherwise a new datatable is created.
+        /// </summary>
+        public DataTable FillTable(DataTable dataTable = null)
+        {
+            dataTable = dataTable ?? new DataTable();
+
+            var dataAdapter = this.Connection.CreateDataAdapter();
+            dataAdapter.SelectCommand = this.Connection.CreateCommand(this.Command.CommandText);
+            dataAdapter.Fill(dataTable);
+
+            return dataTable;
+        }
+
+        /// <summary>
+        /// Disposes this query mapper.
+        /// </summary>
         public virtual void Dispose()
         {
             if (this.reader != null) this.Reader.Dispose();

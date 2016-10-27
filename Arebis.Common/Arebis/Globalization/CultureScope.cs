@@ -9,54 +9,91 @@ using System.Threading.Tasks;
 namespace Arebis.Globalization
 {
     /// <summary>
-    /// A scope during which the given cultures are set as current on the thread.
+    /// Withing a CultureScope, CurrentCulture and CurrentUICulture can be overriden. When disposing
+    /// the scope, the original cultures are restored.
     /// </summary>
     public class CultureScope : IDisposable
     {
-        private CultureInfo previousCulture;
-        private CultureInfo previousUiCulture;
+        private CultureInfo originalCulture;
+        private CultureInfo originalUICulture;
 
+        /// <summary>
+        /// Creates as CultureScope with invariant culture.
+        /// </summary>
+        public static CultureScope Invariant
+        {
+            get
+            {
+                return new CultureScope(CultureInfo.InvariantCulture);
+            }
+        }
+
+        /// <summary>
+        /// Overrides only the CurrentCulture within this scope.
+        /// </summary>
+        /// <param name="cultureId">LCID of a CultureInfo or a Windows-only culture identifier to set as CurrentCulture.</param>
+        public CultureScope(int cultureId)
+            : this(new CultureInfo(cultureId))
+        { }
+
+        /// <summary>
+        /// Overrides the CurrentCulture and/or CurrentUICulture within this scope.
+        /// </summary>
+        /// <param name="cultureId">LCID of a CultureInfo or a Windows-only culture identifier, or null to leave the CurrentCulture untouched.</param>
+        /// <param name="uiCultureId">LCID of a CultureInfo or a Windows-only culture identifier, or null to leave the CurrentUICulture untouched.</param>
+        public CultureScope(int? cultureId, int? uiCultureId)
+            : this((cultureId.HasValue) ? new CultureInfo(cultureId.Value) : null, (uiCultureId.HasValue) ? new CultureInfo(uiCultureId.Value) : null)
+        { }
+
+        /// <summary>
+        /// Overrides only the CurrentCulture within this scope.
+        /// </summary>
+        /// <param name="cultureName">CultureInfo name to set as CurrentCulture.</param>
         public CultureScope(string cultureName)
-            : this(new CultureInfo(cultureName), null)
+            : this((cultureName != null) ? new CultureInfo(cultureName) : null)
         { }
 
+        /// <summary>
+        /// Overrides the CurrentCulture and/or CurrentUICulture within this scope.
+        /// </summary>
+        /// <param name="cultureName">CultureInfo name to set as CurrentCulture, or null to leave the CurrentCulture untouched.</param>
+        /// <param name="uiCultureName">CultureInfo name to set as CurrentUICulture, or null to leave the CurrentUICulture untouched.</param>
         public CultureScope(string cultureName, string uiCultureName)
-            : this(new CultureInfo(cultureName), new CultureInfo(uiCultureName))
+            : this((cultureName != null) ? new CultureInfo(cultureName) : null, (uiCultureName != null) ? new CultureInfo(uiCultureName) : null)
         { }
 
+        /// <summary>
+        /// Overrides only the CurrentCulture within this scope.
+        /// </summary>
+        /// <param name="culture">CultureInfo to set as CurrentCulture.</param>
         public CultureScope(CultureInfo culture)
             : this(culture, null)
         { }
 
+        /// <summary>
+        /// Overrides the CurrentCulture and/or CurrentUICulture within this scope.
+        /// </summary>
+        /// <param name="culture">CultureInfo to set as CurrentCulture, or null to leave the CurrentCulture untouched.</param>
+        /// <param name="uiCulture">CultureInfo to set as CurrentUICulture, or null to leave the CurrentUICulture untouched.</param>
         public CultureScope(CultureInfo culture, CultureInfo uiCulture)
         {
-            this.previousCulture = Thread.CurrentThread.CurrentCulture;
-            this.previousUiCulture = Thread.CurrentThread.CurrentUICulture;
+            // Store original values:
+            this.originalCulture = CultureInfo.CurrentCulture;
+            this.originalUICulture = CultureInfo.CurrentUICulture;
 
-            if (culture != null) Thread.CurrentThread.CurrentCulture = culture;
-            if (uiCulture != null) Thread.CurrentThread.CurrentUICulture = uiCulture;
+            // Set scope values:
+            System.Threading.Thread.CurrentThread.CurrentCulture = culture ?? System.Threading.Thread.CurrentThread.CurrentCulture;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = uiCulture ?? System.Threading.Thread.CurrentThread.CurrentUICulture;
         }
 
-        public CultureInfo CurrentCulture
+        /// <summary>
+        /// Disposes the CultureScope, restoring the original CurrentCulture and CurrentUICulture.
+        /// </summary>
+        public void Dispose()
         {
-            get
-            {
-                return Thread.CurrentThread.CurrentCulture;
-            }
-        }
-
-        public CultureInfo CurrentUICulture
-        {
-            get
-            {
-                return Thread.CurrentThread.CurrentUICulture;
-            }
-        }
-
-        public virtual void Dispose()
-        {
-            Thread.CurrentThread.CurrentCulture = this.previousCulture;
-            Thread.CurrentThread.CurrentUICulture = this.previousUiCulture;
+            // Restore original values:
+            System.Threading.Thread.CurrentThread.CurrentCulture = this.originalCulture;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = this.originalUICulture;
         }
     }
 }

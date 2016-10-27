@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,13 +56,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssociationEndBehaviorAttribute.cs" />
+    <Compile Include="BaseDbContext.cs" />
     <Compile Include="DynamicQuery.cs" />
-    <Compile Include="EntityExtensions.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="EntityExtensions.ef6.cs" />
+    <Compile Include="EntityExtensions.ef4.cs" />
     <Compile Include="EntityFrameworkHelper.cs" />
+    <Compile Include="ISaveInterceptable.cs" />
     <Compile Include="ObjectContextExtension.cs" />
     <Compile Include="OptimisticConcurrencyAttribute.cs" />
     <Compile Include="OptimisticConcurrencyManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringTrimmerInterceptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Arebis.Data.Entity.nuspec" />
