@@ -31,8 +31,11 @@ CALL :Publish Arebis.Windows\bin\Release\Arebis.Windows.*.0.nupkg
 EXIT /B 0
 
 :Publish
-IF NOT EXIST "%~1" EXIT /B 0
 ECHO.
+IF NOT EXIST "%~1" (
+	ECHO "%~1" not found.
+	EXIT /B 0
+)
 DIR "%~1" /B
 CHOICE /C YN /M "Publish ? "
 IF %ERRORLEVEL% NEQ 1 EXIT /B 0
