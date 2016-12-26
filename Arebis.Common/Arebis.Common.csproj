@@ -129,6 +129,7 @@
     <Compile Include="Arebis\Extensions\FileInfoExtension.cs" />
     <Compile Include="Arebis\Extensions\NumberExtension.cs" />
     <Compile Include="Arebis\Extensions\ObjectExtension.cs" />
+    <Compile Include="Arebis\Extensions\TimeSpanExtension.cs" />
     <Compile Include="Arebis\Extensions\TypeExtension.cs" />
     <Compile Include="Arebis\Globalization\CultureScope.cs" />
     <Compile Include="Arebis\Information.cs" />

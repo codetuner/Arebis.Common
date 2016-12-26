@@ -45,5 +45,16 @@ namespace Arebis.Extensions
 
             return result;
         }
-	}
+
+        /// <summary>
+        /// Returns the ToString of the object, or the given defaultString if the object argument is null.
+        /// </summary>
+        public static string ToStringOr(this object obj, string defaultString)
+        {
+            if (Object.ReferenceEquals(obj, null))
+                return defaultString;
+            else
+                return obj.ToString();
+        }
+    }
 }

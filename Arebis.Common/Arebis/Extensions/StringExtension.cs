@@ -331,6 +331,8 @@ namespace Arebis.Extensions
         {
             if (value == null)
                 return value;
+            else if (value.Length <= startIndex)
+                return String.Empty;
             else if (value.Length < (startIndex + length))
                 return value.Substring(startIndex);
             else

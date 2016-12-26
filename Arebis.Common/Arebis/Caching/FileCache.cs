@@ -15,6 +15,7 @@ namespace Arebis.Caching
     /// A base implementation for a cache that contains file system files and invalidates cache
     /// data when file has changed on filesystem.
     /// </summary>
+    /// <typeparam name="TFile">Type representing the file content.</typeparam>
     public abstract class FileCache<TFile>
     where TFile : class
     {
@@ -28,46 +29,58 @@ namespace Arebis.Caching
         /// Instantiates a new, unlimited FileCache.
         /// </summary>
         public FileCache()
-            : this(int.MaxValue, long.MaxValue, long.MaxValue)
+            : this(int.MaxValue, long.MaxValue, long.MaxValue, true)
         { }
 
         /// <summary>
         /// Instantiates a new FileCache.
-        /// Takes settings for this instance by extending the given appSettingBaseKey with respectively ".MaxFileCount", ".MaxFileLengthToCache" and ".MaxFileLengthSum".
+        /// Takes settings for this instance by extending the given appSettingBaseKey with respectively ".MaxFileCount", ".MaxFileLengthToCache", ".MaxFileLengthSum" and ".InvalidateOnSoftRecycle".
         /// Missing appSetting keys default to unlimited.
         /// </summary>
         /// <param name="appSettingsBaseKey">The base key name of appSettings.</param>
         public FileCache(string appSettingsBaseKey)
-            : this(appSettingsBaseKey, Int32.MaxValue, Int64.MaxValue, Int64.MaxValue)
+            : this(appSettingsBaseKey, Int32.MaxValue, Int64.MaxValue, Int64.MaxValue, true)
         { }
 
         /// <summary>
         /// Instantiates a new FileCache.
-        /// Takes settings for this instance by extending the given appSettingBaseKey with respectively ".MaxFileCount", ".MaxFileLengthToCache" and ".MaxFileLengthSum".
+        /// Takes settings for this instance by extending the given appSettingBaseKey with respectively ".MaxFileCount", ".MaxFileLengthToCache", ".MaxFileLengthSum" and ".InvalidateOnSoftRecycle".
         /// For each missing appSetting, the given default value is taken.
         /// </summary>
         /// <param name="appSettingsBaseKey">The base key name of appSettings.</param>
         /// <param name="defaultMaxFileCount">The value for MaxFileCount when no matching appSetting key is defined.</param>
         /// <param name="defaultMaxFileLengthToCache">The value for MaxFileLengthToCache when no matching appSetting key is defined.</param>
         /// <param name="defaultMaxFileLengthSum">The value for MaxFileLengthSum when no matching appSetting key is defined.</param>
-        public FileCache(string appSettingsBaseKey, int defaultMaxFileCount, long defaultMaxFileLengthToCache, long defaultMaxFileLengthSum)
+        /// <param name="defaultInvalidateOnSoftRecycle">The value for InvalidateOnSoftRecycle when no matching appSetting key is defined.</param>
+        public FileCache(string appSettingsBaseKey, int defaultMaxFileCount, long defaultMaxFileLengthToCache, long defaultMaxFileLengthSum, bool defaultInvalidateOnSoftRecycle)
             : this(
                 Int32.Parse(ConfigurationManager.AppSettings[appSettingsBaseKey + ".MaxFileCount"] ?? defaultMaxFileCount.ToString()),
                 Int64.Parse(ConfigurationManager.AppSettings[appSettingsBaseKey + ".MaxFileLengthToCache"] ?? defaultMaxFileLengthToCache.ToString()),
-                Int64.Parse(ConfigurationManager.AppSettings[appSettingsBaseKey + ".MaxFileLengthSum"] ?? defaultMaxFileLengthSum.ToString())
+                Int64.Parse(ConfigurationManager.AppSettings[appSettingsBaseKey + ".MaxFileLengthSum"] ?? defaultMaxFileLengthSum.ToString()),
+                Boolean.Parse(ConfigurationManager.AppSettings[appSettingsBaseKey + ".InvalidateOnSoftRecycle"] ?? defaultInvalidateOnSoftRecycle.ToString())
             )
         { }
-       
+
         /// <summary>
         /// Instantiages a new FileCache with given count and size limitations.
         /// </summary>
         /// <param name="maxFileCount">The maximum numbers of files the cache should contain.</param>
         /// <param name="maxFileLengthToCache">The maximum a single file should have, to be allowed to the cache.</param>
         /// <param name="maxFileLengthSum">The maximum file size summed for all files in cache.</param>
-        public FileCache(int maxFileCount, long maxFileLengthToCache, long maxFileLengthSum)
+        /// <param name="invalidateOnSoftRecycle">Whether to invalidate this cache on Current.SoftRecycle.</param>
+        public FileCache(int maxFileCount, long maxFileLengthToCache, long maxFileLengthSum, bool invalidateOnSoftRecycle)
         {
             this.MaxFileCount = maxFileCount;
             this.MaxFileLengthSum = maxFileLengthSum;
+            if (invalidateOnSoftRecycle) Current.SoftRecycle += WhenSoftRecycling;
+        }
+
+        /// <summary>
+        /// Invalidate when soft recycling.
+        /// </summary>
+        protected void WhenSoftRecycling(object sender, EventArgs e)
+        {
+            this.Invalidate();
         }
 
         /// <summary>
@@ -174,6 +187,24 @@ namespace Arebis.Caching
                 var cdoc = documentsCache[path];
                 actualFileLengthSum -= cdoc.FileLength;
                 documentsCache.Remove(path);
+            }
+        }
+
+        /// <summary>
+        /// Invalidates the whole cache.
+        /// </summary>
+        public void Invalidate()
+        {
+            cacheLock.AcquireWriterLock(lockTimeout);
+            try
+            {
+                this.documentsCache.Clear();
+                this.documentsQueue.Clear();
+            }
+            finally
+            {
+                // Release writer lock:
+                cacheLock.ReleaseLock();
             }
         }
 

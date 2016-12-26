@@ -47,82 +47,100 @@ namespace Arebis.Caching
 		/// </summary>
 		public CacheValidator<T> CacheValidator = null;
 
-		/// <summary>
-		/// Constructs a new cache instance.
-		/// </summary>
-		/// <param name="valueProvider">A ValueProvider delegate that will provide updated values to the cache.</param>
-		/// <param name="cacheValidator">A CacheValidator delegate that will tell if cached value is still actual.</param>
-		/// <param name="lockTimeout"></param>
-		public Cache(ValueProvider<T> valueProvider, CacheValidator<T> cacheValidator, int lockTimeout)
+        /// <summary>
+        /// Constructs a new cache instance.
+        /// </summary>
+        /// <param name="valueProvider">A ValueProvider delegate that will provide updated values to the cache.</param>
+        /// <param name="cacheValidator">A CacheValidator delegate that will tell if cached value is still actual.</param>
+        /// <param name="lockTimeout">Lock timeout in milliseconds.</param>
+        /// <param name="invalidateOnSoftRecycle">Whether to invalidate this cache on Current.SoftRecycle.</param>
+        public Cache(ValueProvider<T> valueProvider, CacheValidator<T> cacheValidator, int lockTimeout, bool invalidateOnSoftRecycle)
 		{
 			if (valueProvider == null) throw new ArgumentNullException("valueProvider");
 			this.ValueProvider = valueProvider;
 			this.CacheValidator = cacheValidator;
 			this.lockTimeout = lockTimeout;
+            if (invalidateOnSoftRecycle) Current.SoftRecycle += WhenSoftRecycling;
 		}
-		
-		/// <summary>
-		/// Constructs a new cache instance.
-		/// </summary>
-		/// <param name="valueProvider">A ValueProvider delegate that will provide updated values to the cache.</param>
-		/// <param name="lockTimeout"></param>
-		public Cache(ValueProvider<T> valueProvider, int lockTimeout)
+
+        /// <summary>
+        /// Constructs a new cache instance.
+        /// </summary>
+        /// <param name="valueProvider">A ValueProvider delegate that will provide updated values to the cache.</param>
+        /// <param name="lockTimeout">Lock timeout in milliseconds.</param>
+        /// <param name="invalidateOnSoftRecycle">Whether to invalidate this cache on Current.SoftRecycle.</param>
+        public Cache(ValueProvider<T> valueProvider, int lockTimeout, bool invalidateOnSoftRecycle)
 		{
 			if (valueProvider == null) throw new ArgumentNullException("valueProvider");
 			this.ValueProvider = valueProvider;
 			this.lockTimeout = lockTimeout;
-		}
+            if (invalidateOnSoftRecycle) Current.SoftRecycle += WhenSoftRecycling;
+        }
 
-		/// <summary>
-		/// Constructs a new cache instance.
-		/// </summary>
-		/// <param name="initialValue">The value to initialize the cache with.</param>
-		/// <param name="cacheValidator">A CacheValidator delegate that will tell if cached value is still actual.</param>
-		/// <param name="lockTimeout"></param>
-		public Cache(T initialValue, CacheValidator<T> cacheValidator, int lockTimeout)
+        /// <summary>
+        /// Constructs a new cache instance.
+        /// </summary>
+        /// <param name="initialValue">The value to initialize the cache with.</param>
+        /// <param name="cacheValidator">A CacheValidator delegate that will tell if cached value is still actual.</param>
+        /// <param name="lockTimeout">Lock timeout in milliseconds.</param>
+        /// <param name="invalidateOnSoftRecycle">Whether to invalidate this cache on Current.SoftRecycle.</param>
+        public Cache(T initialValue, CacheValidator<T> cacheValidator, int lockTimeout, bool invalidateOnSoftRecycle)
 		{
 			this.setValue(initialValue);
 			this.lockTimeout = lockTimeout;
-		}
+            if (invalidateOnSoftRecycle) Current.SoftRecycle += WhenSoftRecycling;
+        }
 
-		/// <summary>
-		/// Constructs a new cache instance.
-		/// </summary>
-		/// <param name="valueProvider">A ValueProvider delegate that will provide updated values to the cache.</param>
-		/// <param name="maxAge"></param>
-		/// <param name="lockTimeout"></param>
-		public Cache(ValueProvider<T> valueProvider, TimeSpan maxAge, int lockTimeout)
+        /// <summary>
+        /// Constructs a new cache instance.
+        /// </summary>
+        /// <param name="valueProvider">A ValueProvider delegate that will provide updated values to the cache.</param>
+        /// <param name="maxAge"></param>
+        /// <param name="lockTimeout">Lock timeout in milliseconds.</param>
+        /// <param name="invalidateOnSoftRecycle">Whether to invalidate this cache on Current.SoftRecycle.</param>
+        public Cache(ValueProvider<T> valueProvider, TimeSpan maxAge, int lockTimeout, bool invalidateOnSoftRecycle)
 		{
 			if (valueProvider == null) throw new ArgumentNullException("valueProvider");
 			this.ValueProvider = valueProvider;
 			this.maxAge = maxAge;
 			this.CacheValidator = this.DefaultAgeValidator;
 			this.lockTimeout = lockTimeout;
-		}
+            if (invalidateOnSoftRecycle) Current.SoftRecycle += WhenSoftRecycling;
+        }
 
-		/// <summary>
-		/// Constructs a new cache instance.
-		/// </summary>
-		/// <param name="initialValue">The value to initialize the cache with.</param>
-		/// <param name="lockTimeout"></param>
-		public Cache(T initialValue, int lockTimeout)
+        /// <summary>
+        /// Constructs a new cache instance.
+        /// </summary>
+        /// <param name="initialValue">The value to initialize the cache with.</param>
+        /// <param name="lockTimeout">Lock timeout in milliseconds.</param>
+        /// <param name="invalidateOnSoftRecycle">Whether to invalidate this cache on Current.SoftRecycle.</param>
+        public Cache(T initialValue, int lockTimeout, bool invalidateOnSoftRecycle)
 		{
 			this.setValue(initialValue);
 			this.lockTimeout = lockTimeout;
-		}
+            if (invalidateOnSoftRecycle) Current.SoftRecycle += WhenSoftRecycling;
+        }
 
-		/// <summary>
-		/// Default validator checking the age of the value.
-		/// </summary>
-		private bool DefaultAgeValidator(Cache<T> cache)
+        /// <summary>
+        /// Default validator checking the age of the value.
+        /// </summary>
+        private bool DefaultAgeValidator(Cache<T> cache)
 		{
 			return (cache.ValueAge < this.maxAge);
 		}
 
-		/// <summary>
-		/// Whether the cache contains a value that is currently valid.
-		/// </summary>
-		public bool IsValueValid
+        /// <summary>
+        /// Invalidate when soft recycling.
+        /// </summary>
+        protected void WhenSoftRecycling(object sender, EventArgs e)
+        {
+            this.Invalidate();
+        }
+
+        /// <summary>
+        /// Whether the cache contains a value that is currently valid.
+        /// </summary>
+        public bool IsValueValid
 		{
 			get 
 			{

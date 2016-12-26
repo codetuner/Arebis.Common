@@ -17,6 +17,8 @@ namespace Arebis.Data
     {
         private static Regex numerical = new Regex("^[0-9]+$", RegexOptions.Compiled);
 
+        private bool isDisposed = false;
+
         public QueryMapper(DbConnection connection, string sql, CommandType commandType = CommandType.Text)
         {
             if (connection.State != ConnectionState.Open) connection.Open();
@@ -36,6 +38,10 @@ namespace Arebis.Data
         {
             get
             {
+                if (this.isDisposed)
+                {
+                    throw new ObjectDisposedException("(QueryMapper)", "The invoked QueryMapper has been disposed. Avoid Linq delayed execution after disposing the QueryMapper.");
+                }
                 if (this.reader == null)
                 {
                     this.reader = this.Command.ExecuteReader();
@@ -100,7 +106,7 @@ namespace Arebis.Data
         /// Maps all rows to ExpandoObjects.
         /// </summary>
         /// <returns>An enumeration of ExpandoOjects.</returns>
-        public IEnumerable<ExpandoObject> TakeAll()
+        public IEnumerable<dynamic> TakeAll()
         {
             return this.Take(Int32.MaxValue);
         }
@@ -110,7 +116,7 @@ namespace Arebis.Data
         /// </summary>
         /// <param name="rowcount">Up to number of rows to return.</param>
         /// <returns>An enumeration of ExpandoOjects.</returns>
-        public IEnumerable<ExpandoObject> Take(int rowcount)
+        public IEnumerable<dynamic> Take(int rowcount)
         {
             // Retrieve fields names:
             var fieldcount = Reader.FieldCount;
@@ -130,7 +136,7 @@ namespace Arebis.Data
                 {
                     obj[fields[c]] = (Reader.IsDBNull(c) ? null : Reader.GetValue(c));
                 }
-                yield return (ExpandoObject)obj;
+                yield return obj;
             }
         }
 
@@ -246,6 +252,7 @@ namespace Arebis.Data
         {
             if (this.reader != null) this.Reader.Dispose();
             this.Command.Dispose();
+            this.isDisposed = true;
         }
     }
 }

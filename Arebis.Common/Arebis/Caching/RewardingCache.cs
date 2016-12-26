@@ -28,7 +28,7 @@ namespace Arebis.Caching
         /// Constructs a default RewardingCache instance sized for 100 elements.
         /// </summary>
         public RewardingCache()
-            : this(100, 10, 50)
+            : this(100, 10, 50, true)
         { }
 
         ///// <summary>
@@ -45,7 +45,8 @@ namespace Arebis.Caching
         /// <param name="maxSize">Maximum number of elements stored in the cache.</param>
         /// <param name="hitBenefit">Benefit (=number of positions) an elmement gets when hitted.</param>
         /// <param name="entrance">Entrance position for new elements.</param>
-        public RewardingCache(int maxSize, int hitBenefit, int entrance)
+        /// <param name="invalidateOnSoftRecycle">Whether to invalidate this cache on Current.SoftRecycle.</param>
+        public RewardingCache(int maxSize, int hitBenefit, int entrance, bool invalidateOnSoftRecycle)
         {
             // Validate arguments:
             if (maxSize <= 0) throw new ArgumentOutOfRangeException("maxSize");
@@ -58,6 +59,7 @@ namespace Arebis.Caching
             _maxSize = maxSize;
             _hitBenefit = hitBenefit;
             _entrance = entrance;
+            if (invalidateOnSoftRecycle) Current.SoftRecycle += WhenSoftRecycling;
         }
 
         #endregion Constructors
@@ -277,6 +279,14 @@ namespace Arebis.Caching
                 this.CacheRemoved(this, new ValueEventArgs<KeyValuePair<TKey, TValue>>(item));
         }
 
+        /// <summary>
+        /// Invalidate when soft recycling.
+        /// </summary>
+        protected void WhenSoftRecycling(object sender, EventArgs e)
+        {
+            this.InvalidateAll();
+        }
+
         #endregion Internal API
 
         #region API for testing
@@ -306,12 +316,5 @@ namespace Arebis.Caching
         public int HitBenefit { get; internal set; }
         public int Entrance { get; internal set; }
         public int Count { get; internal set; }
-        //public CacheStatus(int maxSize, int hitBenefit, int entrace, int count)
-        //{
-        //    MaxSize= maxSize;
-        //    HitBenefit= hitBenefit;
-        //    Entrance= entrace;
-        //    Count= count;
-        //}
     }
 }

@@ -22,6 +22,25 @@ namespace System
         private static ILocalizationFactory localizationFactory;
 
         /// <summary>
+        /// This event is triggered when a soft recycle of the current application environment is performed.
+        /// Its typical use includes clearing caches.
+        /// </summary>
+        public static event EventHandler SoftRecycle;
+
+        /// <summary>
+        /// Performs a soft recycle, triggering the SoftRecycle event.
+        /// Call this method when you want to flush all caches and reinitialize the application without forcing
+        /// a full recycle/restart.
+        /// </summary>
+        public static void PerformSoftRecycle()
+        {
+            if (SoftRecycle != null)
+            {
+                SoftRecycle(null, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
         /// The unit-testable AppContext factory.
         /// If set to null, reverts to the default AppContext factory.
         /// </summary>

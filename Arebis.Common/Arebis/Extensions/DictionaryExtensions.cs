@@ -36,11 +36,83 @@ namespace Arebis.Extensions
         }
 
         /// <summary>
+        /// Adds/overwrites the given key/value to the dictionary and returns the dictionary for fluent syntax.
+        /// </summary>
+        public static IDictionary<TKey, TValue> With<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue value)
+        {
+            dict[key] = value;
+            return dict;
+        }
+
+        /// <summary>
+        /// Removes the given key from the dictionary (if present) and returns the dictionary for fluent syntax.
+        /// </summary>
+        public static IDictionary<TKey, TValue> Without<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
+        {
+            dict.Remove(key);
+            return dict;
+        }
+
+        /// <summary>
         /// Merges the value of the other dictionary in this one.
         /// </summary>
         public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> dict, IDictionary<TKey, TValue> other)
         {
             foreach (var pair in other)
+            {
+                dict[pair.Key] = pair.Value;
+            }
+        }
+
+        /// <summary>
+        /// Converts this dictionary to a string that could be parsed to rebuild the dictionary.
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <param name="keyPrefix"></param>
+        /// <param name="keyValueSeparator"></param>
+        /// <param name="valueSuffix"></param>
+        /// <param name="pairSeparator"></param>
+        /// <returns></returns>
+        public static string ToDictionaryString<TKey, TValue>(this IDictionary<TKey, TValue> dict, string keyPrefix = "", string keyValueSeparator = "=", string valueSuffix = "", string pairSeparator = "\r\n")
+        {
+            var builder = new StringBuilder();
+            foreach (var key in dict.Keys.Select(k => Tuple.Create(k.ToString(), k)).OrderBy(k => k.Item1))
+            {
+                builder.Append(keyPrefix);
+                builder.Append(key.Item1);
+                builder.Append(keyValueSeparator);
+                builder.Append(dict[key.Item2]);
+                builder.Append(valueSuffix);
+                builder.Append(pairSeparator);
+            }
+
+            builder.Length -= pairSeparator.Length;
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Fills a string dictionary with content parsed from a given string.
+        /// </summary>
+        /// <param name="dict">The dictionary object to fill.</param>
+        /// <param name="stringDictionary">The string to parse and take content from.</param>
+        /// <param name="keyPrefix">Character sequence to recognize as a key prefix.</param>
+        /// <param name="keyValueSeparator">Character sequence separating keys from values.</param>
+        /// <param name="valueSuffix">Character sequence suffixing values.</param>
+        /// <param name="pairSeparator">Character sequence separating key/value pairs.</param>
+        /// <example>dict.FillFromString("'name'='John';'city'='LA'", "'", "'='", "'", ";");</example>
+        public static void FillFromString(this IDictionary<string, string> dict, string stringDictionary, string keyPrefix = "", string keyValueSeparator = "=", string valueSuffix = "", string pairSeparator = "\r\n")
+        {
+            if (stringDictionary == null) return;
+
+            var pairs = stringDictionary.SplitString(pairSeparator)
+                .Where(p => p.Length >= (keyPrefix.Length + keyValueSeparator.Length + valueSuffix.Length))
+                .Select(p => p.Substring(keyPrefix.Length, p.Length - -keyPrefix.Length - valueSuffix.Length))
+                .Select(p => new KeyValuePair<string, string>(p.Substring(0, p.IndexOf(keyValueSeparator)), p.Substring(p.IndexOf(keyValueSeparator) + keyValueSeparator.Length)));
+
+            foreach (var pair in pairs)
             {
                 dict[pair.Key] = pair.Value;
             }

@@ -31,21 +31,34 @@ namespace Arebis.Caching
 
         /// <summary>
         /// Instantiates a new LruCache.
-        /// ItemCountLimit is set by the "{name}.ItemCountLimit" AppSetting.
+        /// ItemCountLimit is set by the "{name}.ItemCountLimit" AppSetting;
+        /// the "{name}.InvalidateOnSoftRecycle" (true/false) sets whether items are evicted on soft recycle.
         /// </summary>
         /// <param name="name">Name of the cache, used as base name for AppSetting configuration.</param>
-        protected LruCache(string name)
-        {
-            this.ItemCountLimit = Int32.Parse(ConfigurationManager.AppSettings[name + ".ItemCountLimit"] ?? Int32.MaxValue.ToString());
-        }
+        public LruCache(string name)
+            : this(
+                Int32.Parse(ConfigurationManager.AppSettings[name + ".ItemCountLimit"] ?? Int32.MaxValue.ToString()),
+                Boolean.Parse(ConfigurationManager.AppSettings[name + ".InvalidateOnSoftRecycle"] ?? "true")
+            )
+        { }
 
         /// <summary>
         /// Instantiates a new LruCache.
         /// </summary>
         /// <param name="itemCountLimit">The maximum number of items the cache is allowed to contain.</param>
-        protected LruCache(int itemCountLimit)
+        /// <param name="invalidateOnSoftRecycle">Whether to evict all items in this cache on Current.SoftRecycle.</param>
+        public LruCache(int itemCountLimit, bool invalidateOnSoftRecycle)
         {
             this.ItemCountLimit = itemCountLimit;
+            if (invalidateOnSoftRecycle) Current.SoftRecycle += WhenSoftRecycling;
+        }
+
+        /// <summary>
+        /// Evicts all items when soft recycling.
+        /// </summary>
+        protected void WhenSoftRecycling(object sender, EventArgs e)
+        {
+            this.EvictAll();
         }
 
         /// <summary>

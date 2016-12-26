@@ -32,16 +32,16 @@ namespace Arebis.Caching
         /// Instantiates a file cache to hold compiled XSLT documents up to the given number or
         /// file size rules.
         /// </summary>
-        public XsltFileCache(string appSettingsBaseKey, int defaultMaxFileCount, long defaultMaxFileLengthToCache, long defaultMaxFileLengthSum)
-            : base(appSettingsBaseKey, defaultMaxFileCount, defaultMaxFileLengthToCache, defaultMaxFileLengthSum)
+        public XsltFileCache(string appSettingsBaseKey, int defaultMaxFileCount, long defaultMaxFileLengthToCache, long defaultMaxFileLengthSum, bool defaultInvalidateOnSoftRecycle)
+            : base(appSettingsBaseKey, defaultMaxFileCount, defaultMaxFileLengthToCache, defaultMaxFileLengthSum, defaultInvalidateOnSoftRecycle)
         { }
 
         /// <summary>
         /// Instantiates a file cache to hold compiled XSLT documents up to the given number or
         /// file size rules.
         /// </summary>
-        public XsltFileCache(int maxFileCount, long maxFileLengthToCache, long maxFileLengthSum)
-            : base(maxFileCount, maxFileLengthToCache, maxFileLengthSum)
+        public XsltFileCache(int maxFileCount, long maxFileLengthToCache, long maxFileLengthSum, bool invalidateOnSoftRecycle)
+            : base(maxFileCount, maxFileLengthToCache, maxFileLengthSum, invalidateOnSoftRecycle)
         { }
 
         protected override XslCompiledTransform Load(string filePath)
@@ -57,6 +57,7 @@ namespace Arebis.Caching
     /// <summary>
     /// A cache for XSLT document files.
     /// </summary>
+    [Obsolete("Use XsltFileCache instead.")]
     public class XsltCache2
     {
         private const int _lockTimeout = 10000;

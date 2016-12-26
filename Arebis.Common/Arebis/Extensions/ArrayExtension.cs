@@ -67,20 +67,5 @@ namespace Arebis.Extensions
 
             return -1;
         }
-
-        /// <summary>
-        /// Returns the given byte array compressed with GZip.
-        /// </summary>
-        public static byte[] GZipCompress(this byte[] source, CompressionLevel compressionLevel)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                using (GZipStream gzip = new GZipStream(memory, compressionLevel, true))
-                {
-                    gzip.Write(source, 0, source.Length);
-                }
-                return memory.ToArray();
-            }
-        }
     }
 }

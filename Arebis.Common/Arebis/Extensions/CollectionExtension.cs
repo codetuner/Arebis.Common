@@ -13,39 +13,6 @@ namespace Arebis.Extensions
                 coll.Add(item);
         }
 
-        public static string ToDictionaryString<TKey, TValue>(this IDictionary<TKey, TValue> dict, string keyPrefix = "", string keyValueSeparator = "=", string valueSuffix = "", string pairSeparator = "\r\n")
-        {
-            var builder = new StringBuilder();
-            foreach (var key in dict.Keys.Select(k => Tuple.Create(k.ToString(), k)).OrderBy(k => k.Item1))
-            {
-                builder.Append(keyPrefix);
-                builder.Append(key.Item1);
-                builder.Append(keyValueSeparator);
-                builder.Append(dict[key.Item2]);
-                builder.Append(valueSuffix);
-                builder.Append(pairSeparator);
-            }
-
-            builder.Length -= pairSeparator.Length;
-
-            return builder.ToString();
-        }
-
-        public static void FillFromString(this IDictionary<string, string> dict, string stringDictionary, string keyPrefix = "", string keyValueSeparator = "=", string valueSuffix = "", string pairSeparator = "\r\n")
-        {
-            if (stringDictionary == null) return;
-
-            var pairs = stringDictionary.SplitString(pairSeparator)
-                .Where(p => p.Length >= (keyPrefix.Length + keyValueSeparator.Length + valueSuffix.Length))
-                .Select(p => p.Substring(keyPrefix.Length, p.Length - -keyPrefix.Length - valueSuffix.Length))
-                .Select(p => new KeyValuePair<string, string>(p.Substring(0, p.IndexOf(keyValueSeparator)), p.Substring(p.IndexOf(keyValueSeparator) + keyValueSeparator.Length)));
-
-            foreach (var pair in pairs)
-            {
-                dict[pair.Key] = pair.Value;
-            }
-        }
-
         /// <summary>
         /// Removes several items from a collection.
         /// </summary>
@@ -83,6 +50,42 @@ namespace Arebis.Extensions
             }
 
             return count;
+        }
+
+        /// <summary>
+        /// Adds the given item to the collection and returns the collection for fluent syntax.
+        /// </summary>
+        public static ICollection<T> With<T>(this ICollection<T> collection, T item)
+        {
+            collection.Add(item);
+            return collection;
+        }
+
+        /// <summary>
+        /// Adds the given items to the collection and returns the collection for fluent syntax.
+        /// </summary>
+        public static ICollection<T> WithAll<T>(this ICollection<T> collection, IEnumerable<T> items)
+        {
+            collection.AddRange(items);
+            return collection;
+        }
+
+        /// <summary>
+        /// Removes the first instance of the given item from the collection and returns the collection for fluent syntax.
+        /// </summary>
+        public static ICollection<T> Without<T>(this ICollection<T> collection, T item)
+        {
+            collection.Remove(item);
+            return collection;
+        }
+
+        /// <summary>
+        /// Removes all instances of the given item from the collection and returns the collection for fluent syntax.
+        /// </summary>
+        public static ICollection<T> WithoutAny<T>(this ICollection<T> collection, T item)
+        {
+            collection.RemoveAllOccurences(item);
+            return collection;
         }
     }
 }
