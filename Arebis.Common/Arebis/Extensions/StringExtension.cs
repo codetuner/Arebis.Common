@@ -188,7 +188,7 @@ namespace Arebis.Extensions
         public static string CaseTranslate(this string str, StringComparison comparisonType, params string[] cases)
         {
             // Search for a matching case:
-            for (int i = 0; i < cases.Length; i += 2)
+            for (int i = 0; i < cases.Length - 1; i += 2)
             {
                 if (String.Equals(str, cases[i], comparisonType))
                     return cases[i + 1];
@@ -348,5 +348,40 @@ namespace Arebis.Extensions
         {
             return (String.IsNullOrWhiteSpace(value)) ? altValue : value;
         }
-    }
+
+        /// <summary>
+        /// Returns string chunck of equal size (except for the first or last part that could be shorter).
+        /// </summary>
+        /// <param name="str">The string to chunck.</param>
+        /// <param name="chunkSize">The size of each chunck.</param>
+        /// <param name="alignRight">Whether to align left or right. Right align means the first chunk is allowed to be shorter, while left align means the last chunck is allowed to be shorter.</param>
+        /// <returns>Chuncks of the given string.</returns>
+        public static IEnumerable<string> Chunked(this string str, int chunkSize, bool alignRight = false)
+        {
+            if (str == null) yield break;
+            if (str.Length == 0) yield break;
+            if (chunkSize <= 0) { yield return str; yield break ; }
+
+            int chuncks = str.Length / chunkSize;
+            int lastlen = str.Length % chunkSize;
+            if (alignRight && lastlen > 0)
+            {
+                yield return str.Substring(0, lastlen);
+                for (int i = lastlen; i < str.Length; i += chunkSize)
+                {
+                    yield return str.Substring(i, chunkSize);
+                }
+            }
+            else
+            {
+                var upTo = str.Length - lastlen - 1;
+                for (int i = 0; i <= upTo; i += chunkSize)
+                {
+                    yield return str.Substring(i, chunkSize);
+                }
+                if (lastlen > 0)
+                    yield return str.Substring(str.Length - lastlen);
+            }
+        }
+	}
 }

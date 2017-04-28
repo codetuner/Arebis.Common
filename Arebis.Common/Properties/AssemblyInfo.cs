@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Arebis")]
 [assembly: AssemblyProduct("Arebis Library")]
-[assembly: AssemblyCopyright("© Copyright 2006-2016 Arebis")]
+[assembly: AssemblyCopyright("© Copyright 2006-2017 Arebis")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("1.2.0.0")] // Assembly version
-[assembly: AssemblyInformationalVersion("1.5.0.0")] // Nuget version
+[assembly: AssemblyInformationalVersion("1.6.0.0")] // Nuget version
 [assembly: System.CLSCompliant(true)]

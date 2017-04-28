@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Arebis.Data.Entity
 {
     [Serializable]
-    public abstract class Entity<TContext> : ISaveInterceptable
+    public abstract class Entity<TContext>
         where TContext : BaseDbContext<TContext>
     {
         [NonSerialized]
@@ -40,13 +40,6 @@ namespace Arebis.Data.Entity
                 this.Context.Entry(this).State = EntityState.Modified;
             }
         }
-
-        /// <summary>
-        /// Called before saving the entity.
-        /// Override this method to implement custom on-save actions.
-        /// </summary>
-        public virtual void OnSaving(DbContext context, System.Data.Entity.Infrastructure.DbEntityEntry entry)
-        { }
 
         /// <summary>
         /// Returns an array with the primary key values of this entity.

@@ -30,7 +30,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Arebis.Pdf.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\Arebis.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -56,6 +56,10 @@
     <Compile Include="Common\PdfDeflateStreamFilter.cs" />
     <Compile Include="Common\PdfBinaryStream.cs" />
     <Compile Include="Common\PdfColor.cs" />
+    <Compile Include="Model\Coordinates.cs" />
+    <Compile Include="Model\StringExtensions.cs" />
+    <Compile Include="Model\ModelExtensions.cs" />
+    <Compile Include="Model\PdfModelWriter.cs" />
     <Compile Include="Writing\PdfDocumentWriter.cs" />
     <Compile Include="Common\PdfLineCapStyle.cs" />
     <Compile Include="Common\PdfLineJoinStyle.cs" />
@@ -86,9 +90,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Arebis.Pdf.nuspec" />
-    <None Include="Arebis.Pdf.snk" />
     <None Include="packages.config" />
     <None Include="Writing\ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Arebis.Pdf.Model\Arebis.Pdf.Model.csproj">
+      <Project>{4f92627d-1538-42e2-b8ca-f027a33656d6}</Project>
+      <Name>Arebis.Pdf.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

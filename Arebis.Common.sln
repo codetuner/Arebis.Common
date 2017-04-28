@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{327FA491-A91D-4590-B8F9-ED334D2A0EE0}"
 	ProjectSection(SolutionItems) = preProject
@@ -69,9 +69,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arebis.Logging.GrayLog", "A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arebis.Pdf", "Arebis.Pdf", "{3FADEE8B-3540-4E1D-BB3A-E057AAD62A5F}"
 	ProjectSection(SolutionItems) = preProject
+		Documentation\Arebis.Pdf\RasterA4Landscape.pdf = Documentation\Arebis.Pdf\RasterA4Landscape.pdf
+		Documentation\Arebis.Pdf\RasterA4Portrait.pdf = Documentation\Arebis.Pdf\RasterA4Portrait.pdf
 		Documentation\Arebis.Pdf\README.md = Documentation\Arebis.Pdf\README.md
 		Documentation\Arebis.Pdf\Sample1.pdf = Documentation\Arebis.Pdf\Sample1.pdf
+		Documentation\Arebis.Pdf\Sample2.pdf = Documentation\Arebis.Pdf\Sample2.pdf
+		Documentation\Arebis.Pdf\Sample2.xaml = Documentation\Arebis.Pdf\Sample2.xaml
+		Documentation\Arebis.Pdf\Sample3.pdf = Documentation\Arebis.Pdf\Sample3.pdf
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Pdf.Model", "Arebis.Pdf.Model\Arebis.Pdf.Model.csproj", "{4F92627D-1538-42E2-B8CA-F027A33656D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -159,6 +166,10 @@ Global
 		{1F5714BD-1F1C-46D3-A645-E6EE0513F260}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F5714BD-1F1C-46D3-A645-E6EE0513F260}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F5714BD-1F1C-46D3-A645-E6EE0513F260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F92627D-1538-42E2-B8CA-F027A33656D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F92627D-1538-42E2-B8CA-F027A33656D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F92627D-1538-42E2-B8CA-F027A33656D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F92627D-1538-42E2-B8CA-F027A33656D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

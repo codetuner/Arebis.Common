@@ -15,6 +15,7 @@ namespace Arebis.Extensions
         /// <typeparam name="T">Type of values in enumeration.</typeparam>
         /// <param name="enumerable">An enumerable to group.</param>
         /// <param name="groupSize">Maximum group size. The last group can be smaller.</param>
+        [Obsolete("Use the newer Pages metthod instead.")]
         public static IEnumerable<T[]> GroupByCountOf<T>(this IEnumerable<T> enumerable, int groupSize)
         {
             using (var enumerator = enumerable.GetEnumerator())
@@ -38,6 +39,41 @@ namespace Arebis.Extensions
                     Array.Copy(group, remainder, groupIndex);
                     yield return remainder;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Returns the items enumerable splitted in pages of pageSize elements.
+        /// </summary>
+        public static IEnumerable<IEnumerable<T>> Pages<T>(this IEnumerable<T> items, int pageSize)
+        {
+            using (var enumerator = items.GetEnumerator())
+            {
+                do
+                {
+                    var page = new List<T>();
+                    for (int i = 0; i < pageSize; i++)
+                    {
+                        if (enumerator.MoveNext())
+                        {
+                            page.Add(enumerator.Current);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    if (page.Count > 0)
+                    {
+                        yield return page;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                while (true);
             }
         }
 

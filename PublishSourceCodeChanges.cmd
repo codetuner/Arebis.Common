@@ -1,4 +1,4 @@
 @ECHO OFF
-NUGET add .
-NUGET commit 
-NUGET push
+GIT add .
+GIT commit 
+GIT push

@@ -47,6 +47,7 @@ namespace Arebis.Data.Entity
 
         /// <summary>
         /// Whether the given property's value has changed.
+        /// If state Added, returns true. For other states, returns whether the original values
         /// </summary>
         public static bool HasValueChanged(this DbEntityEntry entry, string propertyName)
         {
@@ -54,6 +55,25 @@ namespace Arebis.Data.Entity
                 return true;
             else
                 return !Object.Equals(entry.OriginalValues[propertyName], entry.CurrentValues[propertyName]);
+        }
+
+        /// <summary>
+        /// Whether the given property's value has changed. Also returns the originalValue.
+        /// If state Added, returns true and null as the originalValue. For other states, returns whether the original values
+        /// have changed compared to the current values.
+        /// </summary>
+        public static bool HasValueChanged(this DbEntityEntry entry, string propertyName, out object originalValue)
+        {
+            if (entry.State == EntityState.Added)
+            {
+                originalValue = null;
+                return true;
+            }
+            else
+            {
+                originalValue = entry.OriginalValues[propertyName];
+                return !Object.Equals(originalValue, entry.CurrentValues[propertyName]);
+            }
         }
 
         /// <summary>

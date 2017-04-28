@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Arebis.Data.Entity.ChangeDataCapture.CapturedColumn">
+    <Position X="8.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAEAACAAAgAAAAFAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChangeDataCapture\CapturedColumn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Data.Entity.ChangeDataCapture.ChangeDataCaptureContext">
+    <Position X="0.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>gAAAAgAAAAAAAEAAAAAAAQAAAAAAAAAAAAAAAAEAAIA=</HashCode>
+      <FileName>ChangeDataCapture\ChangeDataCaptureContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Data.Entity.ChangeDataCapture.ChangeTable">
+    <Position X="4.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>YAAAAgQAIIAAAAAAAAEAIQBAADAAAAAAEEAAMAEAAAA=</HashCode>
+      <FileName>ChangeDataCapture\ChangeTable.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="CapturedColumns" />
+      <Property Name="IndexColumns" />
+      <Property Name="DdlHistory" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.ChangeDataCapture.DdlHistory">
+    <Position X="4.75" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAZAAAAAAAAgQAAAAAAAAAAAI=</HashCode>
+      <FileName>ChangeDataCapture\DdlHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Data.Entity.ChangeDataCapture.IndexColumn">
+    <Position X="8.25" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAgAAAABAQAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>ChangeDataCapture\IndexColumn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Data.Entity.ChangeDataCapture.LsnTimeMap">
+    <Position X="11.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAgCAAAAAAAAAAAAAAAEAAAAIAAAA=</HashCode>
+      <FileName>ChangeDataCapture\LsnTimeMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Data.Entity.ChangeDataCapture.BaseChangeTable">
+    <Position X="11.5" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgEEAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>ChangeDataCapture\BaseChangeTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Arebis.Pdf.Model.Area" Collapsed="true">
+    <Position X="7.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAACgAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Model\Area.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Pdf.Model.BoxItem" Collapsed="true">
+    <Position X="13" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\BoxItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Document" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <InheritanceLine Type="Arebis.Pdf.Model.ModelItem" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="1.062" />
+        <Point X="5.75" Y="1.421" />
+        <Point X="1.25" Y="1.421" />
+        <Point X="1.25" Y="2" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACEAAgIAAAAAAAAAgAAAAAAAAAgAAgAA=</HashCode>
+      <FileName>Model\Document.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Figure" Collapsed="true">
+    <Position X="12" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Figure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Pdf.Model.GraphicsOptions" Collapsed="true">
+    <Position X="2" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="Arebis.Pdf.Model.ModelItem" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="1.062" />
+        <Point X="5.75" Y="1.455" />
+        <Point X="2.75" Y="1.455" />
+        <Point X="2.75" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAACAAAAAAIACAAAAAAAAAAAAAAgAIAE=</HashCode>
+      <FileName>Model\GraphicsOptions.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Pdf.Model.ImageObject" Collapsed="true">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <InheritanceLine Type="Arebis.Pdf.Model.ModelItem" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="1.062" />
+        <Point X="5.75" Y="1.404" />
+        <Point X="7.25" Y="1.404" />
+        <Point X="7.25" Y="2" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAABAAAA=</HashCode>
+      <FileName>Model\ImageObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Page" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9" Y="2" Width="1.5" />
+    <InheritanceLine Type="Arebis.Pdf.Model.ModelItem" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="1.062" />
+        <Point X="5.75" Y="1.416" />
+        <Point X="9.75" Y="1.416" />
+        <Point X="9.75" Y="2" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAACAAAAAAAAEAAAAigAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Model\Page.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Pdf.Model.PositionalItem" Collapsed="true">
+    <Position X="11.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Model\PositionalItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Image" Collapsed="true">
+    <Position X="9.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAIAAAAAAAAhAAAAAAAAACAAAAABAAAA=</HashCode>
+      <FileName>Model\Image.cs</FileName>
+      <NewMemberFileName>Model\Rectangle.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Pdf.Model.ScriptObject" Collapsed="true">
+    <Position X="3.5" Y="2" Width="1.5" />
+    <InheritanceLine Type="Arebis.Pdf.Model.ModelItem" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="1.062" />
+        <Point X="5.75" Y="1.423" />
+        <Point X="4.25" Y="1.423" />
+        <Point X="4.25" Y="2" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ScriptObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Pdf.Model.TextOptions" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAASBAAAAAAAAEAAAAAoACAAAAAAAAAACAAAAAIAA=</HashCode>
+      <FileName>Model\TextOptions.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Rectangle" Collapsed="true">
+    <Position X="8.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Rectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Text" Collapsed="true">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAgAAAIAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Model\Text.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Pdf.Model.TextBlock" Collapsed="true">
+    <Position X="14.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAgAAAIAAACAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Model\TextBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Cross" Collapsed="true">
+    <Position X="15" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Cross.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Line" Collapsed="true">
+    <Position X="13" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Line.cs</FileName>
+      <NewMemberFileName>Model\Oval.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Oval" Collapsed="true">
+    <Position X="11" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Oval.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Pdf.Model.CoordinateSpace" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\CoordinateSpace.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Script" Collapsed="true">
+    <Position X="14.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Script.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Pdf.Model.Font" Collapsed="true">
+    <Position X="7.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Model\Font.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Pdf.Model.ModelItem" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Model\ModelItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Arebis.Pdf.Model.IDocumentItem" Collapsed="true">
+    <Position X="2.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\IDocumentItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Arebis.Pdf.Model.IIContainerItem&lt;TItem&gt;" Collapsed="true">
+    <Position X="5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\IIContainerItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Arebis.Pdf.Model.IModelItem" Collapsed="true">
+    <Position X="2.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Model\IModelItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Arebis.Pdf.Model.IPageItem" Collapsed="true">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\IPageItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

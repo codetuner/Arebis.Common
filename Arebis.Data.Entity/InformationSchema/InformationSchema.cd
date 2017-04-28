@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Arebis.Data.Entity.InformationSchema.ViewColumn">
+    <Position X="9.5" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAQAAAAAAAAAABAAAAAAAABAAAAAAAAARAAQAA=</HashCode>
+      <FileName>InformationSchema\ViewColumn.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="View" />
+      <Property Name="Column" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.ViewTable">
+    <Position X="9.5" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAQAAAAAAAAAAAAQAAAAAABAAAAAAAAARAAQAA=</HashCode>
+      <FileName>InformationSchema\ViewTable.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="View" />
+      <Property Name="Table" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.KeyColumn">
+    <Position X="15.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAAAABAAAAAAAAAAAAAQAQAAAAAAAAAAGAgAREAQAA=</HashCode>
+      <FileName>InformationSchema\KeyColumn.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Table" />
+      <Property Name="Constraint" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.CheckConstraint">
+    <Position X="6.75" Y="7.75" Width="2" />
+    <AssociationLine Name="Schema" Type="Arebis.Data.Entity.InformationSchema.Schema" ManuallyRouted="true">
+      <Path>
+        <Point X="6.75" Y="8.977" />
+        <Point X="6.017" Y="8.977" />
+        <Point X="6.017" Y="2.7" />
+        <Point X="5.5" Y="2.7" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAACAAAAAAAEAAEAAAAAAAAAEAgAQAAAAA=</HashCode>
+      <FileName>InformationSchema\CheckConstraint.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Schema" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.Schema">
+    <Position X="3.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAEAAEAAAAAgAAAQAQAAAAAAAAAAAAAgBAAAAA=</HashCode>
+      <FileName>InformationSchema\Schema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.View">
+    <Position X="6.75" Y="4.5" Width="2" />
+    <AssociationLine Name="Schema" Type="Arebis.Data.Entity.InformationSchema.Schema" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="5.789" />
+        <Point X="6.375" Y="5.789" />
+        <Point X="6.375" Y="2" />
+        <Point X="5.5" Y="2" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAEAAAQAQEAAQAAAAAAAAAABgAQAA=</HashCode>
+      <FileName>InformationSchema\View.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Schema" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.TableColumn">
+    <Position X="12.25" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BIAAAEggAAIAUAAAgBAAQAQAAgBAAIAAAAAAARUCYAA=</HashCode>
+      <FileName>InformationSchema\TableColumn.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Table" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.TableConstraint">
+    <Position X="18.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAgAAAAACAAAAAAAAAAAxAAEAAACAAAAAUEgQQAAAAA=</HashCode>
+      <FileName>InformationSchema\TableConstraint.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Table" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.ReferentialConstraint">
+    <Position X="18.25" Y="4.75" Width="2" />
+    <AssociationLine Name="ForeignConstraint" Type="Arebis.Data.Entity.InformationSchema.TableConstraint" ManuallyRouted="true">
+      <Path>
+        <Point X="19.718" Y="4.75" />
+        <Point X="19.718" Y="4.233" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.447" Y="0.101" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="UniqueConstraint" Type="Arebis.Data.Entity.InformationSchema.TableConstraint" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="18.812" Y="4.75" />
+        <Point X="18.812" Y="4.492" />
+        <Point X="18.812" Y="4.492" />
+        <Point X="18.812" Y="4.233" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.151" Y="0.088" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAEIAAGAAABEAAAAGAAAEAAEABAAAAAQAAAAA=</HashCode>
+      <FileName>InformationSchema\ReferentialConstraint.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ForeignConstraint" />
+      <Property Name="UniqueConstraint" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.ConstraintColumn">
+    <Position X="15.25" Y="4" Width="2" />
+    <AssociationLine Name="Constraint" Type="Arebis.Data.Entity.InformationSchema.TableConstraint" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.25" Y="4" />
+        <Point X="16.25" Y="3.75" />
+        <Point X="18.25" Y="3.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAGAgARAAQAA=</HashCode>
+      <FileName>InformationSchema\ConstraintColumn.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Column" />
+      <Property Name="Constraint" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.ConstraintTable">
+    <Position X="21.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAGAgARAAQAA=</HashCode>
+      <FileName>InformationSchema\ConstraintTable.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Table" />
+      <Property Name="Constraint" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.Table">
+    <Position X="6.75" Y="0.5" Width="2" />
+    <AssociationLine Name="Schema" Type="Arebis.Data.Entity.InformationSchema.Schema" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="1.021" />
+        <Point X="5.5" Y="1.021" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EBAAAAAAEAAACAgAgAAAAAQEAAAAABAAAQAAQBgAQAA=</HashCode>
+      <FileName>InformationSchema\Table.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Schema" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.Routine">
+    <Position X="3.5" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>RAAAAGggiAIACAAAIAgBAAQEAAAAAIACAYEIABQASAA=</HashCode>
+      <FileName>InformationSchema\Routine.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Schema" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.Parameter">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BIAAIGgggIIACiAAIACAAAAACABAAJAAAQAAAAUGAAA=</HashCode>
+      <FileName>InformationSchema\Parameter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Specific" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Arebis.Data.Entity.InformationSchema.RoutineColumn">
+    <Position X="0.5" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BIAAAEggAAIAQAAAAABAAAAAAgBAAIAAAAAAASUCJAA=</HashCode>
+      <FileName>InformationSchema\RoutineColumn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

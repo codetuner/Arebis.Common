@@ -57,11 +57,44 @@
   <ItemGroup>
     <Compile Include="AssociationEndBehaviorAttribute.cs" />
     <Compile Include="BaseDbContext.cs" />
+    <Compile Include="ChangeDataCapture\BaseChangeTable.cs" />
+    <Compile Include="ChangeDataCapture\CapturedColumn.cs" />
+    <Compile Include="ChangeDataCapture\CdcOperation.cs" />
+    <Compile Include="ChangeDataCapture\ChangeDataCaptureContext.cs" />
+    <Compile Include="ChangeDataCapture\ChangeDataCaptureEntity.cs" />
+    <Compile Include="ChangeDataCapture\ChangeTable.cs" />
+    <Compile Include="ChangeDataCapture\DdlHistory.cs" />
+    <Compile Include="ChangeDataCapture\IndexColumn.cs" />
+    <Compile Include="ChangeDataCapture\LsnTimeMap.cs" />
     <Compile Include="DynamicQuery.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="EntityExtensions.ef6.cs" />
     <Compile Include="EntityExtensions.ef4.cs" />
     <Compile Include="EntityFrameworkHelper.cs" />
+    <Compile Include="IMaterializeInterceptable.cs" />
+    <Compile Include="InformationSchema\CharacterSet.cs" />
+    <Compile Include="InformationSchema\CheckConstraint.cs" />
+    <Compile Include="InformationSchema\Collation.cs" />
+    <Compile Include="InformationSchema\ConstraintColumn.cs" />
+    <Compile Include="InformationSchema\ConstraintTable.cs" />
+    <Compile Include="InformationSchema\Domain.cs" />
+    <Compile Include="InformationSchema\ExtensionMethods.cs" />
+    <Compile Include="InformationSchema\InformationSchemaContext.cs" />
+    <Compile Include="InformationSchema\InformationSchemaEntity.cs" />
+    <Compile Include="InformationSchema\KeyColumn.cs" />
+    <Compile Include="InformationSchema\Parameter.cs" />
+    <Compile Include="InformationSchema\ReferentialConstraint.cs" />
+    <Compile Include="InformationSchema\Routine.cs" />
+    <Compile Include="InformationSchema\RoutineColumn.cs" />
+    <Compile Include="InformationSchema\Schema.cs" />
+    <Compile Include="InformationSchema\Scope.cs" />
+    <Compile Include="InformationSchema\Table.cs" />
+    <Compile Include="InformationSchema\TableColumn.cs" />
+    <Compile Include="InformationSchema\TableConstraint.cs" />
+    <Compile Include="InformationSchema\UserDefinedType.cs" />
+    <Compile Include="InformationSchema\View.cs" />
+    <Compile Include="InformationSchema\ViewColumn.cs" />
+    <Compile Include="InformationSchema\ViewTable.cs" />
     <Compile Include="ISaveInterceptable.cs" />
     <Compile Include="ObjectContextExtension.cs" />
     <Compile Include="OptimisticConcurrencyAttribute.cs" />
@@ -71,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Arebis.Data.Entity.nuspec" />
+    <None Include="ChangeDataCapture\ChangeDataCapture.cd" />
+    <None Include="EntityExtensions.cd" />
+    <None Include="InformationSchema\InformationSchema.cd" />
     <None Include="OptimisticConcurrencyDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>

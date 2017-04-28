@@ -84,33 +84,37 @@ namespace Arebis.Pdf.Common
             var sb = new StringBuilder(text.Length + 200);
             var w = 0;
             var maxW = (int)(1000.0 * width / fontSize);
-            var nonSpaceCount = 0;
+            var nonSpaceCount = 0; // Number of chars since last space
+            var lineCount = 0; // Number of chars on current line
             for (int i = 0; i < text.Length; i++)
             {
                 var c = text[i];
-                if (c == '\r' || c == '\n')
+                if (c == '\n')
                 {
                     w = 0;
                     nonSpaceCount = 0;
+                    lineCount = 0;
                     sb.Append(c);
                     continue;
                 }
-                else if (c == ' ')
+                else if (c == ' ' || c == '\r') // A '\r' is rendered as a space by Acrobat
                 {
                     w += GetRawCharWidth(c);
                     nonSpaceCount = 0;
+                    lineCount++;
                     sb.Append(' ');
                 }
                 else
                 {
                     w += GetRawCharWidth(c);
-                    if (w > maxW)
+                    if (w > maxW && lineCount > 0)
                     {
                         sb.Length = sb.Length - nonSpaceCount;
                         sb.Append('\n');
                         i -= nonSpaceCount + 1;
 
                         nonSpaceCount = 0;
+                        lineCount = 0;
                         w = 0;
                         continue;
                     }

@@ -77,14 +77,23 @@ namespace Arebis.Pdf.Writing
         public int LeftRotationDegrees { get; set; }
 
         /// <summary>
-        /// Rendering mode of the text.
+        /// Rendering mode of the text (Fill (default), Stroke, FillAndStroke,...).
         /// </summary>
         public PdfTextRenderingMode RenderingMode { get; set; }
 
+        /// <summary>
+        /// Line dash pattern.
+        /// </summary>
         public PdfLineDashPattern LineDashPattern { get; set; }
 
+        /// <summary>
+        /// Line cap style.
+        /// </summary>
         public PdfLineCapStyle? LineCapStyle { get; set; }
 
+        /// <summary>
+        /// Outline width.
+        /// </summary>
         public double? OutlineWidth { get; set; }
 
         /// <summary>

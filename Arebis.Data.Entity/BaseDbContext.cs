@@ -60,10 +60,17 @@ namespace Arebis.Data.Entity
         protected virtual void OnObjectMaterialized(object sender, System.Data.Entity.Core.Objects.ObjectMaterializedEventArgs e)
         {
             // Set Context property:
-            var entity = e.Entity as Entity<TContext>;
-            if (entity != null)
+            var contextEntity = e.Entity as Entity<TContext>;
+            if (contextEntity != null)
             {
-                entity.Context = (TContext)(object)this;
+                contextEntity.Context = (TContext)(object)this;
+            }
+
+            // Run OnMaterialized:
+            var materialized = e.Entity as IMaterializeInterceptable;
+            if (contextEntity != null)
+            {
+                materialized.OnMaterialized(this);
             }
         }
 
@@ -71,9 +78,10 @@ namespace Arebis.Data.Entity
         {
             foreach (var entry in this.ChangeTracker.Entries())
             {
-                if (entry.Entity is ISaveInterceptable)
+                var savedEntity = entry.Entity as ISaveInterceptable;
+                if (savedEntity != null)
                 {
-                    ((ISaveInterceptable)entry.Entity).OnSaving(this, entry);
+                    savedEntity.OnSaving(this, entry);
                 }
             }
         }

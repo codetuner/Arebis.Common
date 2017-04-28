@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4F92627D-1538-42E2-B8CA-F027A33656D6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Arebis.Pdf</RootNamespace>
+    <AssemblyName>Arebis.Pdf.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591,618</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Debug\Arebis.Pdf.Model.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Arebis.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591,618</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\Arebis.Pdf.Model.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Model\Area.cs" />
+    <Compile Include="Model\BoxItem.cs" />
+    <Compile Include="Model\CoordinateSpace.cs" />
+    <Compile Include="Model\Cross.cs" />
+    <Compile Include="Model\Document.cs" />
+    <Compile Include="Model\Figure.cs" />
+    <Compile Include="Model\Font.cs" />
+    <Compile Include="Model\GraphicsOptions.cs" />
+    <Compile Include="Model\IDocumentItem.cs" />
+    <Compile Include="Model\IIContainerItem.cs" />
+    <Compile Include="Model\Image.cs" />
+    <Compile Include="Model\ImageObject.cs" />
+    <Compile Include="Model\IModelItem.cs" />
+    <Compile Include="Model\IPageItem.cs" />
+    <Compile Include="Model\Line.cs" />
+    <Compile Include="Model\ModelItem.cs" />
+    <Compile Include="Model\Oval.cs" />
+    <Compile Include="Model\Page.cs" />
+    <Compile Include="Model\PositionalItem.cs" />
+    <Compile Include="Model\Rectangle.cs" />
+    <Compile Include="Model\Script.cs" />
+    <Compile Include="Model\ScriptObject.cs" />
+    <Compile Include="Model\Text.cs" />
+    <Compile Include="Model\TextBlock.cs" />
+    <Compile Include="Model\TextOptions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Arebis.Pdf.Model.nuspec" />
+    <None Include="Model\ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xaml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)..\PostBuild.cmd" "$(DevEnvDir)" "$(SolutionPath)" "$(ProjectPath)" "$(TargetPath)" "$(ConfigurationName)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

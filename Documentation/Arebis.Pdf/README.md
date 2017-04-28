@@ -30,6 +30,7 @@ Features of the library include:
 - Extendible.
 - Open source.
 - ...
+- (NEW) Model based PDF generation
 
 But be aware that the library also has some important limitations:
 
@@ -62,6 +63,16 @@ A simple "Hello World" document can be created with the following code:
         }
     }
 
+It is also possible to define a PDF through an object model which can for instance be serialized
+to Xaml. For instance [the following Xaml file](https://raw.githubusercontent.com/codetuner/Arebis.Common/master/Documentation/Arebis.Pdf/Sample2.xaml)
+generates to [the following PDF](https://raw.githubusercontent.com/codetuner/Arebis.Common/master/Documentation/Arebis.Pdf/Sample2.pdf) using the following code:
+
+    // Load the document from file:
+    var document = (Document)XamlServices.Load(inputfilename);
+
+    // Write the document to PDF:
+    PdfModelWriter.WriteDocument(document, outputfilename);
+
 Why another PDF library
 -----------------------
 
@@ -81,3 +92,4 @@ Release notes
 -------------
 
 1.4.0.0 : Added support for rotation of images and rectangles; added support for rounded rectangles.
+1.5.0.0 : Minor fixes + added support for model based PDF generation.

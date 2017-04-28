@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Arebis.Numerics.Base10" Collapsed="true">
+    <Position X="5.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Numerics\Base10.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Numerics.Base256">
+    <Position X="7.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAEAAQAAAAAAAAAA=</HashCode>
+      <FileName>Numerics\Base256.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Numerics.Base26" Collapsed="true">
+    <Position X="10.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Numerics\Base26.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Numerics.Base36" Collapsed="true">
+    <Position X="12.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Numerics\Base36.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Numerics.Base51" Collapsed="true">
+    <Position X="14.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Numerics\Base51.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Numerics.Base62" Collapsed="true">
+    <Position X="17" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Numerics\Base62.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Numerics.Binary" Collapsed="true">
+    <Position X="3.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Numerics\Binary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Numerics.Hexadecimal" Collapsed="true">
+    <Position X="8" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAIAAAAAAEAAQAAAAAAAAAA=</HashCode>
+      <FileName>Numerics\Hexadecimal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Numerics.NumeralSystem">
+    <Position X="8.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAgKgAAAAEAAAAgAAAAAAMAAAAABCAAAAAAAAAARAA=</HashCode>
+      <FileName>Numerics\NumeralSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Numerics.NumeralSystemExtension">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Numerics\NumeralSystemExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arebis.Numerics.NumeralValue">
+    <Position X="0.5" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAIKAAIAABAQEoBACAAAAAgwAAABAAAAgoAYAMAA=</HashCode>
+      <FileName>Numerics\NumeralValue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Arebis.Numerics.SymbolicNumeralSystem">
+    <Position X="9.5" Y="5.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAABAAAAgAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Numerics\SymbolicNumeralSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

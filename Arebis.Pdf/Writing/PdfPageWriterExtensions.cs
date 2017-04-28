@@ -241,13 +241,13 @@ namespace Arebis.Pdf.Writing
         /// <summary>
         /// Adds a PdfScriptObject to the page that draws text.
         /// </summary>
-        public static PdfObjectRef DrawText(this PdfPageWriter page, double x, double y, string str, PdfTextOptions options, double leftRotationDegrees = 0.0)
+        public static PdfObjectRef DrawText(this PdfPageWriter page, double x, double y, string text, PdfTextOptions options, double leftRotationDegrees = 0.0)
         {
             var obj = new PdfScriptObject();
             obj.BeginGraphicsState();
             obj.BeginText(x, y, options);
             if (leftRotationDegrees != 0.0) obj.SetTextRotation(x, y, leftRotationDegrees);
-            obj.DrawText(str);
+            obj.DrawText(text);
             obj.EndText();
             obj.EndGraphicsState();
             return page.WriteObject(obj);
@@ -256,9 +256,48 @@ namespace Arebis.Pdf.Writing
         /// <summary>
         /// Adds a PdfScriptObject to the page that draws text that autowraps at the given blockWidth.
         /// </summary>
-        public static PdfObjectRef DrawTextblock(this PdfPageWriter page, double x, double y, string str, double blockWidth, PdfTextOptions options, double leftRotationDegrees = 0.0)
+        /// <param name="page">Page to draw to.</param>
+        /// <param name="x">X coordinate left-bottom of the first line of text.</param>
+        /// <param name="y">Y coordinate left-bottom of the first line of text.</param>
+        /// <param name="text">Text to draw.</param>
+        /// <param name="blockWidth">Width of the text block.</param>
+        /// <param name="options">Text options (font, style, etc.)</param>
+        /// <param name="leftRotationDegrees">Left rotation expressed in degrees.</param>
+        /// <param name="align">Alignment: -1=left (default), 0=center, +1=right.</param>
+        /// <remarks>
+        /// Currently, when alignment is non-left, the rotation arguments is ignored as both are not supported together.
+        /// </remarks>
+        public static PdfObjectRef DrawTextblock(this PdfPageWriter page, double x, double y, string text, double blockWidth, PdfTextOptions options, double leftRotationDegrees = 0.0, int align = -1)
         {
-            return page.DrawText(x, y, options.Font.SplitText(str, options.FontSize, blockWidth), options, leftRotationDegrees);
+            if (align < 0)
+            {
+                return page.DrawText(x, y, options.Font.SplitText(text, options.FontSize, blockWidth), options, leftRotationDegrees);
+            }
+            else
+            {
+                var lines = options.Font.SplitText(text.Replace('\r', ' '), options.FontSize, blockWidth).Split('\n');
+                var obj = new PdfScriptObject();
+                obj.BeginGraphicsState();
+                obj.BeginText(x, y, options);
+                // Centered or right-alignment is not compatible with rotation:
+                //if (leftRotationDegrees != 0.0) obj.SetTextRotation(x, y, leftRotationDegrees);
+                var liney = y;
+                foreach (var line in lines)
+                {
+                    if (!String.IsNullOrWhiteSpace(line))
+                    {
+                        var tline = line.Trim();
+                        var textwidth = options.Font.GetStringWidth(tline, options.FontSize);
+                        var linex = (align > 0) ? (x + blockWidth - textwidth) : (x + (blockWidth - textwidth) / 2);
+                        obj.SetTextStartPosition(linex, liney);
+                        obj.DrawText(tline);
+                    }
+                    liney -= options.FontSize;
+                }
+                obj.EndText();
+                obj.EndGraphicsState();
+                return page.WriteObject(obj);
+            }
         }
 
         /// <summary>

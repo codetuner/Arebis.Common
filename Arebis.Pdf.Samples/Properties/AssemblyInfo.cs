@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Arebis")]
 [assembly: AssemblyProduct("Arebis Library")]
-[assembly: AssemblyCopyright("© Copyright 2015 Arebis")]
+[assembly: AssemblyCopyright("© Copyright 2015-2017 Arebis")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

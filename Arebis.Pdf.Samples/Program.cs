@@ -18,6 +18,12 @@ namespace Arebis.Pdf.Samples
             Sample1.Run(@"Sample1.pdf");
             Process.Start(@"Sample1.pdf");
 
+            Sample2.Run(@"Sample2.xaml", @"Sample2.pdf");
+            Process.Start(@"Sample2.pdf");
+
+            Sample3.Run(@"Sample3.pdf");
+            Process.Start(@"Sample3.pdf");
+
             RasterPage.Run(@"RasterA4Portrait.pdf", PdfPageFormat.A4Portrait);
             Process.Start(@"RasterA4Portrait.pdf");
 
