@@ -64,7 +64,7 @@ namespace Arebis.Pdf.Model
         /// <summary>
         /// Writes a PDF document based on the given document object to the given stream.
         /// </summary>
-        public void Write(Document document, System.IO.FileStream stream)
+        public void Write(Document document, System.IO.Stream stream)
         {
             var options = new PdfDocumentOptions();
             options.Title = document.Title;
@@ -224,13 +224,13 @@ namespace Arebis.Pdf.Model
                 go.LineJoinStyle = (PdfLineJoinStyle)Enum.Parse(typeof(PdfLineJoinStyle), item.LineJoinStyle);
 
             if (!String.IsNullOrWhiteSpace(item.StrokeColor))
-                go.StrokeColor = (PdfColor)typeof(PdfColor).GetField(item.StrokeColor).GetValue(null);
+                go.StrokeColor = GetColor(item.StrokeColor);
 
             if (!String.IsNullOrWhiteSpace(item.StrokeWidth))
                 go.StrokeWidth = Double.Parse(item.StrokeWidth ?? "1", CultureInfo.InvariantCulture);
 
             if (!String.IsNullOrWhiteSpace(item.FillColor))
-                go.FillColor = (PdfColor)typeof(PdfColor).GetField(item.FillColor).GetValue(null);
+                go.FillColor = GetColor(item.FillColor);
 
             SetReferenceObject(item.Id, go);
         }
@@ -423,7 +423,7 @@ namespace Arebis.Pdf.Model
                 to.FontSize = this.GetValue(item.FontSize, 100);
 
             if (!String.IsNullOrWhiteSpace(item.InkColor))
-                to.InkColor = (PdfColor)typeof(PdfColor).GetField(item.InkColor).GetValue(null);
+                to.InkColor = GetColor(item.InkColor);
 
             if (!String.IsNullOrWhiteSpace(item.LineCapStyle))
                 to.LineCapStyle = (PdfLineCapStyle)Enum.Parse(typeof(PdfLineCapStyle), item.LineCapStyle);
@@ -432,7 +432,7 @@ namespace Arebis.Pdf.Model
                 to.LineDashPattern = (PdfLineDashPattern)typeof(PdfLineDashPattern).GetField(item.LineDashPattern).GetValue(null);
 
             if (!String.IsNullOrWhiteSpace(item.OutlineColor))
-                to.OutlineColor = (PdfColor)typeof(PdfColor).GetField(item.OutlineColor).GetValue(null);
+                to.OutlineColor = GetColor(item.OutlineColor);
 
             if (!String.IsNullOrWhiteSpace(item.OutlineWidth))
                 to.OutlineWidth = GetValue(item.OutlineWidth, 100);
@@ -586,6 +586,22 @@ namespace Arebis.Pdf.Model
             else
             {
                 return new System.Drawing.Bitmap(filename);
+            }
+        }
+
+        private PdfColor GetColor(string str)
+        {
+            if (str == null)
+            {
+                return null;
+            }
+            else if (String.IsNullOrWhiteSpace(str))
+            {
+                return PdfColor.White;
+            }
+            else
+            {
+                return new PdfColor(str);
             }
         }
 

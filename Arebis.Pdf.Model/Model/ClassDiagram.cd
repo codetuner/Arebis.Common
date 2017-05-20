@@ -38,14 +38,14 @@
       <FileName>Model\Figure.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Arebis.Pdf.Model.GraphicsOptions" Collapsed="true">
-    <Position X="2" Y="3.25" Width="1.5" />
+  <Class Name="Arebis.Pdf.Model.GraphicsOptions">
+    <Position X="1.5" Y="3.25" Width="1.5" />
     <InheritanceLine Type="Arebis.Pdf.Model.ModelItem" ManuallyRouted="true">
       <Path>
         <Point X="5.75" Y="1.062" />
         <Point X="5.75" Y="1.455" />
-        <Point X="2.75" Y="1.455" />
-        <Point X="2.75" Y="3.25" />
+        <Point X="2.25" Y="1.455" />
+        <Point X="2.25" Y="3.25" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -118,7 +118,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Arebis.Pdf.Model.TextOptions" Collapsed="true">
+  <Class Name="Arebis.Pdf.Model.TextOptions">
     <Position X="5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAASBAAAAAAAAEAAAAAoACAAAAAAAAAACAAAAAIAA=</HashCode>

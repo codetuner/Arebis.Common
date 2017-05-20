@@ -8,6 +8,14 @@ namespace Arebis.Pdf.Common
     {
         private string str;
 
+        public PdfColor(string htmlColor)
+            : this(System.Drawing.ColorTranslator.FromHtml(htmlColor))
+        { }
+
+        public PdfColor(System.Drawing.Color color)
+            : this(color.R, color.G, color.B, color.A)
+        { }
+
         public PdfColor(byte red, byte green, byte blue, byte alpha = 255)
         {
             this.R = red;
