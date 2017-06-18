@@ -55,6 +55,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Arebis\Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Tests\Arebis\Extensions\StringExtensionTests.cs" />
+    <Compile Include="Tests\Arebis\Tests\MultiCounterTests.cs" />
+    <Compile Include="Tests\Arebis\Tests\MultiDimensionalTests.cs" />
     <Compile Include="Tests\ExpressionHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>

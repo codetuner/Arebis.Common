@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Arebis\Algorithms\Enumerate.cs" />
     <Compile Include="Arebis\Algorithms\OverlappingDetector.cs" />
+    <Compile Include="Arebis\LiveAssert.cs" />
     <Compile Include="Arebis\Caching\Cache.cs" />
     <Compile Include="Arebis\Caching\ICache.cs" />
     <Compile Include="Arebis\Caching\IgnoreFailureException.cs" />
@@ -127,8 +128,11 @@
     <Compile Include="Arebis\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Arebis\Extensions\ExceptionExtensions.cs" />
     <Compile Include="Arebis\Extensions\FileInfoExtension.cs" />
+    <Compile Include="Arebis\Extensions\HashSetExtensions.cs" />
     <Compile Include="Arebis\Extensions\NumberExtension.cs" />
     <Compile Include="Arebis\Extensions\ObjectExtension.cs" />
+    <Compile Include="Arebis\Extensions\QueueExtensions.cs" />
+    <Compile Include="Arebis\Extensions\StreamExtensions.cs" />
     <Compile Include="Arebis\Extensions\TimeSpanExtension.cs" />
     <Compile Include="Arebis\Extensions\TypeExtension.cs" />
     <Compile Include="Arebis\Globalization\CultureScope.cs" />
@@ -168,6 +172,7 @@
     <Compile Include="Arebis\Numerics\NumeralSystem.cs" />
     <Compile Include="Arebis\Numerics\NumeralSystemExtension.cs" />
     <Compile Include="Arebis\Numerics\NumeralValue.cs" />
+    <Compile Include="Arebis\Numerics\RomanNumber.cs" />
     <Compile Include="Arebis\Numerics\SymbolicNumeralSystem.cs" />
     <Compile Include="Arebis\ObjectFactory.cs" />
     <Compile Include="Arebis\Reflection\CsLanguageInfo.cs" />
@@ -232,7 +237,12 @@
     <Compile Include="Arebis\Types\Amount.cs" />
     <Compile Include="Arebis\Types\AmountVector.cs" />
     <Compile Include="Arebis\Types\AssertUnitCompatibilityAttribute.cs" />
+    <Compile Include="Arebis\Types\AutoInitializeAttribute.cs" />
+    <Compile Include="Arebis\Types\AutoInitializeExtensions.cs" />
+    <Compile Include="Arebis\Types\MultiCounter.cs" />
+    <Compile Include="Arebis\Types\MultiDimensional.cs" />
     <Compile Include="Arebis\Types\MultiLangStringMap.cs" />
+    <Compile Include="Arebis\Types\TransformationMatrix2D.cs" />
     <Compile Include="Arebis\Types\Unit.cs" />
     <Compile Include="Arebis\Types\UnitAttributes.cs" />
     <Compile Include="Arebis\Types\UnitExceptions.cs" />

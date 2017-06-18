@@ -21,6 +21,54 @@ namespace Arebis.Extensions
         }
 
         /// <summary>
+        /// If the value is it's types default (default(TValue)) then the key is removed
+        /// from the dictionary (if present). Otherwise the key is added.
+        /// </summary>
+        /// <typeparam name="TKey">Type of the Key.</typeparam>
+        /// <typeparam name="TValue">Type of the Value (must be a reference type).</typeparam>
+        /// <param name="dict">Doctionary.</param>
+        /// <param name="key">Key to set value for.</param>
+        /// <param name="value">Value to set.</param>
+        /// <returns>The value set.</returns>
+        public static TValue SetValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue value)
+            where TValue : class
+        {
+            if (value == default(TValue))
+            {
+                dict.Remove(key);
+            }
+            else
+            {
+                dict[key] = value;
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// For a dictionary where the value is a list of, adds an element to the list matching the given key.
+        /// If no list of the key exists yet, a list is created and the value is added to it.
+        /// </summary>
+        /// <typeparam name="TKey">Type of key of the dictionary.</typeparam>
+        /// <typeparam name="TValue">Type of value of the lists in the dictionary.</typeparam>
+        /// <param name="dict">The dictionary.</param>
+        /// <param name="key">The key to identify the list.</param>
+        /// <param name="value">The value to add to the list.</param>
+        /// <returns>The list where the value was added to.</returns>
+        public static IList<TValue> AddListValue<TKey, TValue>(this IDictionary<TKey, IList<TValue>> dict, TKey key, TValue value)
+        {
+            IList<TValue> list;
+            if (!dict.TryGetValue(key, out list))
+            {
+                dict[key] = list = new List<TValue>();
+            }
+
+            list.Add(value);
+
+            return list;
+        }
+
+        /// <summary>
         /// Try to get the value matching the given key. If not found, executes the value function, then stores and returns the result.
         /// </summary>
         /// <example>
@@ -38,7 +86,8 @@ namespace Arebis.Extensions
         /// <summary>
         /// Adds/overwrites the given key/value to the dictionary and returns the dictionary for fluent syntax.
         /// </summary>
-        public static IDictionary<TKey, TValue> With<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue value)
+        public static T With<T, K, V>(this T dict, K key, V value)
+            where T : IDictionary<K, V>
         {
             dict[key] = value;
             return dict;

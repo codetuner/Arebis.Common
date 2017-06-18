@@ -68,5 +68,26 @@ namespace Arebis.Web.Mvc
         {
             return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, message);
         }
+
+        /// <summary>
+        /// Returns a TextFile.
+        /// </summary>
+        /// <param name="controller">The Controller.</param>
+        /// <param name="content">The content of the textfile to return.</param>
+        /// <param name="mimeType">The mimetype to return.</param>
+        /// <param name="filename">Name to return a filename to the client.</param>
+        public static ActionResult TextFile(this Controller controller, string content, string mimeType, string filename)
+        {
+            controller.Response.ContentType = mimeType;
+            controller.Response.Charset = "UTF-8";
+            controller.Response.Headers.Add("Content-Disposition", "attachment; filename=" + filename);
+
+            using (var writer = new System.IO.StreamWriter(controller.Response.OutputStream, Encoding.UTF8))
+            {
+                writer.Write(content);
+            }
+
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK);
+        }
     }
 }

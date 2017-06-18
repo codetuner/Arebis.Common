@@ -75,7 +75,7 @@ namespace Arebis.Types
         }
 
         /// <summary>
-        /// Returns a 2D transformation matrix for scaling.
+        /// Returns a 2D transformation matrix for undistored scaling.
         /// </summary>
         public static TransformationMatrix2D Scaling(double sxy)
         {
@@ -83,7 +83,7 @@ namespace Arebis.Types
         }
 
         /// <summary>
-        /// Returns a 2D transformation matrix for scaling.
+        /// Returns a 2D transformation matrix for distorted scaling.
         /// </summary>
         public static TransformationMatrix2D Scaling(double sx, double sy)
         {
@@ -109,7 +109,7 @@ namespace Arebis.Types
         }
 
         /// <summary>
-        /// Returns a 2D transformation matrix for rotation given the rotation fraction (where 1/4th is a quarter turn or 90% or PI/2 rad).
+        /// Returns a 2D transformation matrix for rotation given the rotation fraction (where 0.25 or 1/4th is a quarter turn or 90° or PI/2 rad).
         /// </summary>
         public static TransformationMatrix2D RotatingFraction(double fraction)
         {

@@ -56,5 +56,27 @@ namespace Arebis.Extensions
             else
                 return obj.ToString();
         }
+
+        /// <summary>
+        /// Tries to apply the selector on the source and returns it"s value. On failure (i.e. a null reference in the selector path)
+        /// return the onFailureResult.
+        /// </summary>
+        /// <typeparam name="TSource">Type of source object.</typeparam>
+        /// <typeparam name="TResult">Type of result value.</typeparam>
+        /// <param name="source">The source object.</param>
+        /// <param name="selector">The selector to apply on the source to get the result.</param>
+        /// <param name="onFailureResult">Alternative result to return on any failure.</param>
+        /// <returns>The result of evaluating the selector on the source, or onFailureResult in case of an exception.</returns>
+        public static TResult Try<TSource, TResult>(this TSource source, Func<TSource, TResult> selector, TResult onFailureResult)
+        {
+            try
+            {
+                return selector.Invoke(source);
+            }
+            catch
+            {
+                return onFailureResult;
+            }
+        }
     }
 }
