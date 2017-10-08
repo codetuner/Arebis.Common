@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Common;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
@@ -40,35 +42,74 @@ namespace Arebis.Data.Entity
 
         #endregion
 
-        /// <summary>
-        /// Creates a new DbContext using a connection named "DefaultConnection".
-        /// </summary>
-        public BaseDbContext()
-            : this("DefaultConnection")
-        { }
+        #region Constructors
 
-        /// <summary>
-        /// Creates a new DbContext given a connection name or connectionstring.
-        /// </summary>
+        public BaseDbContext()
+            : base()
+        {
+            this.Initialize();
+        }
+
+        public BaseDbContext(DbCompiledModel model)
+            : base(model)
+        {
+            this.Initialize();
+        }
+
         public BaseDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
+        {
+            this.Initialize();
+        }
+
+        public BaseDbContext(DbConnection existingConnection, bool contextOwnsConnection)
+            : base(existingConnection, contextOwnsConnection)
+        {
+            this.Initialize();
+        }
+
+        public BaseDbContext(ObjectContext objectContext, bool dbContextOwnsObjectContext)
+            : base(objectContext, dbContextOwnsObjectContext)
+        {
+            this.Initialize();
+        }
+
+        public BaseDbContext(string nameOrConnectionString, DbCompiledModel model)
+            : base(nameOrConnectionString, model)
+        {
+            this.Initialize();
+        }
+
+        public BaseDbContext(DbConnection existingConnection, DbCompiledModel model, bool contextOwnsConnection)
+            : base(existingConnection, model, contextOwnsConnection)
+        {
+            this.Initialize();
+        }
+
+        /// <summary>
+        /// Invoked by the constructor to initialize.
+        /// Override and extend to add initialization logic.
+        /// </summary>
+        protected virtual void Initialize()
         {
             ((IObjectContextAdapter)this).ObjectContext.ObjectMaterialized += OnObjectMaterialized;
             ((IObjectContextAdapter)this).ObjectContext.SavingChanges += OnSavingChanges;
         }
 
+        #endregion
+
         protected virtual void OnObjectMaterialized(object sender, System.Data.Entity.Core.Objects.ObjectMaterializedEventArgs e)
         {
-            // Set Context property:
-            var contextEntity = e.Entity as Entity<TContext>;
-            if (contextEntity != null)
+            // When materialized, set it's context:
+            var entity = e.Entity as IContextualEntity<TContext>;
+            if (entity != null)
             {
-                contextEntity.Context = (TContext)(object)this;
+                entity.Context = (TContext)(object)this;
             }
 
             // Run OnMaterialized:
             var materialized = e.Entity as IMaterializeInterceptable;
-            if (contextEntity != null)
+            if (materialized != null)
             {
                 materialized.OnMaterialized(this);
             }
@@ -76,25 +117,16 @@ namespace Arebis.Data.Entity
 
         protected virtual void OnSavingChanges(object sender, EventArgs e)
         {
+            // When saving context, call OnSaving of all entities:
+            var tcontext = (TContext)(object)this;
             foreach (var entry in this.ChangeTracker.Entries())
             {
-                var savedEntity = entry.Entity as ISaveInterceptable;
-                if (savedEntity != null)
+                var entity = entry.Entity as IContextualEntity<TContext>;
+                if (entity != null)
                 {
-                    savedEntity.OnSaving(this, entry);
+                    entity.OnSaving(tcontext, entry);
                 }
             }
-        }
-
-        /// <summary>
-        /// Marks the entity for deletion.
-        /// </summary>
-        /// <remarks>
-        /// Alternatively, call the Remove method of the entity's DbSet.
-        /// </remarks>
-        public virtual void DeleteObject(object entity)
-        {
-            this.Entry(entity).State = EntityState.Deleted;
         }
     }
 }

@@ -23,13 +23,8 @@ namespace Arebis.Data.Entity
         private List<ObjectParameter> filterParameters = new List<ObjectParameter>();
 
         public DynamicQuery(DbContext context)
-            : this(context, String.Format("OfType({0},{1})", GetEntitySetName<T>(context), typeof(T).FullName))
+            : this(context, String.Format("OfType({0},{1})", context.GetEntitySetNameOf<T>(), typeof(T).FullName))
         { }
-
-        private static string GetEntitySetName<T1>(DbContext context)
-        {
-            return (context as IObjectContextAdapter).ObjectContext.CreateObjectSet<T>().EntitySet.Name;
-        }
 
         public DynamicQuery(DbContext context, string source)
         {
@@ -115,8 +110,9 @@ namespace Arebis.Data.Entity
         /// Add a filter based on the entity type.
         /// </summary>
         public virtual DynamicQuery<T> AddIsOfTypeFilter<TType>()
+            where TType : class
         {
-            var whereClause = String.Format("{0} IS OF ({1}.{2})", entityPrefix, GetEntitySetName<TType>(context), typeof(TType).FullName);
+            var whereClause = String.Format("{0} IS OF ({1}.{2})", entityPrefix, context.GetEntitySetNameOf<TType>(), typeof(TType).FullName);
             AddFilter(whereClause);
 
             // Fluent support:
@@ -127,8 +123,9 @@ namespace Arebis.Data.Entity
         /// Add a filter based on the entity type.
         /// </summary>
         public virtual DynamicQuery<T> AddIsNotOfTypeFilter<TType>()
+            where TType : class
         {
-            var whereClause = String.Format("{0} IS NOT OF ({1}.{2})", entityPrefix, GetEntitySetName<TType>(context), typeof(TType).FullName);
+            var whereClause = String.Format("{0} IS NOT OF ({1}.{2})", entityPrefix, context.GetEntitySetNameOf<TType>(), typeof(TType).FullName);
             AddFilter(whereClause);
 
             // Fluent support:

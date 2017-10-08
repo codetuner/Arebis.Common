@@ -20,18 +20,34 @@ namespace Arebis.Data.Entity
 	/// </summary>
 	public static class ObjectContextExtension
 	{
-		/// <summary>
-		/// Attaches an entire objectgraph to the context.
-		/// </summary>
-		public static T AttachObjectGraph<T>(this ObjectContext context, T entity, params Expression<Func<T, object>>[] paths)
+        public static string GetEntitySetNameOf<TEntity>(this ObjectContext context)
+            where TEntity : class
+        {
+            return context.CreateObjectSet<TEntity>().EntitySet.Name;
+        }
+
+        public static string GetEntitySetNameOf(this ObjectContext context, object entity)
+        {
+            var objectStateEntry = context.ObjectStateManager.GetObjectStateEntry(entity);
+            return objectStateEntry.EntitySet.Name;
+        }
+
+        /// <summary>
+        /// Attaches an entire objectgraph to the context.
+        /// </summary>
+        [Obsolete("Consider using a more advanced mapping framework as http://max.codeplex.com.")]
+        public static T AttachObjectGraph<T>(this ObjectContext context, T entity, params Expression<Func<T, object>>[] paths)
+            where T : class
 		{
 			return AttachObjectGraphs(context, new T[] { entity }, paths)[0];
 		}
 
-		/// <summary>
-		/// Attaches multiple entire objectgraphs to the context.
-		/// </summary>
-		public static T[] AttachObjectGraphs<T>(this ObjectContext context, IEnumerable<T> entities, params Expression<Func<T, object>>[] paths)
+        /// <summary>
+        /// Attaches multiple entire objectgraphs to the context.
+        /// </summary>
+        [Obsolete("Consider using a more advanced mapping framework as http://max.codeplex.com.")]
+        public static T[] AttachObjectGraphs<T>(this ObjectContext context, IEnumerable<T> entities, params Expression<Func<T, object>>[] paths)
+            where T : class
 		{
 			T[] unattachedEntities = entities.ToArray();
 			T[] attachedEntities = new T[unattachedEntities.Length];
@@ -75,7 +91,7 @@ namespace Arebis.Data.Entity
 				if (pars.Count > 0)
 				{
 					// Construct query:
-					ObjectQuery<T> query = (ObjectQuery<T>)context.PublicGetProperty(context.GetEntitySetName(typeof(T)));
+					ObjectQuery<T> query = (ObjectQuery<T>)context.PublicGetProperty(context.GetEntitySetNameOf<T>());
 					foreach (var path in paths)
                         query = (ObjectQuery<T>)query.Include(path);
 					query = query.Where(where.ToString(), pars.ToArray());
@@ -109,18 +125,19 @@ namespace Arebis.Data.Entity
 			return attachedEntities;
 		}
 
-		/// <summary>
-		/// Adds or attaches the entity to the context. If the entity has an EntityKey,
-		/// the entity is attached, otherwise a clone of it is added.
-		/// </summary>
-		/// <returns>The attached entity.</returns>
-		public static object AddOrAttachInstance(this ObjectContext context, object entity, bool applyPropertyChanges)
+        /// <summary>
+        /// Adds or attaches the entity to the context. If the entity has an EntityKey,
+        /// the entity is attached, otherwise a clone of it is added.
+        /// </summary>
+        /// <returns>The attached entity.</returns>
+        [Obsolete("Consider using a more advanced mapping framework as http://max.codeplex.com.")]
+        public static object AddOrAttachInstance(this ObjectContext context, object entity, bool applyPropertyChanges)
 		{
 			EntityKey entityKey = ((IEntityWithKey)entity).EntityKey;
 			if (entityKey == null)
 			{
 				object attachedEntity = GetShallowEntityClone(entity);
-				context.AddObject(context.GetEntitySetName(entity.GetType()), attachedEntity);
+				context.AddObject(context.GetEntitySetNameOf(entity), attachedEntity);
 				((IEntityWithKey)entity).EntityKey = ((IEntityWithKey)attachedEntity).EntityKey;
 				return attachedEntity;
 			}
@@ -133,11 +150,11 @@ namespace Arebis.Data.Entity
 			}
 		}
 
-		/// <summary>
-		/// Detaches an objectgraph given it's root object.
-		/// </summary>
-		/// <returns>The detached root object.</returns>
-		public static T DetachObjectGraph<T>(this ObjectContext context, T entity)
+        /// <summary>
+        /// Detaches an objectgraph given it's root object.
+        /// </summary>
+        /// <returns>The detached root object.</returns>
+        public static T DetachObjectGraph<T>(this ObjectContext context, T entity)
 		{
 			using (MemoryStream stream = new MemoryStream())
 			{

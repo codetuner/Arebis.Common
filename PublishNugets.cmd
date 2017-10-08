@@ -40,5 +40,5 @@ IF NOT EXIST "%~1" (
 DIR "%~1" /B
 CHOICE /C YN /M "Publish ? "
 IF %ERRORLEVEL% NEQ 1 EXIT /B 0
-NUGET push "%~1" -ApiKey %APIKEY_NUGET_CODETUNER%
+NUGET push "%~1" -Source nuget.org -ApiKey %APIKEY_NUGET_CODETUNER%
 EXIT /B 0

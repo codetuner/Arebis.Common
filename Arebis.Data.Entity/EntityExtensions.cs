@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Arebis.Data.Entity
 {
-    partial class EntityExtensions
+    public static class EntityExtensions
     {
         /// <summary>
         /// Returns an array with all primary key values for the given entry's entity.
@@ -34,6 +31,12 @@ namespace Arebis.Data.Entity
         {
             var objectStateEntry = ((IObjectContextAdapter)context).ObjectContext.ObjectStateManager.GetObjectStateEntry(entry.Entity);
             return objectStateEntry.EntitySet.Name;
+        }
+
+        public static string GetEntitySetNameOf<TEntity>(this DbContext context)
+            where TEntity : class
+        {
+            return (context as IObjectContextAdapter).ObjectContext.CreateObjectSet<TEntity>().EntitySet.Name;
         }
 
         /// <summary>
@@ -105,6 +108,23 @@ namespace Arebis.Data.Entity
             else
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Marks this entity as modified.
+        /// </summary>
+        public static void Update<TContext>(this IContextualEntity<TContext> entity)
+            where TContext : DbContext
+        {
+            if (entity.Context == null)
+                throw new InvalidOperationException("No context attached to entity to update.");
+            if (entity.Context.Entry(entity).State == EntityState.Deleted)
+                throw new InvalidOperationException("Entity to update is already marked deleted.");
+
+            if (entity.Context.Entry(entity).State != EntityState.Added)
+            {
+                entity.Context.Entry(entity).State = EntityState.Modified;
             }
         }
     }

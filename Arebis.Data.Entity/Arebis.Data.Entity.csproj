@@ -45,6 +45,10 @@
       <HintPath>..\Packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\Packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -57,6 +61,7 @@
   <ItemGroup>
     <Compile Include="AssociationEndBehaviorAttribute.cs" />
     <Compile Include="BaseDbContext.cs" />
+    <Compile Include="BaseEntity.cs" />
     <Compile Include="ChangeDataCapture\BaseChangeTable.cs" />
     <Compile Include="ChangeDataCapture\CapturedColumn.cs" />
     <Compile Include="ChangeDataCapture\CdcOperation.cs" />
@@ -67,10 +72,12 @@
     <Compile Include="ChangeDataCapture\IndexColumn.cs" />
     <Compile Include="ChangeDataCapture\LsnTimeMap.cs" />
     <Compile Include="DynamicQuery.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="EntityExtensions.ef6.cs" />
-    <Compile Include="EntityExtensions.ef4.cs" />
+    <Compile Include="EntityExtensions.cs" />
     <Compile Include="EntityFrameworkHelper.cs" />
+    <Compile Include="HybridStore.cs" />
+    <Compile Include="HybridStoreExtensions.cs" />
+    <Compile Include="IContextualEntity.cs" />
+    <Compile Include="IHybridDocument.cs" />
     <Compile Include="IMaterializeInterceptable.cs" />
     <Compile Include="InformationSchema\CharacterSet.cs" />
     <Compile Include="InformationSchema\CheckConstraint.cs" />
@@ -95,11 +102,11 @@
     <Compile Include="InformationSchema\View.cs" />
     <Compile Include="InformationSchema\ViewColumn.cs" />
     <Compile Include="InformationSchema\ViewTable.cs" />
-    <Compile Include="ISaveInterceptable.cs" />
     <Compile Include="ObjectContextExtension.cs" />
     <Compile Include="OptimisticConcurrencyAttribute.cs" />
     <Compile Include="OptimisticConcurrencyManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleTrackedEntity.cs" />
     <Compile Include="StringTrimmerInterceptor.cs" />
   </ItemGroup>
   <ItemGroup>
