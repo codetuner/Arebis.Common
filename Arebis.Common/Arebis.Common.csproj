@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Arebis\Algorithms\Enumerate.cs" />
     <Compile Include="Arebis\Algorithms\OverlappingDetector.cs" />
+    <Compile Include="Arebis\Extensions\ListExtensions.cs" />
     <Compile Include="Arebis\LiveAssert.cs" />
     <Compile Include="Arebis\Caching\Cache.cs" />
     <Compile Include="Arebis\Caching\ICache.cs" />

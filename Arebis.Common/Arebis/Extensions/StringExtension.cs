@@ -127,24 +127,36 @@ namespace Arebis.Extensions
         /// <param name="value">The string to capitalize.</param>
         /// <param name="culture">Culture to use for capitalization. If null, uses current UI culture.</param>
         /// <param name="andLowerNextChars">Whether non-first word characters should be lowered.</param>
-        public static string ToCapitalizedWords(this string value, CultureInfo culture = null, bool andLowerNextChars = false)
+        /// <param name="capitalizeAfterSymbol">Whether to capitalize after a symbol, even if no whitespace was encountered.</param>
+        public static string ToCapitalizedWords(this string value, CultureInfo culture = null, bool andLowerNextChars = false, bool capitalizeAfterSymbol = false)
         {
             if (String.IsNullOrEmpty(value)) return value;
 
             culture = culture ?? CultureInfo.CurrentUICulture ?? CultureInfo.CurrentCulture ?? CultureInfo.InvariantCulture;
 
             var chars = value.ToCharArray();
-            chars[0] = Char.ToUpper(chars[0], culture);
-            for (int i = 1; i < chars.Length; i++)
+            var capitalize = true;
+
+            for (int i = 0; i < chars.Length; i++)
             {
-                if (chars[i-1] == ' ')
+                if (chars[i] == ' ')
+                {
+                    capitalize = true;
+                }
+                else if ("\'-+-*/.,;!?&".IndexOf(chars[i - 1]) >= 0)
+                {
+                    if (capitalizeAfterSymbol)
+                        capitalize = true;
+                }
+                else if (capitalize)
+                {
                     chars[i] = Char.ToUpper(chars[i], culture);
-                else if (chars[i - 1] == '\'')
-                    Object.Equals(null, null); // Leave as is
-                else if (chars[i - 1] == '-')
-                    Object.Equals(null, null); // Leave as is
+                    capitalize = false;
+                }
                 else if (andLowerNextChars)
+                {
                     chars[i] = Char.ToLower(chars[i], culture);
+                }
             }
 
             return new String(chars);
@@ -350,7 +362,7 @@ namespace Arebis.Extensions
         }
 
         /// <summary>
-        /// Returns string chunck of equal size (except for the first or last part that could be shorter).
+        /// Returns string chuncks of equal size (except for the first or last part that could be shorter).
         /// </summary>
         /// <param name="str">The string to chunck.</param>
         /// <param name="chunkSize">The size of each chunck.</param>
@@ -383,5 +395,34 @@ namespace Arebis.Extensions
                     yield return str.Substring(str.Length - lastlen);
             }
         }
-	}
+
+        /// <summary>
+        /// Removes all not listed chars from the given value.
+        /// </summary>
+        /// <param name="value">The value to 'clean'.</param>
+        /// <param name="allowedChars">A string listing all allowed chars. Groups "0-9", "a-z" and "A-Z" are supported. Pipe chars (|) are removed unless a double pipe is present. I.e: "0123456789ABCDEFabcdef" for hex numbers. I.e: "0-9|A-Z|,|.||" allowing numbers, capital letters, comma, dot and pipe.</param>
+        /// <returns>The cleaned value.</returns>
+        public static string UsingOnlyChars(this string value, string allowedChars)
+        {
+            if (String.IsNullOrEmpty(value)) return value;
+
+            // Could enhance performance by caching latest allowedChars input strings and their substituted result.
+
+            allowedChars = allowedChars.Replace("0-9", "0123456789");
+            allowedChars = allowedChars.Replace("a-z", "abcdefghijklmnopqrstuvwxyz");
+            allowedChars = allowedChars.Replace("A-Z", "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            var containsDoublePipe = allowedChars.Contains("||");
+            allowedChars = allowedChars.Replace("|", "");
+            if (containsDoublePipe) allowedChars = allowedChars + "|";
+
+            var result = new StringBuilder(value.Length);
+            foreach (var c in value)
+            {
+                if (allowedChars.IndexOf(c) >= 0)
+                    result.Append(c);
+            }
+
+            return result.ToString();
+        }
+    }
 }

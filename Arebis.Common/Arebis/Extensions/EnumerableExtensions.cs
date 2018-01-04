@@ -9,6 +9,30 @@ namespace Arebis.Extensions
     public static class EnumerableExtensions
     {
         /// <summary>
+        /// Enumerates all but the first (n) elements.
+        /// </summary>
+        public static IEnumerable<T> ButFirst<T>(this IEnumerable<T> enumerable, int n = 1)
+        {
+            var list = enumerable.ToArray();
+            for (int i = n; i < list.Length; i++)
+            {
+                yield return list[i];
+            }
+        }
+
+        /// <summary>
+        /// Enumerates all but the last (n) elements.
+        /// </summary>
+        public static IEnumerable<T> ButLast<T>(this IEnumerable<T> enumerable, int n = 1)
+        {
+            var list = enumerable.ToArray();
+            for (int i = 0; i < (list.Length - n); i++)
+            {
+                yield return list[i];
+            }
+        }
+
+        /// <summary>
         /// Returns the given enumerable values grouped in sets of groupSize.
         /// The last set can be smaller.
         /// </summary>

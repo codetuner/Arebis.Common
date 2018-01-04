@@ -127,5 +127,20 @@ namespace Arebis.Data.Entity
                 entity.Context.Entry(entity).State = EntityState.Modified;
             }
         }
+
+        /// <summary>
+        /// Creates a new instance of an entity for the type of this set or for a type derived
+        /// from the type of this set. Note that this instance is NOT added or attached to
+        /// the set. The instance returned will be a proxy if the underlying context is configured
+        /// to create proxies and the entity type meets the requirements for creating a proxy.
+        /// </summary>
+        public static TEntity Create<TEntity>(this IDbSet<TEntity> set, Type derivedType)
+            where TEntity : class
+        {
+            var genericCreateMethod = set.GetType().GetMethods().Single(m => m.Name == "Create" && m.ContainsGenericParameters && m.GetParameters().Count() == 0);
+            return (TEntity)genericCreateMethod
+                .MakeGenericMethod(new Type[] { derivedType })
+                .Invoke(set, null);
+        }
     }
 }

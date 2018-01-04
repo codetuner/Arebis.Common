@@ -11,6 +11,7 @@ namespace Arebis.Caching
     /// <summary>
     /// A thread-safe LRU cache implementation. When the cache capacity is
     /// reached, Least Recently Used items are removed.
+    /// Override its TryFetch method to fetch items not in cache, or use the Get overload with resolver function.
     /// </summary>
     public class LruCache<TKey, TValue> : ICache<TKey, TValue>
         where TValue : class
@@ -91,6 +92,50 @@ namespace Arebis.Caching
                 if (value == default(TValue))
                 {
                     value = TryFetch(key);
+                    if (value != default(TValue))
+                    {
+                        // Adds the fetched item:
+                        Add(key, value);
+                    }
+                }
+            }
+
+            // Return the value:
+            return value;
+        }
+
+        /// <summary>
+        /// Retrieves the value currently stored under the given key.
+        /// When no value is found under the given key, tries to resolve using the given resolver function,
+        /// store and return the requested value.
+        /// </summary>
+        /// <param name="key">The key to get.</param>
+        /// <param name="resolver">A resolver function to use instead of an overridden fetch implementation.</param>
+        public virtual TValue Get(TKey key, Func<TValue> resolver)
+        {
+            TValue value;
+
+            lock (this.SyncRoot)
+            {
+                if (index.TryGetValue(key, out value))
+                {
+                    // Check item validity:
+                    if (CheckValidity(value))
+                    {
+                        // Requeue the item:
+                        Requeue(key, value);
+                    }
+                    else
+                    {
+                        // Evict the item:
+                        Evict(key);
+                        value = default(TValue);
+                    }
+                }
+
+                if (value == default(TValue))
+                {
+                    value = resolver();
                     if (value != default(TValue))
                     {
                         // Adds the fetched item:

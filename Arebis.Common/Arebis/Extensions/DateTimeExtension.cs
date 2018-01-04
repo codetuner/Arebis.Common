@@ -114,5 +114,46 @@ namespace Arebis.Extensions
             return age;
         }
 
-	}
+        /// <summary>
+        /// Whether the datetime is in the past.
+        /// </summary>
+        public static bool IsInThePast(this DateTime dt)
+        {
+            if (dt.Kind == DateTimeKind.Utc)
+                return (dt < Current.DateTime.UtcNow);
+            else
+                return (dt < Current.DateTime.Now);
+        }
+
+        /// <summary>
+        /// Whether the datetime is in the future.
+        /// </summary>
+        public static bool IsInTheFuture(this DateTime dt)
+        {
+            // As Current.DateTime is volatile, we do not consider dt == Current.DateTime as an 'InThePresent' case.
+            // If it's not in the past, it's in the future...
+            return !IsInThePast(dt);
+        }
+
+        /// <summary>
+        /// Determines if the datetime is older than a given timespan (parsed from the given string).
+        /// For instance, for a timespan of 3 days, determines whether the datetime is more than 3 days in the past.
+        /// </summary>
+        public static bool OlderThan(this DateTime dt, string timespan)
+        {
+            return OlderThan(dt, TimeSpan.Parse(timespan));
+        }
+
+        /// <summary>
+        /// Determines if the datetime is older than a given timespan.
+        /// For instance, for a timespan of 3 days, determines whether the datetime is more than 3 days in the past.
+        /// </summary>
+        public static bool OlderThan(this DateTime dt, TimeSpan timespan)
+        {
+            if (dt.Kind == DateTimeKind.Utc)
+                return (dt < Current.DateTime.UtcNow.Add(-timespan));
+            else
+                return (dt < Current.DateTime.Now.Add(-timespan));
+        }
+    }
 }

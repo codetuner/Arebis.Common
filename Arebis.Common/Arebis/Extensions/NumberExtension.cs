@@ -94,5 +94,122 @@ namespace Arebis.Extensions
             return (i >= lower && i <= higher);
         }
 
+        /// <summary>
+        /// Splits a given value into equal parts rounded to a given number of decimals.
+        /// The last part contains the remaining value ensuring that all parts add up to the original value without rounding errors.
+        /// I.e. 2.0 rounded in 3 parts with 2 decimals will result in 0.67, 0.67 and 0.66.
+        /// </summary>
+        /// <param name="value">Value to split.</param>
+        /// <param name="intoParts">Number of parts to split into (must be 1 or more).</param>
+        /// <param name="roundingDecimals">Number of decimals to round the parts to.</param>
+        /// <param name="roundingMode">Rounding mode to use. AwayFromZero by default.</param>
+        /// <returns>Parts of the value.</returns>
+        public static decimal[] Split(this decimal value, int intoParts, int roundingDecimals, MidpointRounding roundingMode = MidpointRounding.AwayFromZero)
+        {
+            if (intoParts <= 0) throw new ArgumentOutOfRangeException("intoParts", "The intoParts argument must not be less than 1.");
+
+            var result = new decimal[intoParts];
+            var part = Math.Round(value / intoParts, roundingDecimals, roundingMode);
+            var remainder = value;
+
+            for (int i = 0; i < (intoParts - 1); i++)
+            {
+                result[i] = part;
+                remainder -= part;
+            }
+
+            result[intoParts - 1] = remainder;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Splits a given value into equal parts rounded to a given number of decimals.
+        /// The last part contains the remaining value ensuring that all parts add up to the original value without rounding errors.
+        /// I.e. 2.0 rounded in 3 parts with 2 decimals will result in 0.67, 0.67 and 0.66.
+        /// </summary>
+        /// <param name="value">Value to split.</param>
+        /// <param name="intoParts">Number of parts to split into (must be 1 or more).</param>
+        /// <param name="roundingDecimals">Number of decimals to round the parts to.</param>
+        /// <param name="roundingMode">Rounding mode to use. AwayFromZero by default.</param>
+        /// <returns>Parts of the value.</returns>
+        public static decimal?[] Split(this decimal? value, int intoParts, int roundingDecimals, MidpointRounding roundingMode = MidpointRounding.AwayFromZero)
+        {
+            if (value.HasValue)
+            {
+                var result = new decimal?[intoParts];
+                var values = value.Value.Split(intoParts, roundingDecimals, roundingMode);
+                for (int i = 0; i < intoParts; i++)
+                {
+                    result[i] = values[i];
+                }
+                return result;
+            }
+            else
+            {
+                return new decimal?[intoParts];
+            }
+        }
+
+        /// <summary>
+        /// Splits a given value into almost equal parts but such that all parts add up to the original value.
+        /// Whenever the division as a modulus, that modulus is spread over the last returned values.
+        /// I.e. 27 into 5 parts will result into 5, 5, 5, 6, 6.
+        /// </summary>
+        /// <param name="value">Value to split.</param>
+        /// <param name="intoParts">Number of parts to split into (must be 1 or more).</param>
+        /// <returns>Parts of the value.</returns>
+        public static int[] Split(this int value, int intoParts)
+        {
+            if (intoParts <= 0) throw new ArgumentOutOfRangeException("intoParts", "The intoParts argument must not be less than 1.");
+
+            if (value < 0)
+            {
+                var result = Split(-value, intoParts);
+                for (int i = 0; i < result.Length; i++) result[i] = -result[i];
+                return result;
+            }
+            else
+            {
+                var result = new int[intoParts];
+                var part = value / intoParts;
+                var modulus = value % intoParts;
+                var partsNotToIncrease = intoParts - modulus;
+
+                for (int i = 0; i < intoParts; i++)
+                {
+                    result[i] = part;
+                    if (i >= partsNotToIncrease) result[i]++;
+                }
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Splits a given value into almost equal parts but such that all parts add up to the original value.
+        /// Whenever the division has a modulus, that modulus is spread over the last returned values.
+        /// I.e. 27 into 5 parts will result into 5, 5, 5, 6, 6.
+        /// </summary>
+        /// <param name="value">Value to split.</param>
+        /// <param name="intoParts">Number of parts to split into (must be 1 or more).</param>
+        /// <returns>Parts of the value.</returns>
+        public static int?[] Split(this int? value, int intoParts)
+        {
+            if (value.HasValue)
+            {
+                var result = new int?[intoParts];
+                var values = value.Value.Split(intoParts);
+                for (int i = 0; i < intoParts; i++)
+                {
+                    result[i] = values[i];
+                }
+                return result;
+            }
+            else
+            {
+                return new int?[intoParts];
+            }
+        }
     }
 }
