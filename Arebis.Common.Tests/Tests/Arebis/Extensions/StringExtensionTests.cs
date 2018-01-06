@@ -254,5 +254,31 @@ namespace Arebis.Common.Tests.Arebis.Extensions
             Assert.AreEqual("ABC_DEFGH_IJKLM_NOPQR", String.Join("_", "ABCDEFGHIJKLMNOPQR".Chunked(5, true)));
             Assert.AreEqual("ABCD_EFGHI_JKLMN_OPQRS", String.Join("_", "ABCDEFGHIJKLMNOPQRS".Chunked(5, true)));
         }
+
+        [TestMethod]
+        public void ToCapitalizedWordsTest()
+        {
+            Assert.AreEqual(((string)null).ToCapitalizedWords(), null);
+            Assert.AreEqual("".ToCapitalizedWords(), "");
+            Assert.AreEqual("a".ToCapitalizedWords(), "A");
+            Assert.AreEqual("A".ToCapitalizedWords(), "A");
+            Assert.AreEqual("ab".ToCapitalizedWords(), "Ab");
+            Assert.AreEqual("AB".ToCapitalizedWords(), "AB");
+            Assert.AreEqual("AB".ToCapitalizedWords(null, true), "Ab");
+            Assert.AreEqual("AB-C".ToCapitalizedWords(null, true), "Ab-c");
+            Assert.AreEqual("AB-C".ToCapitalizedWords(null, true, true), "Ab-C");
+            Assert.AreEqual("AB CD".ToCapitalizedWords(), "AB CD");
+            Assert.AreEqual("AB CD".ToCapitalizedWords(null, true), "Ab Cd");
+            Assert.AreEqual("AB CD.EF".ToCapitalizedWords(null, true), "Ab Cd.ef");
+            Assert.AreEqual("AB CD.EF".ToCapitalizedWords(null, true, true), "Ab Cd.Ef");
+        }
+
+        [TestMethod]
+        public void ToAsciiStringTest()
+        {
+            Assert.AreEqual(((string)null).ToAsciiString(32, 127, '?'), null);
+            Assert.AreEqual("".ToAsciiString(32, 127, '?'), "");
+            Assert.AreEqual("Cérémony".ToAsciiString(32, 127, '?'), "C?r?mony");
+        }
     }
 }

@@ -130,7 +130,7 @@ namespace Arebis.Extensions
         /// <param name="capitalizeAfterSymbol">Whether to capitalize after a symbol, even if no whitespace was encountered.</param>
         public static string ToCapitalizedWords(this string value, CultureInfo culture = null, bool andLowerNextChars = false, bool capitalizeAfterSymbol = false)
         {
-            if (String.IsNullOrEmpty(value)) return value;
+            if (String.IsNullOrWhiteSpace(value)) return value;
 
             culture = culture ?? CultureInfo.CurrentUICulture ?? CultureInfo.CurrentCulture ?? CultureInfo.InvariantCulture;
 
@@ -143,7 +143,7 @@ namespace Arebis.Extensions
                 {
                     capitalize = true;
                 }
-                else if ("\'-+-*/.,;!?&".IndexOf(chars[i - 1]) >= 0)
+                else if ("\'-+-*/.,;!?&".IndexOf(chars[i]) >= 0)
                 {
                     if (capitalizeAfterSymbol)
                         capitalize = true;
@@ -232,7 +232,7 @@ namespace Arebis.Extensions
                 parts.Add(str.Substring(cursor, lastIndex - cursor));
                 cursor = lastIndex + separator.Length;
 
-                if (count >= 0 && parts.Count == (count-1)) break;
+                if (count >= 0 && parts.Count == (count - 1)) break;
             }
 
             // Append last part:
@@ -275,7 +275,7 @@ namespace Arebis.Extensions
                 if (toremove > 0)
                 {
                     // Skip vowels except first one or one just before an underscore:
-                    if (Array.Exists(vowels, (Predicate<char>)delegate(char c) { return c == s[pos]; })
+                    if (Array.Exists(vowels, (Predicate<char>)delegate (char c) { return c == s[pos]; })
                         && (pos > 0)
                         && (s[pos - 1] != '_')
                         )
@@ -372,7 +372,7 @@ namespace Arebis.Extensions
         {
             if (str == null) yield break;
             if (str.Length == 0) yield break;
-            if (chunkSize <= 0) { yield return str; yield break ; }
+            if (chunkSize <= 0) { yield return str; yield break; }
 
             int chuncks = str.Length / chunkSize;
             int lastlen = str.Length % chunkSize;
@@ -423,6 +423,35 @@ namespace Arebis.Extensions
             }
 
             return result.ToString();
+        }
+
+        /// <summary>
+        /// Returns the string with only characters between upper and lowerbound ASCII codes. Other characters are replaced by the replacementChar.
+        /// I.e. "Cérémony".ToAsciiString(32, 127, '?') => "C?r?mony"
+        /// </summary>
+        /// <param name="value">The value to transform.</param>
+        /// <param name="lowerbound">Lowest ASCII code to allow.</param>
+        /// <param name="upperbound">Highest ASCII code to allow.</param>
+        /// <param name="replacementChar">Unallowed characters are replaced by this one.</param>
+        public static string ToAsciiString(this string value, int lowerbound, int upperbound, char replacementChar)
+        {
+            if (String.IsNullOrEmpty(value)) return value;
+
+            var chars = value.ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if ((int)chars[i] < lowerbound)
+                {
+                    chars[i] = replacementChar;
+                }
+                else if ((int)chars[i] > upperbound)
+                {
+                    chars[i] = replacementChar;
+                }
+            }
+
+            return new String(chars);
         }
     }
 }
