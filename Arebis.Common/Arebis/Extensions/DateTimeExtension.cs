@@ -117,10 +117,12 @@ namespace Arebis.Extensions
         /// <summary>
         /// Whether the datetime is in the past.
         /// </summary>
-        public static bool IsInThePast(this DateTime dt)
+        /// <param name="dt">The DateTime to evaluate.</param>
+        /// <param name="unspecifiedDefaultKind">When Kind is Unspecified, assume it's of this kind.</param>
+        public static bool IsInThePast(this DateTime dt, DateTimeKind unspecifiedDefaultKind = DateTimeKind.Local)
         {
-            if (dt.Kind == DateTimeKind.Utc)
-                return (dt < Current.DateTime.UtcNow);
+            if (dt.Kind == DateTimeKind.Utc || (dt.Kind == DateTimeKind.Unspecified && unspecifiedDefaultKind == DateTimeKind.Utc))
+                return (DateTime.SpecifyKind(dt, DateTimeKind.Utc) < Current.DateTime.UtcNow);
             else
                 return (dt < Current.DateTime.Now);
         }
@@ -128,18 +130,23 @@ namespace Arebis.Extensions
         /// <summary>
         /// Whether the datetime is in the future.
         /// </summary>
-        public static bool IsInTheFuture(this DateTime dt)
+        /// <param name="dt">The DateTime to evaluate.</param>
+        /// <param name="unspecifiedDefaultKind">When Kind is Unspecified, assume it's of this kind.</param>
+        public static bool IsInTheFuture(this DateTime dt, DateTimeKind unspecifiedDefaultKind = DateTimeKind.Local)
         {
             // As Current.DateTime is volatile, we do not consider dt == Current.DateTime as an 'InThePresent' case.
             // If it's not in the past, it's in the future...
-            return !IsInThePast(dt);
+            return !IsInThePast(dt, unspecifiedDefaultKind);
         }
 
         /// <summary>
         /// Determines if the datetime is older than a given timespan (parsed from the given string).
         /// For instance, for a timespan of 3 days, determines whether the datetime is more than 3 days in the past.
         /// </summary>
-        public static bool OlderThan(this DateTime dt, string timespan)
+        /// <param name="dt">The DateTime to evaluate.</param>
+        /// <param name="timespan">A string that parses to a TimeSpan. The age to be to be order than.</param>
+        /// <param name="unspecifiedDefaultKind">When Kind is Unspecified, assume it's of this kind.</param>
+        public static bool OlderThan(this DateTime dt, string timespan, DateTimeKind unspecifiedDefaultKind = DateTimeKind.Local)
         {
             return OlderThan(dt, TimeSpan.Parse(timespan));
         }
@@ -148,10 +155,13 @@ namespace Arebis.Extensions
         /// Determines if the datetime is older than a given timespan.
         /// For instance, for a timespan of 3 days, determines whether the datetime is more than 3 days in the past.
         /// </summary>
-        public static bool OlderThan(this DateTime dt, TimeSpan timespan)
+        /// <param name="dt">The DateTime to evaluate.</param>
+        /// <param name="timespan">The age to be to be order than.</param>
+        /// <param name="unspecifiedDefaultKind">When Kind is Unspecified, assume it's of this kind.</param>
+        public static bool OlderThan(this DateTime dt, TimeSpan timespan, DateTimeKind unspecifiedDefaultKind = DateTimeKind.Local)
         {
-            if (dt.Kind == DateTimeKind.Utc)
-                return (dt < Current.DateTime.UtcNow.Add(-timespan));
+            if (dt.Kind == DateTimeKind.Utc || (dt.Kind == DateTimeKind.Unspecified && unspecifiedDefaultKind == DateTimeKind.Utc))
+                return (DateTime.SpecifyKind(dt, DateTimeKind.Utc) < Current.DateTime.UtcNow.Add(-timespan));
             else
                 return (dt < Current.DateTime.Now.Add(-timespan));
         }
