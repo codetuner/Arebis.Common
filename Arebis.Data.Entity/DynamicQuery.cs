@@ -180,7 +180,7 @@ namespace Arebis.Data.Entity
                         {
                             whereClause = String.Format("{0}.{1} <> @{2}", entityPrefix, p, filterParameterName);
                         }
-                        AddFilter(whereClause, Convert.ChangeType(v.Substring(1), pp.PropertyType), filterParameterName, filterValueFormat);
+                        AddFilter(whereClause, ConvertType(v.Substring(1), pp.PropertyType), filterParameterName, filterValueFormat);
                     }
                     else
                     {
@@ -192,7 +192,7 @@ namespace Arebis.Data.Entity
                         {
                             whereClause = String.Format("{0}.{1} = @{2}", entityPrefix, p, filterParameterName);
                         }
-                        AddFilter(whereClause, Convert.ChangeType(v, pp.PropertyType), filterParameterName, filterValueFormat);
+                        AddFilter(whereClause, ConvertType(v, pp.PropertyType), filterParameterName, filterValueFormat);
                     }
                 }
                 else
@@ -213,6 +213,16 @@ namespace Arebis.Data.Entity
 
             // Fluent support:
             return this;
+        }
+
+        /// <summary>
+        /// Custom type convertion supportig nullable types.
+        /// See https://stackoverflow.com/a/3531824
+        /// </summary>
+        private object ConvertType(string value, Type propertyType)
+        {
+            propertyType = Nullable.GetUnderlyingType(propertyType) ?? propertyType;
+            return Convert.ChangeType(value, propertyType);
         }
 
         /// <summary>
