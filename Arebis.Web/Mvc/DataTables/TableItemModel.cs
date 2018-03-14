@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Arebis.Web.Mvc.DataTables
 {
-    public abstract class TableItemModel<TTableItem>
+    public class TableItemModel<TTableItem>
     {
         public TTableItem Item { get; set; }
     }
