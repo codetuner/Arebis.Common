@@ -119,6 +119,7 @@
     <Compile Include="Mvc\DataTables\DataTableDescriptor.cs" />
     <Compile Include="Mvc\DataTables\DataTableModel.cs" />
     <Compile Include="Mvc\DataTables\TableControllerBase.cs" />
+    <Compile Include="Mvc\DataTables\TableItemModel.cs" />
     <Compile Include="Mvc\DefaultGraphModelBinder.cs" />
     <Compile Include="Mvc\HtmlHelperExtensions.cs" />
     <Compile Include="Mvc\LocalizingControllerFactory.cs" />
