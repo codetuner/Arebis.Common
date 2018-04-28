@@ -177,6 +177,7 @@
     <Compile Include="Arebis\Numerics\SymbolicNumeralSystem.cs" />
     <Compile Include="Arebis\ObjectFactory.cs" />
     <Compile Include="Arebis\Reflection\CsLanguageInfo.cs" />
+    <Compile Include="Arebis\Reflection\MetaDataAttribute.cs" />
     <Compile Include="Arebis\Reflection\ReflectionExtensions.cs" />
     <Compile Include="Arebis\Reflection\VbLanguageInfo.cs" />
     <Compile Include="Arebis\Reflection\DefaultLanguageInfo.cs" />

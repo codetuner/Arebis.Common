@@ -5,14 +5,18 @@ using System.Web.Mvc;
 
 namespace Arebis.Web.Mvc.DataTables
 {
-    public abstract class TableControllerBase<TRowModel> : Controller
+    /// <summary>
+    /// Base controller for 
+    /// </summary>
+    /// <typeparam name="TRowEditModel">The type of (model) object that represents a row in editing mode.</typeparam>
+    public abstract class TableControllerBase<TRowEditModel> : Controller
     {
         [HttpGet]
         [NoCache]
         public abstract ActionResult Edit(int id);
 
         [HttpPost]
-        public abstract ActionResult Edit(TRowModel model);
+        public abstract ActionResult Edit(TRowEditModel model);
 
         /// <summary>
         /// If the ModelState is valid, executes the action and returns status 202 Accepted.
@@ -22,7 +26,7 @@ namespace Arebis.Web.Mvc.DataTables
         /// <param name="action">Action to take when ModelState is valid.</param>
         /// <returns></returns>
         [NonAction]
-        protected ActionResult ModelAction(TRowModel model, Action action)
+        protected ActionResult ModelAction(TRowEditModel model, Action action)
         {
             try
             {

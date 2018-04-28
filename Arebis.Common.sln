@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{327FA491-A91D-4590-B8F9-ED334D2A0EE0}"
 	ProjectSection(SolutionItems) = preProject
@@ -79,6 +79,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arebis.Pdf", "Arebis.Pdf", 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Pdf.Model", "Arebis.Pdf.Model\Arebis.Pdf.Model.csproj", "{4F92627D-1538-42E2-B8CA-F027A33656D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Finance", "Arebis.Finance\Arebis.Finance.csproj", "{AF7B7491-FEB8-499C-BA85-9A29DA92B772}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Finance.Tests", "Arebis.Finance.Tests\Arebis.Finance.Tests.csproj", "{8A710FF2-552D-4457-82A3-1CA91BD97493}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -170,6 +174,14 @@ Global
 		{4F92627D-1538-42E2-B8CA-F027A33656D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F92627D-1538-42E2-B8CA-F027A33656D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F92627D-1538-42E2-B8CA-F027A33656D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF7B7491-FEB8-499C-BA85-9A29DA92B772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF7B7491-FEB8-499C-BA85-9A29DA92B772}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF7B7491-FEB8-499C-BA85-9A29DA92B772}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF7B7491-FEB8-499C-BA85-9A29DA92B772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A710FF2-552D-4457-82A3-1CA91BD97493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A710FF2-552D-4457-82A3-1CA91BD97493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A710FF2-552D-4457-82A3-1CA91BD97493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A710FF2-552D-4457-82A3-1CA91BD97493}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,6 +194,10 @@ Global
 		{0052EBBF-90B5-4C8A-AC40-7C735BCF5DB3} = {DF405580-636B-48A1-8924-40FBEFF81721}
 		{C3C490D8-9479-4DDA-84B1-A7F8571E4C5A} = {8EE526C1-D1CD-4773-9BAA-BA5E8A67C823}
 		{3FADEE8B-3540-4E1D-BB3A-E057AAD62A5F} = {8EE526C1-D1CD-4773-9BAA-BA5E8A67C823}
+		{8A710FF2-552D-4457-82A3-1CA91BD97493} = {DF405580-636B-48A1-8924-40FBEFF81721}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B472D29B-6373-4C9B-ADFC-B4D7CC645044}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Arebis.Common1.vsmdi

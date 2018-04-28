@@ -19,6 +19,7 @@ CALL :Publish Arebis.Common\bin\Release\Arebis.Common.*.0.nupkg
 CALL :Publish Arebis.Contract\bin\Release\Arebis.Contract.*.0.nupkg
 CALL :Publish Arebis.Data\bin\Release\Arebis.Data.*.0.nupkg
 CALL :Publish Arebis.Data.Entity\bin\Release\Arebis.Data.Entity.*.0.nupkg
+CALL :Publish Arebis.Finance\bin\Release\Arebis.Finance.*.0.nupkg
 CALL :Publish Arebis.Imaging\bin\Release\Arebis.Imaging.*.0.nupkg
 CALL :Publish Arebis.Logging.GrayLog\bin\Release\Arebis.Logging.GrayLog.*.0.nupkg
 CALL :Publish Arebis.Modeling\bin\Release\Arebis.Modeling.*.0.nupkg

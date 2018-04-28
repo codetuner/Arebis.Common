@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -9,6 +10,20 @@ namespace Arebis.Web.Mvc
     /// </summary>
     public class DefaultGraphModelBinder : DefaultModelBinder
     {
+        public DefaultGraphModelBinder()
+            : this(true)
+        { }
+
+        public DefaultGraphModelBinder(bool failOnReadonlyProperties)
+        {
+            this.FailOnReadonlyProperties = failOnReadonlyProperties;
+        }
+
+        /// <summary>
+        /// Whether to fail when trying to bing a readonly or internal property.
+        /// </summary>
+        public bool FailOnReadonlyProperties { get; set; }
+
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             // Bind indexed collections without replacing member instances:
@@ -78,6 +93,16 @@ namespace Arebis.Web.Mvc
 
             // Return the collection:
             return collection;
+        }
+
+        protected override void SetProperty(ControllerContext controllerContext, ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor, object value)
+        {
+            if (this.FailOnReadonlyProperties && propertyDescriptor.IsReadOnly)
+            {
+                throw new Exception(String.Format("Property {0}.{1} is readonly or internal and cannot be bound.", bindingContext.ModelType, propertyDescriptor.Name));
+            }
+
+            base.SetProperty(controllerContext, bindingContext, propertyDescriptor, value);
         }
     }
 
