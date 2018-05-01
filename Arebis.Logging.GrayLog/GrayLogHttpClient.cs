@@ -65,6 +65,9 @@ namespace Arebis.Logging.GrayLog
             req.ContentType = "application/json; charset=UTF-8";
             req.ContentLength = messageBody.Length;
             req.Expect = "";
+
+            if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["GrayLogHttpReadWriteTimeout"])) req.ReadWriteTimeout = int.Parse(ConfigurationManager.AppSettings["GrayLogHttpReadWriteTimeout"]);
+            if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["GrayLogHttpTimeout"])) req.Timeout = int.Parse(ConfigurationManager.AppSettings["GrayLogHttpTimeout"]);
             if (compressed) req.Headers.Add(HttpRequestHeader.ContentEncoding, "gzip");
             using (var reqs = req.GetRequestStream())
             {
