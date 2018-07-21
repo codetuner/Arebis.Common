@@ -342,7 +342,7 @@ namespace Arebis.Pdf.Model
             }
             else
             {
-                var so = new PdfScriptObject();
+                var so = writer.DocumentWriter.CreatePdfScriptObject();
                 so.Write(item.Content);
                 writer.WriteObject(so);
             }
@@ -352,7 +352,7 @@ namespace Arebis.Pdf.Model
         {
             if (!this.referables.ContainsKey(item.Id))
             {
-                var so = new PdfScriptObject();
+                var so = writer.CreatePdfScriptObject();
                 so.Write(item.Content);
                 var pdfRef = writer.WriteObject(so);
                 SetReferenceObject(item.Id, pdfRef);

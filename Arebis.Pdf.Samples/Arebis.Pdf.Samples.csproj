@@ -33,6 +33,8 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FontSamples.cs" />
+    <Compile Include="Sample4 %28TextTransformer%29.cs" />
     <Compile Include="HelloWorldSample.cs" />
     <Compile Include="Sample2 %28model from file%29.cs" />
     <Compile Include="Sample3 %28model from code%29.cs" />
@@ -44,6 +46,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Sample1 %28coded%29.cs" />
+    <Compile Include="Sample4TextTransformer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Arebis.Pdf.Model\Arebis.Pdf.Model.csproj">

@@ -453,5 +453,17 @@ namespace Arebis.Extensions
 
             return new String(chars);
         }
+
+        /// <summary>
+        /// If the string matches the matchn return the substitution, otherwise return the original string.
+        /// I.e to replace empty string by null: someString?.Trim().If("", null)
+        /// </summary>
+        public static string If(this string str, string match, string substitution)
+        {
+            if (str == null && match == null) return substitution;
+            else if (str == null) return null;
+            else if (str.Equals(match)) return substitution;
+            else return str;
+        }
     }
 }

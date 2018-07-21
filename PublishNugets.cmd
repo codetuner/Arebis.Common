@@ -21,12 +21,14 @@ CALL :Publish Arebis.Data\bin\Release\Arebis.Data.*.0.nupkg
 CALL :Publish Arebis.Data.Entity\bin\Release\Arebis.Data.Entity.*.0.nupkg
 CALL :Publish Arebis.Finance\bin\Release\Arebis.Finance.*.0.nupkg
 CALL :Publish Arebis.Imaging\bin\Release\Arebis.Imaging.*.0.nupkg
+CALL :Publish Arebis.Json\bin\Release\Arebis.Json.*.0.nupkg
 CALL :Publish Arebis.Logging.GrayLog\bin\Release\Arebis.Logging.GrayLog.*.0.nupkg
 CALL :Publish Arebis.Modeling\bin\Release\Arebis.Modeling.*.0.nupkg
 CALL :Publish Arebis.Office\bin\Release\Arebis.Office.*.0.nupkg
 CALL :Publish Arebis.Parsing\bin\Release\Arebis.Parsing.*.0.nupkg
 CALL :Publish Arebis.Pdf\bin\Release\Arebis.Pdf.*.0.nupkg
 CALL :Publish Arebis.Pdf.Model\bin\Release\Arebis.Pdf.Model.*.0.nupkg
+CALL :Publish Arebis.Rest\bin\Release\Arebis.Rest.*.0.nupkg
 CALL :Publish Arebis.Testing\bin\Release\Arebis.Testing.*.0.nupkg
 CALL :Publish Arebis.Web\bin\Release\Arebis.Web.*.0.nupkg
 CALL :Publish Arebis.Windows\bin\Release\Arebis.Windows.*.0.nupkg

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.ComponentModel;
+using System.Configuration;
 
 namespace Arebis.Threading
 {
@@ -48,6 +49,17 @@ namespace Arebis.Threading
         public event WorkItemExceptionEventHandler<T> Failed;
 
         /// <summary>
+        /// Creates a DedicatedWorkThread where configuration is done through AppSettings
+        /// "{configName}.KeepAliveMs" and "{configName}.ThreadName".
+        /// </summary>
+        public DedicatedWorkThread(WorkItemHandler<T> workItemHandler, string configName)
+        {
+            this.workItemHandler = workItemHandler;
+            this.keepAliveMillis = Int32.Parse(ConfigurationManager.AppSettings[configName + ".KeepAliveMs"] ?? "-1");
+            this.ThreadName = ConfigurationManager.AppSettings[configName + ".ThreadName"] ?? Guid.NewGuid().ToString();
+        }
+
+        /// <summary>
         /// Instantiates a new DedicatedWorkThread given the WorkItemHandler.
         /// </summary>
         /// <param name="workItemHandler">Handler that will handle WorkItems.</param>
@@ -75,7 +87,8 @@ namespace Arebis.Threading
         /// The workItem will automatically be handled as soon as it is next
         /// in the queue.
         /// </summary>
-        public virtual void AddWork(T workItem)
+        /// <returns>Number of items in the work queue.</returns>
+        public virtual int AddWork(T workItem)
         {
             lock (this.syncRoot)
             {
@@ -100,6 +113,9 @@ namespace Arebis.Threading
                     this.workThread.IsBackground = true;
                     this.workThread.Start();
                 }
+
+                // Return number of items in the workqueue:
+                return this.workQueue.GetLength();
             }
         }
 

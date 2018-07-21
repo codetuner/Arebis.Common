@@ -9,6 +9,23 @@ namespace Arebis.Extensions
     public static class EnumerableExtensions
     {
         /// <summary>
+        /// Returns distinct items based on the given selector.
+        /// </summary>
+        public static IEnumerable<T> DistinctBy<T, K>(this IEnumerable<T> items, Func<T, K> selector)
+        {
+            var keys = new HashSet<K>();
+            foreach (var item in items)
+            {
+                var key = selector(item);
+                if (!keys.Contains(key))
+                {
+                    keys.Add(key);
+                    yield return item;
+                }
+            }
+        }
+
+        /// <summary>
         /// Enumerates all but the first (n) elements.
         /// </summary>
         public static IEnumerable<T> ButFirst<T>(this IEnumerable<T> enumerable, int n = 1)

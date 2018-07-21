@@ -88,10 +88,21 @@ namespace Arebis.Threading
 			}
 		}
 
-		/// <summary>
-		/// Clears the queue.
-		/// </summary>
-		public void Clear()
+        /// <summary>
+        /// Get the length of the queue.
+        /// </summary>
+        public int GetLength()
+        {
+            lock (this.syncRoot)
+            {
+                return this.internalQueue.Count;
+            }
+        }
+
+        /// <summary>
+        /// Clears the queue.
+        /// </summary>
+        public void Clear()
 		{
 			lock (this.syncRoot)
 			{

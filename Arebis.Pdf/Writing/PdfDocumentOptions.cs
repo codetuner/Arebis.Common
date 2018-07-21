@@ -15,5 +15,7 @@ namespace Arebis.Pdf.Writing
         public string Keywords { get; set; }
 
         public PdfStreamFilter TextFilter { get; set; }
+
+        public ITextTransformer TextTransformer { get; set; }
     }
 }

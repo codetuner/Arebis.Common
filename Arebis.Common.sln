@@ -84,6 +84,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Finance", "Arebis.Fi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Finance.Tests", "Arebis.Finance.Tests\Arebis.Finance.Tests.csproj", "{8A710FF2-552D-4457-82A3-1CA91BD97493}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Json", "Arebis.Json\Arebis.Json.csproj", "{65BCF4D9-0466-4401-A8DD-AE59C2BAD64E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Rest", "Arebis.Rest\Arebis.Rest.csproj", "{EE006D41-8F47-4A03-9D33-1F81D6B71445}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -182,6 +186,14 @@ Global
 		{8A710FF2-552D-4457-82A3-1CA91BD97493}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A710FF2-552D-4457-82A3-1CA91BD97493}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A710FF2-552D-4457-82A3-1CA91BD97493}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65BCF4D9-0466-4401-A8DD-AE59C2BAD64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65BCF4D9-0466-4401-A8DD-AE59C2BAD64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65BCF4D9-0466-4401-A8DD-AE59C2BAD64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65BCF4D9-0466-4401-A8DD-AE59C2BAD64E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE006D41-8F47-4A03-9D33-1F81D6B71445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE006D41-8F47-4A03-9D33-1F81D6B71445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE006D41-8F47-4A03-9D33-1F81D6B71445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE006D41-8F47-4A03-9D33-1F81D6B71445}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

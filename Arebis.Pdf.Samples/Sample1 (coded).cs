@@ -25,7 +25,7 @@ namespace Arebis.Pdf.Samples
                 var logoref = writer.AddImage(logo);
                 
                 // Create a page header object:
-                var header = new PdfScriptObject();
+                var header = writer.CreatePdfScriptObject();
                 header.BeginGraphicsState();
                 header.SetStrokeColor(PdfColor.Black);
                 header.SetFillColor(PdfColor.Black);
@@ -154,7 +154,7 @@ namespace Arebis.Pdf.Samples
                     page.DrawLine(50, 360, 550, 360, new PdfGraphicsOptions(1.0, PdfColor.Gray, null, new PdfLineDashPattern(2, 8)));
 
                     // Circle of lines:
-                    var cl = new PdfScriptObject();
+                    var cl = writer.CreatePdfScriptObject();
                     cl.BeginGraphicsState();
                     cl.SetStrokeColor(PdfColor.Gold);
                     cl.SetStrokeWidth(2.0);

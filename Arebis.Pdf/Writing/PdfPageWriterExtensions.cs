@@ -11,7 +11,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawCircle(this PdfPageWriter page, double x, double y, double ray, PdfGraphicsOptions options)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.BeginGraphicsState();
             options.Apply(obj);
             obj.DrawCircle(x, y, ray);
@@ -25,7 +25,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawLine(this PdfPageWriter page, double x1, double y1, double x2, double y2, PdfGraphicsOptions options)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.BeginGraphicsState();
             options.Apply(obj);
             obj.BeginPath(x1, y1);
@@ -40,7 +40,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawRectangle(this PdfPageWriter page, double x, double y, double width, double height, PdfGraphicsOptions options, double leftRotationDegrees = 0.0)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.BeginGraphicsState();
             options.Apply(obj);
             obj.DrawRectangle(x, y, width, height, leftRotationDegrees);
@@ -54,7 +54,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawRectangle2(this PdfPageWriter page, double x1, double y1, double x2, double y2, PdfGraphicsOptions options, double leftRotationDegrees = 0.0)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.BeginGraphicsState();
             options.Apply(obj);
             obj.DrawRectangle2(x1, y1, x2, y2, leftRotationDegrees);
@@ -68,7 +68,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawRoundedRectangle(this PdfPageWriter page, double x, double y, double width, double height, double radius, PdfGraphicsOptions options)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.BeginGraphicsState();
             options.Apply(obj);
             obj.DrawRoundedRectangle(x, y, width, height, radius);
@@ -82,7 +82,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawRoundedRectangle2(this PdfPageWriter page, double x1, double y1, double x2, double y2, double radius, PdfGraphicsOptions options)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.BeginGraphicsState();
             options.Apply(obj);
             obj.DrawRoundedRectangle2(x1, y1, x2, y2, radius);
@@ -96,7 +96,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawOval(this PdfPageWriter page, double x, double y, double width, double height, PdfGraphicsOptions options)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.BeginGraphicsState();
             options.Apply(obj);
             obj.DrawOval(x, y, width, height);
@@ -110,7 +110,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawOval2(this PdfPageWriter page, double x1, double y1, double x2, double y2, PdfGraphicsOptions options)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.BeginGraphicsState();
             options.Apply(obj);
             obj.DrawOval2(x1, y1, x2, y2);
@@ -192,7 +192,7 @@ namespace Arebis.Pdf.Writing
                     break;
             }
 
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.DrawImageByName(x + xdelta, y + ydelta, width2, height2, page.DocumentWriter.GetNameOfXObject(imageRef), ((int)rotation) * 90.0);
             return page.WriteObject(obj);
         }
@@ -203,7 +203,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawImageRef(this PdfPageWriter page, double x, double y, PdfObjectRef imageRef, double width, double leftRotationDegrees = 0.0)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.DrawImageByName(x, y, width, page.DocumentWriter.GetImageHeight(imageRef, width), page.DocumentWriter.GetNameOfXObject(imageRef), leftRotationDegrees);
             return page.WriteObject(obj);
         }
@@ -233,7 +233,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawXObjectRef(this PdfPageWriter page, double x, double y, PdfObjectRef xObjRef, double width)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.DrawExternalObject(page.DocumentWriter.GetNameOfXObject(xObjRef));
             return page.WriteObject(obj);
         }
@@ -243,7 +243,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public static PdfObjectRef DrawText(this PdfPageWriter page, double x, double y, string text, PdfTextOptions options, double leftRotationDegrees = 0.0)
         {
-            var obj = new PdfScriptObject();
+            var obj = page.DocumentWriter.CreatePdfScriptObject();
             obj.BeginGraphicsState();
             obj.BeginText(x, y, options);
             if (leftRotationDegrees != 0.0) obj.SetTextRotation(x, y, leftRotationDegrees);
@@ -276,7 +276,7 @@ namespace Arebis.Pdf.Writing
             else
             {
                 var lines = options.Font.SplitText(text.Replace('\r', ' '), options.FontSize, blockWidth).Split('\n');
-                var obj = new PdfScriptObject();
+                var obj = page.DocumentWriter.CreatePdfScriptObject();
                 obj.BeginGraphicsState();
                 obj.BeginText(x, y, options);
                 // Centered or right-alignment is not compatible with rotation:

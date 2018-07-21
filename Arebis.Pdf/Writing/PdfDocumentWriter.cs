@@ -66,6 +66,22 @@ namespace Arebis.Pdf.Writing
         protected StreamWriter InnerWriter { get; private set; }
 
         /// <summary>
+        /// Returns a new PdfObject ready to be written. Once ready, the object is still to add to this DocumentWriter or one of it's PageWriter.
+        /// </summary>
+        public virtual PdfObject CreatePdfObject()
+        {
+            return new PdfObject(this);
+        }
+
+        /// <summary>
+        /// Returns a new PdfScriptObject ready to be written. Once ready, the object is still to add to this DocumentWriter or one of it's PageWriter.
+        /// </summary>
+        public virtual PdfScriptObject CreatePdfScriptObject()
+        {
+            return new PdfScriptObject(this);
+        }
+
+        /// <summary>
         /// Starts a new page. Dispose page when done.
         /// </summary>
         public virtual PdfPageWriter NewPage(PdfPageFormat format)
@@ -154,13 +170,13 @@ namespace Arebis.Pdf.Writing
             WriteRaw(binarybytes, 0, binarybytes.Length);
             WriteRaw("\n%Arebis.Pdf .NET Library\n");
 
-            var catalog = new PdfObject();
+            var catalog = this.CreatePdfObject();
             catalog.Data["Type"] = "/Catalog";
             catalog.Data["Version"] = "/" + PdfVersion;
             catalog.Data["Pages"] = PagesRef;
             WriteObject(catalog, CatalogRef);
 
-            var info = new PdfObject();
+            var info = this.CreatePdfObject();
             if (!String.IsNullOrWhiteSpace(this.Options.Title)) info.Data["Title"] = '(' + this.Options.Title + ')';
             if (!String.IsNullOrWhiteSpace(this.Options.Subject)) info.Data["Subject"] = '(' + this.Options.Subject + ')';
             if (!String.IsNullOrWhiteSpace(this.Options.Keywords)) info.Data["Keywords"] = '(' + this.Options.Keywords + ')';
@@ -177,7 +193,7 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public PdfObjectRef AddImage(Image image)
         {
-            var obj = new PdfObject();
+            var obj = this.CreatePdfObject();
             obj.Data["Subtype"] = "/Image";
             obj.Data["Width"] = image.Width;
             obj.Data["Height"] = image.Height;
@@ -380,14 +396,14 @@ namespace Arebis.Pdf.Writing
 
         protected virtual void WriteTrailer()
         {
-            var resources = new PdfObject();
+            var resources = this.CreatePdfObject();
             if (this.Fonts.Count > 0)
                 resources.Data["Font"] = "<< " + String.Join(" ", this.Fonts.Select(kv => kv.Key + " " + kv.Value)) + " >>";
             if (this.XObjects.Count > 0)
                 resources.Data["XObject"] = "<< " + String.Join(" ", this.XObjects.Select(kv => kv.Key + " " + kv.Value)) + " >>";
             this.WriteObject(resources, ResourcesRef);
 
-            var pages = new PdfObject();
+            var pages = this.CreatePdfObject();
             pages.Data["Type"] = "/Pages";
             pages.Data["Count"] = PageRefs.Count;
             pages.Data["Kids"] = "[" + String.Join(" ", PageRefs.Select(r => r.ToString())) + "]";

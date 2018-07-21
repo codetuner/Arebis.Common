@@ -24,6 +24,12 @@ namespace Arebis.Pdf.Samples
             Sample3.Run(@"Sample3.pdf");
             Process.Start(@"Sample3.pdf");
 
+            Sample4.Run(@"Sample4.pdf");
+            Process.Start(@"Sample4.pdf");
+
+            FontSamples.Run(@"FontSamples.pdf");
+            Process.Start(@"FontSamples.pdf");
+
             RasterPage.Run(@"RasterA4Portrait.pdf", PdfPageFormat.A4Portrait);
             Process.Start(@"RasterA4Portrait.pdf");
 

@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Arebis\Algorithms\Enumerate.cs" />
     <Compile Include="Arebis\Algorithms\OverlappingDetector.cs" />
+    <Compile Include="Arebis\ContentTypes.cs" />
     <Compile Include="Arebis\Extensions\ListExtensions.cs" />
     <Compile Include="Arebis\LiveAssert.cs" />
     <Compile Include="Arebis\Caching\Cache.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Arebis\Runtime\Validation\ValidationExtension.cs" />
     <Compile Include="Arebis\Source\CodeSourceAttribute.cs" />
     <Compile Include="Arebis\Source\CodeToDoAttribute.cs" />
+    <Compile Include="Arebis\Source\HardcodedSection.cs" />
     <Compile Include="Arebis\Tasks\ISimpleTaskHost.cs" />
     <Compile Include="Arebis\Tasks\NonSuspendableAction.cs" />
     <Compile Include="Arebis\Tasks\ProgressEventArgs.cs" />

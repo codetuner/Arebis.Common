@@ -45,9 +45,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetZip, Version=1.10.1.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
-      <HintPath>..\Packages\DotNetZip.1.10.1\lib\net20\DotNetZip.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="DotNetZip, Version=1.11.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\Packages\DotNetZip.1.11.0\lib\net20\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -60,6 +59,7 @@
     <Compile Include="Model\StringExtensions.cs" />
     <Compile Include="Model\ModelExtensions.cs" />
     <Compile Include="Model\PdfModelWriter.cs" />
+    <Compile Include="Writing\ITextTransformer.cs" />
     <Compile Include="Writing\PdfDocumentWriter.cs" />
     <Compile Include="Common\PdfLineCapStyle.cs" />
     <Compile Include="Common\PdfLineJoinStyle.cs" />

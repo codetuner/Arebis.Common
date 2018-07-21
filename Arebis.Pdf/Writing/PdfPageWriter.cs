@@ -46,6 +46,11 @@ namespace Arebis.Pdf.Writing
         /// </summary>
         public List<PdfObjectRef> Content { get; private set; }
 
+        internal ITextTransformer GetTextFilter()
+        {
+            return this.DocumentWriter.Options.TextTransformer;
+        }
+
         /// <summary>
         /// Writes the given object to the page (writes it on the document and adds it on this page).
         /// Returns an object reference to the object.
@@ -86,7 +91,7 @@ namespace Arebis.Pdf.Writing
             if(DocumentWriter != null)
             {
                 // Create and write the PageObject:
-                var pageObj = new PdfObject();
+                var pageObj = this.DocumentWriter.CreatePdfObject();
                 pageObj.Data["Type"] = "/Page";
                 pageObj.Data["MediaBox"] = String.Format("[0 0 {0:0.###} {1:0.###}]", this.Width, this.Height);
                 if (this.Content.Count > 0)

@@ -76,6 +76,15 @@ namespace Arebis.Data
             }
         }
 
+        /// <summary>
+        /// Opens the connection if it is not yet open.
+        /// </summary>
+        public static void EnsureOpen(this IDbConnection connection)
+        {
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
+        }
+
         public static DbCommand AddParameter(this DbCommand cmd, string name, object value, ParameterDirection direction = ParameterDirection.Input, DbType dbType = DbType.String, int? size = null)
         {
             var param = cmd.CreateParameter();
@@ -113,6 +122,43 @@ namespace Arebis.Data
                 da.SelectCommand = cmd;
                 da.MissingSchemaAction = missingSchemaAction;
                 da.Fill(dataSet, tableName);
+            }
+        }
+
+        /// <summary>
+        /// Fills a dictionary (or adds key/value pairs to it) based on an SQL query returning at least two columns
+        /// of which the first is assumed to be the key, and the second the value.
+        /// Other columns are ignored.
+        /// </summary>
+        /// <typeparam name="TKey">Dictionary key type.</typeparam>
+        /// <typeparam name="TValue">Dictionary value type.</typeparam>
+        /// <param name="connection">The database connection to use.</param>
+        /// <param name="dictionary">The dictionary to fill.</param>
+        /// <param name="sql">The SQL query to execute.</param>
+        /// <param name="commandType">The tpe of SQL command.</param>
+        public static void FillDictionary<TKey, TValue>(this IDbConnection connection, IDictionary<TKey, TValue> dictionary, string sql, CommandType commandType = CommandType.Text)
+        {
+            if (connection == null) throw new ArgumentNullException(nameof(connection));
+            if (dictionary == null) throw new ArgumentNullException(nameof(dictionary));
+            if (sql == null) throw new ArgumentNullException(nameof(sql));
+
+            if (connection.State != ConnectionState.Open) connection.Open();
+
+            using (var cmd = connection.CreateCommand())
+            {
+                cmd.CommandText = sql;
+                cmd.CommandType = commandType;
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var value = reader[1];
+                        if (value != DBNull.Value)
+                        {
+                            dictionary[(TKey)reader[0]] = (TValue)value;
+                        }
+                    }
+                }
             }
         }
 

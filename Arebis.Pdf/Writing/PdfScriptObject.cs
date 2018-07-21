@@ -19,6 +19,16 @@ namespace Arebis.Pdf.Writing
         private StringBuilder streamContent;
         private bool isInTextBlock = false;
 
+        internal PdfScriptObject(PdfDocumentWriter documentWriter)
+            : base(documentWriter)
+        {
+            var textStream = new PdfTextStream();
+            this.Stream = textStream;
+            this.streamContent = textStream.Content;
+            this.ReferencedFonts = new List<PdfFont>();
+        }
+
+        [Obsolete("Replaced by the PdfDocumentWriter.CreatePdfScriptObject() method.")]
         public PdfScriptObject()
         {
             var textStream = new PdfTextStream();
@@ -301,6 +311,7 @@ namespace Arebis.Pdf.Writing
         public void DrawText(string str)
         {
             if (!isInTextBlock) throw new InvalidOperationException("Must call BeginText() before this operation.");
+            if (this.DocumentWriter?.Options?.TextTransformer != null && str != null) str = this.DocumentWriter.Options.TextTransformer.Transform(str);
             var addNewLine = false;
             str = str.Replace("\r\n", "\n");
             foreach (var part in str.Split('\n'))
