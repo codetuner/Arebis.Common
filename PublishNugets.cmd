@@ -30,6 +30,7 @@ CALL :Publish Arebis.Pdf\bin\Release\Arebis.Pdf.*.0.nupkg
 CALL :Publish Arebis.Pdf.Model\bin\Release\Arebis.Pdf.Model.*.0.nupkg
 CALL :Publish Arebis.Rest\bin\Release\Arebis.Rest.*.0.nupkg
 CALL :Publish Arebis.Testing\bin\Release\Arebis.Testing.*.0.nupkg
+CALL :Publish Arebis.Text\bin\Release\Arebis.Text.*.0.nupkg
 CALL :Publish Arebis.Web\bin\Release\Arebis.Web.*.0.nupkg
 CALL :Publish Arebis.Windows\bin\Release\Arebis.Windows.*.0.nupkg
 EXIT /B 0

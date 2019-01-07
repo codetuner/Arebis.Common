@@ -88,6 +88,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Json", "Arebis.Json\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Rest", "Arebis.Rest\Arebis.Rest.csproj", "{EE006D41-8F47-4A03-9D33-1F81D6B71445}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arebis.Text", "Arebis.Text\Arebis.Text.csproj", "{C4C2B349-3659-428C-AEC0-D772F250EDAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -194,6 +196,10 @@ Global
 		{EE006D41-8F47-4A03-9D33-1F81D6B71445}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE006D41-8F47-4A03-9D33-1F81D6B71445}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE006D41-8F47-4A03-9D33-1F81D6B71445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4C2B349-3659-428C-AEC0-D772F250EDAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4C2B349-3659-428C-AEC0-D772F250EDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4C2B349-3659-428C-AEC0-D772F250EDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4C2B349-3659-428C-AEC0-D772F250EDAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
