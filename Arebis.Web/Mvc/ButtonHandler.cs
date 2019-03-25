@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -75,6 +75,10 @@ namespace Arebis.Web.Mvc
             if (!AllowGetRequests)
                 if (controllerContext.HttpContext.Request.GetHttpMethodOverride().Equals("GET", StringComparison.OrdinalIgnoreCase))
                     return false;
+                    
+            // Reject child actions:
+            if (controllerContext.IsChildAction)
+                return false;
  
             // Check ActionName if given:
             if (this.ActionName != null)
