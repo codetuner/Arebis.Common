@@ -11,7 +11,7 @@ namespace Arebis.Pdf.Common
         private long position = 0L;
 
         private long bufferSize = 0L;
-        private long autoFlushTreshold = 16384L;
+        private long autoFlushTreshold = 524288L;
         private bool transparantFlush = false;
 
         public PositionStream(System.IO.Stream innerStream)
