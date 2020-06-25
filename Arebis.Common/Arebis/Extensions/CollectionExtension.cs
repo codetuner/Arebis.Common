@@ -87,5 +87,29 @@ namespace Arebis.Extensions
             collection.RemoveAllOccurences(item);
             return collection;
         }
+        
+        /// <summary>
+        /// Retrieves data in sets.
+        /// Retrieves sets of items opposed to retrieving them all one-by-one or all at once.
+        /// </summary>
+        /// <typeparam name="T">Type of data.</typeparam>
+        /// <param name="collection">Collection to retrieve data from.</param>
+        /// <param name="setSize">Set size.</param>
+        /// <returns>Sets of given size.</returns>
+        public static IEnumerable<T[]> InSetsOf<T>(this IOrderedQueryable<T> collection, int setSize)
+        {
+            var skipCount = 0;
+            while (true)
+            {
+                var set = collection.Skip(skipCount).Take(setSize).ToArray();
+                if (set.Length == 0)
+                    yield break;
+                else
+                {
+                    skipCount += set.Length;
+                    yield return set;
+                }
+            }
+        }
     }
 }

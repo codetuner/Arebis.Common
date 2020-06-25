@@ -22,11 +22,11 @@ namespace Arebis.Numerics
         { }
 
         /// <summary>
-        /// Creates a numeral system for a base up to 62 with symbolic representation.
+        /// Creates a numeral system for a base up to 64 with symbolic representation.
         /// </summary>
-        /// <param name="base">Base of the numeral system, max 62.</param>
+        /// <param name="base">Base of the numeral system, max 64.</param>
         protected SymbolicNumeralSystem(int @base)
-            : this(@base, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
+            : this(@base, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/")
         { }
 
         private SymbolicNumeralSystem(int @base, string symbols)

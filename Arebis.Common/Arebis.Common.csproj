@@ -169,6 +169,7 @@
     <Compile Include="Arebis\Numerics\Base36.cs" />
     <Compile Include="Arebis\Numerics\Base51.cs" />
     <Compile Include="Arebis\Numerics\Base62.cs" />
+    <Compile Include="Arebis\Numerics\Base64.cs" />
     <Compile Include="Arebis\Numerics\Binary.cs" />
     <Compile Include="Arebis\Numerics\Hexadecimal.cs" />
     <Compile Include="Arebis\Numerics\NumeralSystem.cs" />
