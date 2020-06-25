@@ -40,5 +40,28 @@ namespace Arebis.Web.Mvc
             // Proceed with default behavior:
             return base.BindModel(controllerContext, bindingContext);
         }
+
+        protected override void BindProperty(ControllerContext controllerContext, ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor)
+        {
+            if (propertyDescriptor.PropertyType.IsAbstract)
+            {
+                if (bindingContext.ValueProvider.ContainsPrefix(propertyDescriptor.Name + ".ModelType"))
+                {
+                    var typeName = (string)bindingContext
+                        .ValueProvider
+                        .GetValue(propertyDescriptor.Name + ".ModelType")
+                        .ConvertTo(typeof(string));
+                    var modelType = Type.GetType(typeName);
+
+                    bindingContext.PropertyMetadata[propertyDescriptor.Name] =
+                        ModelMetadataProviders
+                        .Current
+                        .GetMetadataForType(null, modelType);
+                }
+            }
+
+            // Default behavior:
+            base.BindProperty(controllerContext, bindingContext, propertyDescriptor);
+        }
     }
 }
