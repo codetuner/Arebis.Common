@@ -43,12 +43,11 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Arebis.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\Github.Codetuner.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
     <None Include="Arebis.Contract.nuspec" />
-    <None Include="Arebis.snk" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PagedRequest.cs" />

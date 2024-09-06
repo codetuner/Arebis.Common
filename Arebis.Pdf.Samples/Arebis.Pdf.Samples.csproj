@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Arebis.Pdf.Samples</RootNamespace>
     <AssemblyName>Arebis.Pdf.Samples</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -52,10 +52,6 @@
     <ProjectReference Include="..\Arebis.Pdf.Model\Arebis.Pdf.Model.csproj">
       <Project>{4f92627d-1538-42e2-b8ca-f027a33656d6}</Project>
       <Name>Arebis.Pdf.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Arebis.Pdf\Arebis.Pdf.csproj">
-      <Project>{14f6d6db-7a74-42d8-a531-7c45f101031c}</Project>
-      <Name>Arebis.Pdf</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
