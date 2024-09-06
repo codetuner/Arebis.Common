@@ -1,17 +1,20 @@
 <?xml version="1.0"?>
 <package >
-  <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <description>$description$</description>
-    <authors>Codetuner</authors>
-    <owners>Codetuner</owners>
-    <licenseUrl>https://raw.githubusercontent.com/codetuner/Arebis.Common/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/codetuner/Arebis.Common</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <copyright>$copyright$</copyright>
-    <tags>.NET library</tags>
-    <releaseNotes>None.</releaseNotes>
-  </metadata>
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<title>$title$</title>
+		<description>$description$</description>
+		<authors>Codetuner</authors>
+		<owners>Codetuner</owners>
+		<licenseUrl>https://raw.githubusercontent.com/codetuner/Arebis.Common/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/codetuner/Arebis.Common</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<copyright>$copyright$</copyright>
+		<tags>.NET library</tags>
+		<releaseNotes>None.</releaseNotes>
+		<dependencies>
+			<group targetFramework=".NETFramework4.8" />
+		</dependencies>
+	</metadata>
 </package>
