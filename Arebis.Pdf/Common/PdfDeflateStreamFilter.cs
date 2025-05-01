@@ -20,21 +20,29 @@ namespace Arebis.Pdf.Common
                 // https://web.archive.org/web/20130905215303/http://connect.microsoft.com/VisualStudio/feedback/details/97064/deflatestream-throws-exception-when-inflating-pdf-streams
 
 //#if IONIC
-                using (var dstream = new Ionic.Zlib.ZlibStream(outputstr, Ionic.Zlib.CompressionMode.Compress))
-                {
-                    dstream.FlushMode = Ionic.Zlib.FlushType.Finish;
+//                using (var dstream = new Ionic.Zlib.ZlibStream(outputstr, Ionic.Zlib.CompressionMode.Compress))
+//                {
+//                    dstream.FlushMode = Ionic.Zlib.FlushType.Finish;
 //#elif NET40
 //                using (var dstream = new System.IO.Compression.DeflateStream(outputstr, System.IO.Compression.CompressionMode.Compress))
 //                {
 //                    // Zlib magic header (Default Compression):
 //                    outputstr.WriteByte(0x78);
 //                    outputstr.WriteByte(0x9C);
-//#else //NET45+
+//#elif NET45+
 //                using (var dstream = new System.IO.Compression.DeflateStream(outputstr, System.IO.Compression.CompressionLevel.Optimal))
 //                {
 //                    // Zlib magic header (Best Compression):
 //                    outputstr.WriteByte(0x78);
 //                    outputstr.WriteByte(0xDA);
+//#elif ZLibStream (.NET6+)
+//                using (var dstream = new ZLibStream(outputstr, CompressionLevel.Optimal, leaveOpen: true))
+//                {
+//                    inputstr.CopyTo(dstream);
+//#elif SharpZipLib
+                var deflater = new ICSharpCode.SharpZipLib.Zip.Compression.Deflater(ICSharpCode.SharpZipLib.Zip.Compression.Deflater.DEFAULT_COMPRESSION);
+                using (var dstream = new ICSharpCode.SharpZipLib.Zip.Compression.Streams.DeflaterOutputStream(outputstr, deflater))
+                {
 //#endif
                     inputstr.CopyTo(dstream);
                     inputstr.Flush();
