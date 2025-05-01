@@ -7,7 +7,7 @@
     <description>$description$</description>
     <authors>Codetuner</authors>
     <owners>Codetuner</owners>
-    <licenseUrl>https://raw.githubusercontent.com/codetuner/Arebis.Common/master/LICENSE</licenseUrl>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/codetuner/Arebis.Common</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright>$copyright$</copyright>
