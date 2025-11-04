@@ -23,8 +23,10 @@ SET TargetName=%~n4
 SET TargetExt=%~x4
 SET ConfigurationName=%~5
 
+ECHO Warning: in case of failure to run the NUGET pack commands, create a local copy of nuget.exe and consider running the NUGET pack commands manually from the commandline from within the projects directory.
+
 :: Generate Nuget package (https://docs.nuget.org/create/creating-and-publishing-a-package)
-IF EXIST "%~dpn3.nuspec" IF "%ConfigurationName%" NEQ "Debug" NUGET pack "%ProjectPath%" -IncludeReferencedProjects -Prop "Configuration=%ConfigurationName%"
+IF EXIST "%~dpn3.nuspec" IF "%ConfigurationName%" NEQ "Debug" ECHO NUGET pack "%ProjectPath%" -IncludeReferencedProjects -Prop "Configuration=%ConfigurationName%"
 
 :: Generate Symbols package (https://docs.nuget.org/create/creating-and-publishing-a-symbol-package)
-IF EXIST "%~dpn3.nuspec" IF "%ConfigurationName%" NEQ "Debug" NUGET pack "%ProjectPath%" -Symbols -Prop "Configuration=%ConfigurationName%"
+IF EXIST "%~dpn3.nuspec" IF "%ConfigurationName%" NEQ "Debug" ECHO NUGET pack "%ProjectPath%" -Symbols -Prop "Configuration=%ConfigurationName%"
