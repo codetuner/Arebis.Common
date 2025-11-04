@@ -1,7 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<PropertyGroup>
+  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+</PropertyGroup>
   <PropertyGroup>
+  <PackageId>Arebis.Pdf.Model</PackageId>
+  <Version>4.8.0</Version>
+  <Authors>Codetuner</Authors>
+  <Company>Codetuner</Company>
+  <Description>A PDF object model library for .NET Framework 4.8</Description>
+  <PackageTags>pdf model drawing</PackageTags>
+  <PackageProjectUrl>https://github.com/codetuner/Arebis.Common</PackageProjectUrl>
+  <RepositoryUrl>https://github.com/codetuner/Arebis.Common</RepositoryUrl>
+  <NoWarn>$(NoWarn);NU5128</NoWarn>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4F92627D-1538-42E2-B8CA-F027A33656D6}</ProjectGuid>
