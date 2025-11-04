@@ -78,6 +78,29 @@ namespace Arebis.Types
 			this.baseUnitIndices[unitIndex] = 1;
 		}
 
+		public static UnitType FromString(string str)
+		{
+			if (String.IsNullOrEmpty(str)) return UnitType.None;
+            var indices = str.Replace(" * ","\0").Split('\0');
+			var maxindex = -1;
+			var tempIndices = new List<Tuple<int,sbyte>>();
+			foreach (var indexStr in indices)
+			{ 
+				var parts = indexStr.Split('^');
+				var name = parts[0];
+				var exp = sbyte.Parse(parts[1]);
+				var index = GetBaseUnitIndex(name);
+				if (index > maxindex) maxindex = index;
+				tempIndices.Add(new Tuple<int,sbyte>(index, exp));
+            }
+            sbyte[] baseUnitIndices = new sbyte[maxindex+1];
+			foreach (var tuple in tempIndices)
+			{
+				baseUnitIndices[tuple.Item1] = tuple.Item2;
+            }
+			return new UnitType(baseUnitIndices);
+        }
+
 		private UnitType(int indicesLength)
 		{
 			this.baseUnitIndices = new sbyte[indicesLength];

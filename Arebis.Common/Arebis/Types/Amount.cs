@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace Arebis.Types
@@ -12,8 +14,9 @@ namespace Arebis.Types
 		IConvertible, 
 		IEquatable<Amount>,
 		IFormattable,
-		IUnitConsumer
-	{
+		IUnitConsumer,
+        IXmlSerializable
+    {
 		private static int equalityPrecision = 8;
 
 		private decimal value;
@@ -60,7 +63,7 @@ namespace Arebis.Types
 			set { Amount.equalityPrecision = value; }
 		}
 
-		public decimal Value
+        public decimal Value
 		{
 			get { return this.value; }
 		}
@@ -684,6 +687,52 @@ namespace Arebis.Types
 			else return 0;
 		}
 
-		#endregion IComparable implementation
-	}
+        #endregion IComparable implementation
+
+        #region IXmlSerializable implementation
+
+        XmlSchema IXmlSerializable.GetSchema()
+        {
+            return (null);
+        }
+
+        void IXmlSerializable.ReadXml(XmlReader reader)
+        {
+            reader.MoveToContent();
+			string valueString = reader.GetAttribute("Value");
+			string unitString = reader.GetAttribute("Unit");
+			this.value = Decimal.Parse(valueString, System.Globalization.CultureInfo.InvariantCulture);
+			if (unitString != null)
+			{
+				this.unit = UnitManager.GetUnitByName(unitString);
+                reader.ReadStartElement();
+            }
+            else 
+			{
+                reader.ReadStartElement();
+                if (reader.IsStartElement("Unit"))
+                {
+                    unit = new Unit(reader);
+                }
+                reader.ReadEndElement();
+            }
+        }
+
+        void IXmlSerializable.WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString("Value", this.value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+			if (unit.IsNamed)
+			{
+                writer.WriteAttributeString("Unit", this.unit.Name);
+            }
+			else
+			{
+				writer.WriteStartElement("Unit");
+				((IXmlSerializable)this.unit).WriteXml(writer);
+				writer.WriteEndElement();
+            }
+        }
+
+        #endregion IXmlSerializable implementation
+    }
 }

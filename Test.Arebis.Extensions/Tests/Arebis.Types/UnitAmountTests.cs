@@ -313,6 +313,32 @@ namespace Arebis.Extensions.Tests.Arebis.Types
         }
 
         [TestMethod()]
+        public void XmlSerializeDeserialize02Test()
+        {
+            Amount original = new Amount(1234.567m, LengthUnits.KiloMeter) / new Amount(789.012m, EnergyUnits.KiloWatt.Power(2));
+
+            // Serialize:
+            MemoryStream ms = new MemoryStream();
+            XmlSerializer serializer = new XmlSerializer(typeof(Amount));
+            serializer.Serialize(ms, original);
+
+            // Retrieve XML:
+            string xml;
+            ms.Seek(0, SeekOrigin.Begin);
+            StreamReader reader = new StreamReader(ms);
+            xml = reader.ReadToEnd();
+            Console.WriteLine(xml);
+
+            // Deserialize:
+            Amount actual = null;
+            ms.Seek(0, SeekOrigin.Begin);
+            XmlSerializer deserialize = new XmlSerializer(typeof(Amount));
+            actual = (Amount)deserialize.Deserialize(ms);
+
+            Assert.AreEqual(actual, original);
+        }
+
+        [TestMethod()]
         public void RoundedComparisonTest()
         {
             Amount a = new Amount(0.045m, LengthUnits.Meter);

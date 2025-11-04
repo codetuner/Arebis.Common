@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace Arebis.Types
 {
 	[Serializable]
-	public sealed class Unit : IComparable, IComparable<Unit>, IEquatable<Unit>, IFormattable
+	public sealed class Unit : IComparable, IComparable<Unit>, IEquatable<Unit>, IFormattable, IXmlSerializable
 	{
 		private static Unit none = new Unit(String.Empty, String.Empty, UnitType.None);
 
@@ -18,6 +22,11 @@ namespace Arebis.Types
 		private bool isNamed;
 
 		#region Constructor methods
+
+		public Unit(XmlReader reader)
+		{
+            ((IXmlSerializable)this).ReadXml(reader);
+        }
 
 		public Unit(string name, string symbol, UnitType unitType)
 			: this(name, symbol, 1m, unitType, true)
@@ -274,18 +283,49 @@ namespace Arebis.Types
 			else return 0;
 		}
 
-		#endregion IComparable implementation
+        #endregion IComparable implementation
 
+        #region IXmlSerializable implementation
+
+        XmlSchema IXmlSerializable.GetSchema()
+        {
+			return null;
+        }
+
+        void IXmlSerializable.ReadXml(XmlReader reader)
+        {
+            reader.MoveToContent();
+			this.isNamed = bool.Parse(reader.GetAttribute("isNamed"));
+            this.name = reader.GetAttribute("name");
+            this.symbol = reader.GetAttribute("symbol");
+            this.factor = decimal.Parse(reader.GetAttribute("factor"));
+			this.unitType = Arebis.Types.UnitType.FromString(reader.GetAttribute("unitType"));
+            
+			reader.ReadStartElement();
+		}
+
+        void IXmlSerializable.WriteXml(XmlWriter writer)
+        {
+			var ic = CultureInfo.InvariantCulture;
+            writer.WriteAttributeString("isNamed", IsNamed.ToString(ic));
+            writer.WriteAttributeString("name", this.Name);
+            writer.WriteAttributeString("symbol", this.Symbol);
+            writer.WriteAttributeString("factor", this.Factor.ToString(ic));
+            writer.WriteAttributeString("unitType", this.UnitType.ToString());
+        }
+
+        #endregion
+        
 		#region Additional helper methods
 
-		/// <summary>
-		/// Returns the specified value raised to the specified power.
-		/// </summary>
-		/// <remarks>
-		/// Math.Pow is not usable sint it only works with doubles causing
-		/// rouding errors with decimals.
-		/// </remarks>
-		internal static decimal DecimalPower(decimal value, int power)
+        /// <summary>
+        /// Returns the specified value raised to the specified power.
+        /// </summary>
+        /// <remarks>
+        /// Math.Pow is not usable sint it only works with doubles causing
+        /// rouding errors with decimals.
+        /// </remarks>
+        internal static decimal DecimalPower(decimal value, int power)
 		{
 			// Enhance performance for most common cases:
 			switch (power)
@@ -312,6 +352,6 @@ namespace Arebis.Types
 			}
 		}
 
-		#endregion
-	}
+        #endregion
+    }
 }
